@@ -1,0 +1,9 @@
+---
+user_role_map:
+  HCA: harold
+  Nurse: nasir
+  Doctor: dale
+database: nhclinical
+server: "http://176.34.133.2"
+urls:
+  login: "/mobile/login"
