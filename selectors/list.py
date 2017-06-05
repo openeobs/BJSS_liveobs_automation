@@ -20,5 +20,5 @@ LIST_ITEM_DATA_ROW = (By.CSS_SELECTOR, '.tasklist li a .task-meta')
 LIST_ITEM_DATA_LEFT = (By.CSS_SELECTOR, '.tasklist li a .task-meta .task-left')
 LIST_ITEM_DATA_RIGHT = \
     (By.CSS_SELECTOR, '.tasklist li a .task-meta .task-right')
-LIST_ITEM_DATA_INFO = (By.CSS_SELECTOR, '.tasklist li a .task-meta .taskInfo')
-LIST_ITEM_DATA_NAME = (By.CSS_SELECTOR, 'a .task-meta .task-left strong')
+LIST_ITEM_DATA_INFO = (By.CSS_SELECTOR, '.task-meta .taskInfo')
+LIST_ITEM_DATA_NAME = (By.CSS_SELECTOR, '.task-meta .task-left strong')

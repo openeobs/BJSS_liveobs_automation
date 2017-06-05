@@ -5,7 +5,7 @@ same template to render content
 """
 from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.list import LIST_ITEM, LIST_CONTAINER, \
-    LIST_ITEM_DATA_NAME
+    LIST_ITEM_DATA_NAME, LIST_ITEM_DATA_INFO
 
 
 class ListPage(BaseMobilePage):
@@ -53,7 +53,19 @@ class ListPage(BaseMobilePage):
         """
         Get the patient's name from list item
 
+        :param list_item: WebElement for List Item
         :return: name of patient the list item is about
         """
         patient_name_el = list_item.find_element(*LIST_ITEM_DATA_NAME)
         return patient_name_el.text
+
+    @staticmethod
+    def get_task_info_from_item(list_item):
+        """
+        Get the .taskInfo element from the list item
+
+        :param list_item: WebElement for List Item
+        :return: text inside .taskInfo element of List Item
+        """
+        task_info_el = list_item.find_element(*LIST_ITEM_DATA_INFO)
+        return task_info_el.text
