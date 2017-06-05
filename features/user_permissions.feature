@@ -1,4 +1,4 @@
-Feature: User Permissions
+Feature: User Permissions for Tasks
   In order to have access to only the functionality I'm allowed to do
   As a user of the system with a specified user role
   I want the system to only show me functionality my role is allowed to access
@@ -6,8 +6,7 @@ Feature: User Permissions
   Scenario: Mobile Task List Permissions for HCA
     Given a user with the HCA role logs into the app
     When they view the task list
-    Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the HCA role
+    Then the list of tasks is filtered to show tasks for the HCA role
       | tasks                       |
       | Inform Nurse About Patient  |
       | NEWS Observation            |
@@ -15,8 +14,7 @@ Feature: User Permissions
   Scenario: Mobile Task List Permissions for Nurse
     Given a user with the Nurse role logs into the app
     When they view the task list
-    Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the Nurse role
+    Then the list of tasks is filtered to show tasks for the Nurse role
       | tasks                                 |
       | Informed About Patient Status (NEWS)? |
       | Select Frequency                      |
@@ -35,8 +33,7 @@ Feature: User Permissions
   Scenario: Mobile Task List Permissions for Doctor
     Given a user with the Doctor role logs into the app
     When they view the task list
-    Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the Doctor role
+    Then the list of tasks is filtered to show tasks for the Doctor role
       | tasks                         |
       | Assessment Required           |
       | Clinical Review               |
