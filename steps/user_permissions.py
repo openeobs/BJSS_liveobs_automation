@@ -47,7 +47,7 @@ def list_of_tasks_for_patient_assigned_to(context):
         assert task_list_page.get_patient_from_item(task) in patient_names
 
 
-@then("the list of tasks is filtered to show tasks for the {user_role} role")
+@then("the list of tasks is filtered to show tasks for the {user_role} role:")
 def list_of_tasks_for_role_task_types(context, user_role):
     """
     Verify that the tasks in the task list are only those that can be carried
