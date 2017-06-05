@@ -7,7 +7,7 @@ Feature: User Permissions
     Given a user with the HCA role logs into the app
     When they view the task list
     Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the HCA role:
+    And the list of tasks is filtered to show tasks for the HCA role
       | tasks                       |
       | Inform Nurse About Patient  |
       | NEWS Observation            |
@@ -16,7 +16,7 @@ Feature: User Permissions
     Given a user with the Nurse role logs into the app
     When they view the task list
     Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the Nurse role:
+    And the list of tasks is filtered to show tasks for the Nurse role
       | tasks                                 |
       | Informed About Patient Status (NEWS)? |
       | Select Frequency                      |
@@ -25,7 +25,7 @@ Feature: User Permissions
       | Review Frequency                      |
       | Urgently Inform Medical Team          |
       | Immediately Inform Medical Team       |
-      | Inform Medical Team                   |
+      | Inform Medical Team?                  |
       | Call an Ambulance (2222/9999)         |
       | Set Clinical Review Frequency         |
       | F&F - 6am Fluid Intake Review         |
@@ -36,9 +36,10 @@ Feature: User Permissions
     Given a user with the Doctor role logs into the app
     When they view the task list
     Then they see a list of the tasks for the patients in the locations they are assigned to
-    And the list of tasks is filtered to show tasks for the Doctor role:
+    And the list of tasks is filtered to show tasks for the Doctor role
       | tasks                         |
       | Assessment Required           |
       | Clinical Review               |
       | Set Clinical Review Frequency |
       | F&F - 6am Fluid Intake Review |
+      | F&F - 3pm Fluid Intake Review |

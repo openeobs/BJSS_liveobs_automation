@@ -44,10 +44,12 @@ def list_of_tasks_for_patient_assigned_to(context):
         context.helpers.get_patient_names_for_user(context.username)
     tasks = task_list_page.get_list_items()
     for task in tasks:
-        assert task_list_page.get_patient_from_item(task) in patient_names
+        patient_name = task_list_page.get_patient_from_item(task)
+        assert (patient_name in patient_names), \
+            "{} patient not in {}".format(patient_name, patient_names)
 
 
-@then("the list of tasks is filtered to show tasks for the {user_role} role:")
+@then("the list of tasks is filtered to show tasks for the {user_role} role")
 def list_of_tasks_for_role_task_types(context, user_role):
     """
     Verify that the tasks in the task list are only those that can be carried
@@ -62,4 +64,6 @@ def list_of_tasks_for_role_task_types(context, user_role):
     task_list_page = ListPage(context.driver)
     tasks = task_list_page.get_list_items()
     for task in tasks:
-        assert task_list_page.get_task_info_from_item(task) in tasks_for_role
+        task_name = task_list_page.get_task_info_from_item(task)
+        assert (task_name in tasks_for_role), \
+            "{} task not in {}".format(task_name, tasks_for_role)
