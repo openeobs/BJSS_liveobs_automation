@@ -3,6 +3,15 @@ user_role_map:
   HCA: harold
   Nurse: nasir
   Doctor: dale
+user_patient_map:
+  nasir:
+    - Doyle, Worth Scott
+    - Cummings, Durell Camron
+    - King, Neola Ofelia
+  harold:
+    - Dare, Lupe Bret
+    - Eichmann, Ibrahim Leonard
+    - Flatley, Walton Isaac
 database: nhclinical
 server: "http://176.34.133.2"
 urls:

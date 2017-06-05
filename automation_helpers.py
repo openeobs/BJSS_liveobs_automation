@@ -28,3 +28,12 @@ class AutomationHelpers(object):
             self.config.get('user_role_map').get(user_role),
             self.config.get('database')
         )
+
+    def get_patient_names_for_user(self, user):
+        """
+        Get list of patients for specified user
+
+        :param user: Name of user
+        :return: list of patient names
+        """
+        return self.config.get('user_patient_map').get(user, [])
