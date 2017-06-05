@@ -4,7 +4,8 @@ The List Page is a base class for the task and patient lists as they use the
 same template to render content
 """
 from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
-from liveobs_ui.selectors.list import LIST_ITEM, LIST_CONTAINER
+from liveobs_ui.selectors.list import LIST_ITEM, LIST_CONTAINER, \
+    LIST_ITEM_DATA_NAME
 
 
 class ListPage(BaseMobilePage):
@@ -46,3 +47,13 @@ class ListPage(BaseMobilePage):
         list_item_url = list_item.get_attribute('href')
         self.click_and_verify_change(list_item, LIST_CONTAINER)
         return list_item_url in self.driver.current_url
+
+    @staticmethod
+    def get_patient_from_item(list_item):
+        """
+        Get the patient's name from list item
+
+        :return: name of patient the list item is about
+        """
+        patient_name_el = list_item.find_element(*LIST_ITEM_DATA_NAME)
+        return patient_name_el.text
