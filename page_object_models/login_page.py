@@ -30,7 +30,8 @@ class LoginPage(BaseMobilePage):
             database_selector = self.driver.find_element(
                 *DATABASE_DROPDOWN
             )
-            Select(database_selector).select_by_value(database)
+            if database_selector.is_displayed():
+                Select(database_selector).select_by_value(database)
         except NoSuchElementException:
             pass
 
