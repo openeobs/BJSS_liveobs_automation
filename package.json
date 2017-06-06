@@ -1,0 +1,17 @@
+{
+  "name": "BJSS_liveObs_automation",
+  "version": "1.10.0",
+  "description": "Automation Pack for LiveObs",
+  "scripts": {
+    "lint": "gherkin-lint features/"
+  },
+  "dependencies": {
+    "gherkin-lint": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BJSS/BJSS_liveobs_automation"
+  },
+  "author": "BJSS",
+  "license": "GPLv3"
+}

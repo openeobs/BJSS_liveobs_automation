@@ -10,7 +10,7 @@ Feature: User Permissions for Tasks
       | tasks                       |
       | Inform Nurse About Patient  |
       | NEWS Observation            |
-    
+
   Scenario: Mobile Task List Permissions for Nurse
     Given a user with the Nurse role logs into the app
     When they view the task list
@@ -29,7 +29,7 @@ Feature: User Permissions for Tasks
       | F&F - 6am Fluid Intake Review         |
       | F&F - 3pm Fluid Intake Review         |
       | NEWS Observation                      |
-    
+
   Scenario: Mobile Task List Permissions for Doctor
     Given a user with the Doctor role logs into the app
     When they view the task list
