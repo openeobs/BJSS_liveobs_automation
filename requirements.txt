@@ -3,5 +3,5 @@ pylint==1.7.1
 selenium==3.4.2
 sphinx==1.6.1
 git+git://github.com/BJSS/BJSS_liveobs_selenium.git
-behave==1.2.5
+git+git://github.com/behave/behave.git@master
 PyYAML==3.12

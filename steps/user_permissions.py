@@ -1,4 +1,5 @@
-from behave import *
+""" Step Implementations for user_permissions.feature """
+from behave import given, when, then
 from liveobs_ui.page_object_models.login_page import LoginPage
 from liveobs_ui.page_object_models.list_page import ListPage
 
@@ -7,13 +8,13 @@ from liveobs_ui.page_object_models.list_page import ListPage
 def user_with_role_logins(context, user_role):
     """
     Find a user with the specified role and log them in
-    
+
     :param context: Behave context
     :param user_role: Role the user we're logging in must have
     """
     login_page = LoginPage(context.driver)
     login_url = context.helpers.config.get('server') + \
-                context.helpers.config.get('urls').get('login')
+        context.helpers.config.get('urls').get('login')
     login_page.driver.get(login_url)
     login_details = context.helpers.get_user_for_role(user_role)
     context.username = login_details[0]
@@ -56,7 +57,7 @@ def list_of_tasks_for_role_task_types(context, user_role):
     out by the role the user is associated with
 
     :param context: Behave context
-    :param user_role: Role for the user
+    :param user_role: Role the user is associated with
     """
     tasks_for_role = []
     for row in context.table:
