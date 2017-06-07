@@ -11,6 +11,7 @@ from liveobs_ui.selectors.data_entry_selectors import PATIENT_INFO_POPUP, \
     FULL_SCREEN_PATIENT_INFO_BUTTON, PATIENT_INFO_POPUP_CLOSE_BUTTON
 from liveobs_ui.selectors.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
+from liveobs_ui.page_object_models.modal_page import ModalPage
 
 
 class DataEntryPage(BaseMobilePage):
@@ -97,3 +98,13 @@ class DataEntryPage(BaseMobilePage):
                 input_field = self.driver.find_element_by_name(name)
                 input_field.send_keys(value)
                 input_field.send_keys(Keys.TAB)
+
+    def confirm_submit_scored_ob(self):
+        """
+        Confirm the 'Submit Score of X for Y, Z' modal that pops up after
+        first pressing the submit button for scored observations.
+        """
+        modal_page = ModalPage(self.driver)
+        modals = modal_page.get_open_modals()
+        scored_modal = modals[0]
+        modal_page.click_modal_option(scored_modal, 'Submit')
