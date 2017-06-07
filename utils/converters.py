@@ -9,7 +9,7 @@ def convert_numbers_in_dict(values_dict):
     :return: dictionary with all numerical values converted to a string
     """
     new_dict = values_dict.copy()
-    for key, value in new_dict.iteritems():
+    for key, value in new_dict.items():
         if isinstance(value, (int, float)):
             new_dict[key] = str(value)
     return new_dict
