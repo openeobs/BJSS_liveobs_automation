@@ -55,14 +55,14 @@ class DataEntryPage(BaseMobilePage):
         """
         Press the submit button on the form
         """
-        form_submit_button = self.driver.find_element(FORM_SUBMIT_BUTTON)
+        form_submit_button = self.driver.find_element(*FORM_SUBMIT_BUTTON)
         self.click_and_verify_change(form_submit_button, MODAL_DIALOG)
 
     def cancel_form(self):
         """
         Press the cancel button on the form (if present)
         """
-        form_cancel_button = self.driver.find_element(FORM_CANCEL_BUTTON)
+        form_cancel_button = self.driver.find_element(*FORM_CANCEL_BUTTON)
         self.click_and_verify_change(form_cancel_button, MODAL_DIALOG)
 
     def fill_out_form(self, data):
