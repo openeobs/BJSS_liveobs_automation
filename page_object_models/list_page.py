@@ -45,7 +45,7 @@ class ListPage(BaseMobilePage):
         :return: True if successfully opened item, False if not
         """
         list_item_url = list_item.get_attribute('href')
-        self.click_and_verify_change(list_item, LIST_CONTAINER)
+        self.click_and_verify_change(list_item, LIST_CONTAINER, hidden=True)
         return list_item_url in self.driver.current_url
 
     @staticmethod
