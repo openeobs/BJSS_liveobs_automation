@@ -22,7 +22,7 @@ def convert_list_of_data_dicts(values_list):
     :param values_list: List of dictionaries that contain form data
     :return: list of dictionaries with converted values
     """
-    new_list = values_list.copy()
-    for item in new_list:
-        item = convert_numbers_in_dict(item)
+    new_list = []
+    for list_item in values_list:
+        new_list.append(convert_numbers_in_dict(list_item))
     return new_list
