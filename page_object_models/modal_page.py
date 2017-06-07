@@ -75,7 +75,7 @@ class ModalPage(BaseMobilePage):
         :param modal: Modal to find option buttons for
         :return: List of button elements
         """
-        return modal.fine_elements(*MODAL_BUTTONS)
+        return modal.find_elements(*MODAL_BUTTONS)
 
     @staticmethod
     def get_modal_content(modal):
