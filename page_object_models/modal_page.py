@@ -42,6 +42,7 @@ class ModalPage(BaseMobilePage):
 
         :return: list of modal objects
         """
+        self.wait_for_element(MODAL_DIALOG)
         return self.driver.find_elements(*MODAL_DIALOG)
 
     def get_cover_for_modal(self, modal):
