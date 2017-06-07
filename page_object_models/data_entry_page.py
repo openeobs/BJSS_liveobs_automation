@@ -108,3 +108,13 @@ class DataEntryPage(BaseMobilePage):
         modals = modal_page.get_open_modals()
         scored_modal = modals[0]
         modal_page.click_modal_option(scored_modal, 'Submit')
+
+    def take_escalation_task(self):
+        """
+        Take the escalation task presented to the user once an observation that
+        has escalation tasks is submitted
+        """
+        modal_page = ModalPage(self.driver)
+        modals = modal_page.get_open_modals()
+        escalation_modal = modals[0]
+        modal_page.click_modal_option(escalation_modal, 'Confirm')
