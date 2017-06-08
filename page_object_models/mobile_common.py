@@ -34,6 +34,24 @@ class BaseMobilePage(object):
             self.driver.find_element(*PATIENT_ITEM)
         self.click_and_verify_change(patient_list_item, LIST_CONTAINER)
 
+    def is_task_list(self):
+        """
+        Are we on the task list?
+
+        :return: If current URL is the task list URL
+        :rtype: bool
+        """
+        return '/tasks' in self.driver.current_url
+
+    def is_patient_list(self):
+        """
+        Are we on the patient list?
+
+        :return: If current URL is the patient list URL
+        :rtype: bool
+        """
+        return '/patients' in self.driver.current_url
+
     def logout(self):
         """
             Log out of the app
