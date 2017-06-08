@@ -142,5 +142,5 @@ class DataEntryPage(BaseMobilePage):
         modal_page = ModalPage(self.driver)
         modals = modal_page.get_open_modals()
         cancel_modal = modals[0]
-        modal_page.select_reason_in_modal(cancel_modal, 'Already Done')
+        modal_page.select_reason_in_modal(cancel_modal, cancel_reason)
         modal_page.click_modal_option(cancel_modal, 'Submit')
