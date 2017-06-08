@@ -2,8 +2,11 @@
 Page Object Model for Data Entry Page
 The Data Entry Page allows the user to submit observations and escalation tasks
 """
+import selenium.webdriver.support.expected_conditions as ec
+import selenium.webdriver.support.ui as ui
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
 from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.form import PATIENT_INFO_BUTTON, \
     FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON, FORM
@@ -106,6 +109,10 @@ class DataEntryPage(BaseMobilePage):
                 input_field = self.driver.find_element_by_name(name)
                 input_field.send_keys(value)
                 input_field.send_keys(Keys.TAB)
+            field_locator = (By.NAME, name)
+            ui.WebDriverWait(self.driver, self.default_wait).until(
+                ec.text_to_be_present_in_element_value(field_locator, value)
+            )
 
     def confirm_submit_scored_ob(self):
         """
