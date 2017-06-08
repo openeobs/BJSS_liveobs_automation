@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.form import PATIENT_INFO_BUTTON, \
-    FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON
+    FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON, FORM
 from liveobs_ui.selectors.data_entry_selectors import PATIENT_INFO_POPUP, \
     FULL_SCREEN_PATIENT_INFO_BUTTON, PATIENT_INFO_POPUP_CLOSE_BUTTON
 from liveobs_ui.selectors.modal import \
@@ -18,6 +18,14 @@ class DataEntryPage(BaseMobilePage):
     """
     Class that handles interacting with the data entry form
     """
+
+    def get_data_model_from_form(self):
+        """
+        Get the dataa model for the form so we can use this to determine what
+        to do
+        """
+        form = self.driver.find_element(*FORM)
+        return form.get_attribute('data-type')
 
     def open_patient_info(self):
         """
