@@ -99,20 +99,24 @@ class DataEntryPage(BaseMobilePage):
             value = field.get('value')
             name = field.get('name')
             data_type = field.get('type')
+            field_locator = (By.NAME, name)
 
             if data_type == 'select':
                 select_field = self.driver.find_element_by_name(name)
                 select_select = Select(select_field)
                 select_select.select_by_visible_text(value)
                 select_field.send_keys(Keys.TAB)
+                ui.WebDriverWait(self.driver, self.default_wait).until(
+                    ec.text_to_be_present_in_element(field_locator, value)
+                )
             else:
                 input_field = self.driver.find_element_by_name(name)
                 input_field.send_keys(value)
                 input_field.send_keys(Keys.TAB)
-            field_locator = (By.NAME, name)
-            ui.WebDriverWait(self.driver, self.default_wait).until(
-                ec.text_to_be_present_in_element_value(field_locator, value)
-            )
+                ui.WebDriverWait(self.driver, self.default_wait).until(
+                    ec.text_to_be_present_in_element_value(
+                        field_locator, value)
+                )
 
     def confirm_submit_scored_ob(self):
         """
