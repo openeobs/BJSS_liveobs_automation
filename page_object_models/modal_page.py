@@ -4,6 +4,8 @@ While Technically Modals are not 'pages' there are common interaction patterns
 with modals that merit their own Page Object Model. This is that Page Object
 Model.
 """
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.modal import MODAL_DIALOG, MODAL_TITLE, \
@@ -104,3 +106,17 @@ class ModalPage(BaseMobilePage):
         if button:
             modal_selector = self._get_selector_for_modal(modal)
             self.click_and_verify_change(button, modal_selector, hidden=True)
+
+    @staticmethod
+    def select_reason_in_modal(modal, value_to_select):
+        """
+        For modals with select boxes (cancel reason, partial reason) select the
+        supplied value
+
+        :param modal: Modal with select box
+        :param value_to_select: Value to select in select box
+        """
+        select_field = modal.find_element_by_name('reason')
+        select_select = Select(select_field)
+        select_select.select_by_visible_text(value_to_select)
+        select_field.send_keys(Keys.TAB)

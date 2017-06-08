@@ -125,4 +125,20 @@ class DataEntryPage(BaseMobilePage):
         modal_page = ModalPage(self.driver)
         modals = modal_page.get_open_modals()
         escalation_modal = modals[0]
-        modal_page.click_modal_option(escalation_modal, 'Confirm')
+        escalation_modal_options = \
+            modal_page.get_modal_options(escalation_modal)
+        if len(escalation_modal_options) > 1:
+            modal_page.click_modal_option(escalation_modal, 'Confirm')
+        else:
+            modal_page.click_modal_option(escalation_modal, 'Go to My Tasks')
+
+    def submit_cancellation_reason(self, cancel_reason):
+        """
+        Select the specified cancellation reason and submit the modal to
+        cancel the task
+
+        :param cancel_reason: Name of reason to select
+        """
+        modal_page = ModalPage(self.driver)
+        modals = modal_page.get_open_modals()
+        cancel_modal = modals[0]
