@@ -4,10 +4,11 @@ While Technically Modals are not 'pages' there are common interaction patterns
 with modals that merit their own Page Object Model. This is that Page Object
 Model.
 """
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.by import By
-from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
+
+from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.modal import MODAL_DIALOG, MODAL_TITLE, \
     MODAL_BUTTONS, MODAL_CONTENT
 

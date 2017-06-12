@@ -4,17 +4,18 @@ The Data Entry Page allows the user to submit observations and escalation tasks
 """
 import selenium.webdriver.support.expected_conditions as ec
 import selenium.webdriver.support.ui as ui
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
-from selenium.webdriver.common.by import By
-from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
-from liveobs_ui.selectors.form import PATIENT_INFO_BUTTON, \
-    FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON, FORM
+
+from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
+from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 from liveobs_ui.selectors.data_entry_selectors import PATIENT_INFO_POPUP, \
     FULL_SCREEN_PATIENT_INFO_BUTTON, PATIENT_INFO_POPUP_CLOSE_BUTTON
+from liveobs_ui.selectors.form import PATIENT_INFO_BUTTON, \
+    FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON, FORM
 from liveobs_ui.selectors.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
-from liveobs_ui.page_object_models.modal_page import ModalPage
 
 
 class DataEntryPage(BaseMobilePage):

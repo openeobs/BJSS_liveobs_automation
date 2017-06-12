@@ -3,7 +3,7 @@ Page Object Model for Patient Page
 The Patient Page shows the observation data for the patient as well as allows
 them to conduct an ad-hoc observation
 """
-from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
+from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.patient_page_selectors import \
     ADHOC_OBS_MENU_BUTTON, OPEN_OBS_MENU, OPEN_OBS_MENU_LIST_ITEMS, \
     OPEN_OBS_MENU_CLOSE_BUTTON

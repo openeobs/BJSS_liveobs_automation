@@ -4,7 +4,8 @@ The login page handles logging into the application
 """
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.select import Select
-from liveobs_ui.page_object_models.mobile_common import BaseMobilePage
+
+from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.login_page_selectors import USERNAME_FIELD, \
     PASSWORD_FIELD, SUBMIT_BUTTON, DATABASE_DROPDOWN, LOGIN_ERROR_ALERT
 
