@@ -7,6 +7,11 @@ from liveobs_ui.selectors.desktop.search_selectors import \
     SEARCH_OPTIONS_DRAW_BUTTON, SEARCH_DRAWER, SEARCH_DRAWER_FILTER_ITEMS, \
     SEARCH_DRAWER_GROUP_BY_ITEMS, SEARCH_INPUT, SEARCH_AUTOCOMPLETE, \
     SEARCH_AUTOCOMPLETE_ITEM
+from liveobs_ui.selectors.desktop.view_selectors import \
+    VIEW_MANAGER_SWITCH_FORM_BUTTON, VIEW_MANAGER_SWITCH_KANBAN_BUTTON, \
+    VIEW_MANAGER_SWITCH_LIST_BUTTON, VIEW_MANAGER_KANBAN, VIEW_MANAGER_FORM, \
+    VIEW_MANAGER_LIST, VIEW_MANAGER_PAGER_NEXT, VIEW_MANAGER_PAGER_PREVIOUS, \
+    VIEW_MANAGER_WAIT
 from liveobs_ui.page_object_models.common.base_liveobs_page import \
     BaseLiveObsPage
 
@@ -115,8 +120,37 @@ class BaseDesktopPage(BaseLiveObsPage):
                     self.click_and_verify_change(
                         autocomplete_item, SEARCH_AUTOCOMPLETE, hidden=True)
 
-    # Change view
+    def change_view_mode(self, view_mode):
+        """
+        Click the supplied view_mode button
 
-    # Go to next record in list
+        :param view_mode: View mode to select
+        """
+        selectors = {
+            'kanban': VIEW_MANAGER_SWITCH_KANBAN_BUTTON,
+            'form': VIEW_MANAGER_SWITCH_FORM_BUTTON,
+            'list': VIEW_MANAGER_SWITCH_LIST_BUTTON,
+            'kanban_active': VIEW_MANAGER_KANBAN,
+            'form_active': VIEW_MANAGER_FORM,
+            'list_active': VIEW_MANAGER_LIST
+        }
+        view_selector = selectors.get(view_mode)
+        active_selector = selectors.get('{}_active'.format(view_mode))
+        view_button = self.driver.find_element(*view_selector)
+        self.click_and_verify_change(view_button, active_selector)
 
-    # Go to previous record in list
+    def go_to_previous_record_in_list(self):
+        """
+        Click the previous record button in the list of records. This is shown
+        on the form view
+        """
+        prev_button = self.driver.find_element(*VIEW_MANAGER_PAGER_PREVIOUS)
+        self.click_and_verify_change(prev_button, VIEW_MANAGER_WAIT)
+
+    def go_to_next_record_in_list(self):
+        """
+        Click the next record button in the list of records. This is shown
+        on the form view
+        """
+        next_button = self.driver.find_element(*VIEW_MANAGER_PAGER_NEXT)
+        self.click_and_verify_change(next_button, VIEW_MANAGER_WAIT)
