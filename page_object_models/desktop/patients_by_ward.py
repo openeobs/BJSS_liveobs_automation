@@ -4,7 +4,6 @@ from liveobs_ui.page_object_models.desktop.list_view_common import \
 from liveobs_ui.selectors.desktop.list_selectors import \
     PATIENTS_BY_WARD_CHART_BUTTON, PATIENTS_BY_WARD_LIST_BUTTON
 from liveobs_ui.selectors.desktop.modal_selectors import MODAL_CONTAINER
-from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_FORM
 
 
 class PatientsByWardPage(BaseListViewPage):
@@ -35,13 +34,3 @@ class PatientsByWardPage(BaseListViewPage):
         list_row = self.get_list_item_by_name(patient_name)
         list_button = list_row.find_element(*PATIENTS_BY_WARD_LIST_BUTTON)
         self.click_and_verify_change(list_button, MODAL_CONTAINER)
-
-    def open_patient_record(self, patient_name):
-        """
-        Find the row in the list for the supplied patient then open the
-        patient record
-
-        :param patient_name: Name of the patient who'd record we want to open
-        """
-        list_row = self.get_list_item_by_name(patient_name)
-        self.click_and_verify_change(list_row, VIEW_MANAGER_FORM)
