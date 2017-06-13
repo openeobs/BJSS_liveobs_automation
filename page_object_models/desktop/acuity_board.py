@@ -1,3 +1,4 @@
+# pylint:disable=invalid-name
 """ Page Object Model for Acuity Board """
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
