@@ -1,53 +1,18 @@
 # pylint:disable=invalid-name
 """ Page Object Model for Acuity Board """
-from liveobs_ui.page_object_models.desktop.desktop_common import \
-    BaseDesktopPage
+
+from liveobs_ui.page_object_models.desktop.wardboard_common import \
+    WardBoardPage
 from liveobs_ui.selectors.desktop.kanban_selectors import KANBAN_CARD, \
     KANBAN_CARD_CONTENT, KANBAN_CONTAINER
 
 
-class AcuityBoardPage(BaseDesktopPage):
+class AcuityBoardPage( WardBoardPage):
     """ Interact with the Acuity Board """
 
     def go_to_the_acuity_board(self):
         """ Navigate to the Acuity Board """
         self.go_to_page('Acuity Board')
-
-    def group_by_clinical_risk(self):
-        """ Group the Acuity Board by Clinical Risk """
-        self.select_group_by('Clinical Risk')
-
-    def group_by_ward(self):
-        """ Group the Acuity Board by Ward """
-        self.select_group_by('Ward')
-
-    def select_no_risk_filter(self):
-        """ Select the No Risk Filter """
-        self.select_filter('No Risk')
-
-    def select_low_risk_filter(self):
-        """ Select the Low Risk Filter """
-        self.select_filter('Low Risk')
-
-    def select_medium_risk_filter(self):
-        """ Select the Medium Risk Filter """
-        self.select_filter('Medium Risk')
-
-    def select_high_risk_filter(self):
-        """ Select the High Risk Filter """
-        self.select_filter('High Risk')
-
-    def select_deteriorating_trend_filter(self):
-        """ Select the Deteriorating Trend filter """
-        self.select_filter('Deteriorating Trend')
-
-    def select_improving_trend_filter(self):
-        """ Select the Improving Trend filter """
-        self.select_filter('Improving Trend')
-
-    def select_unchanged_trend_filter(self):
-        """ Select the Unchanged Trend filter """
-        self.select_filter('Unchanged Trend')
 
     def open_patient_record(self, patient_name):
         """

@@ -10,6 +10,10 @@ from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_FORM
 class PatientsByWardPage(BaseListViewPage):
     """ Interaction with Patients By Ward Page """
 
+    def go_to_patients_by_ward(self):
+        """ Navigate the user to the Patients By Ward page """
+        self.go_to_page('Patients By Ward')
+
     def open_patient_chart_popup(self, patient_name):
         """
         Find the row in the list for the supplied patient then open the chart

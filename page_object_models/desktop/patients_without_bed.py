@@ -1,13 +1,19 @@
 """ Page Object Model for interacting with Patients By Ward Page """
 from liveobs_ui.page_object_models.desktop.list_view_common import \
     BaseListViewPage
+from liveobs_ui.page_object_models.desktop.wardboard_common import \
+    WardBoardPage
 from liveobs_ui.selectors.desktop.list_selectors import \
     PATIENTS_WITHOUT_BED_PLACEMENT_BUTTON
 from liveobs_ui.selectors.desktop.modal_selectors import MODAL_CONTAINER
 
 
-class PatientsWithoutBedPage(BaseListViewPage):
+class PatientsWithoutBedPage(BaseListViewPage, WardBoardPage):
     """ Interaction with Patients Without Bed Page """
+
+    def go_to_patients_without_bed(self):
+        """ Navigate the user to the Patients Without Bed page """
+        self.go_to_page('Patients Without Bed')
 
     def open_bed_placement_popup(self, patient_name):
         """
