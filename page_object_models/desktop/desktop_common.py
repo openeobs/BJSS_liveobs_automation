@@ -139,6 +139,18 @@ class BaseDesktopPage(BaseLiveObsPage):
         view_button = self.driver.find_element(*view_selector)
         self.click_and_verify_change(view_button, active_selector)
 
+    def change_to_kanban_view(self):
+        """ Change the Kanban view mode """
+        self.change_view_mode('kanban')
+
+    def change_to_form_view(self):
+        """ Change the Form view mode"""
+        self.change_view_mode('form')
+
+    def change_to_list_view(self):
+        """ Change the list view mode """
+        self.change_view_mode('list')
+
     def go_to_previous_record_in_list(self):
         """
         Click the previous record button in the list of records. This is shown
