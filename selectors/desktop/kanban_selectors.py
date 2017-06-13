@@ -28,3 +28,4 @@ KANBAN_CARD = (
     '.oe_kanban_column_cards .oe_kanban_card'
 )
 KANBAN_CARD_CONTENT = (By.CLASS_NAME, 'oe_kanban_content')
+KANBAN_CARD_BUTTON = (By.CLASS_NAME, 'oe_kanban_action')
