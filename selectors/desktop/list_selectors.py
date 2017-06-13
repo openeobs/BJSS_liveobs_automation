@@ -26,3 +26,11 @@ PATIENTS_WITHOUT_BED_PLACEMENT_BUTTON = (
     '.oe_webclient .oe_application .oe_view_manager_body '
     '.oe_list_content tr .oe_list_field_object button[title=Complete]'
 )
+LIST_ITEM_SELECT_BOX = (
+    By.CSS_SELECTOR,
+    '.oe_list_record_selector > input[type=checkbox]'
+)
+LIST_ITEM_SELECTED_SELECT_BOX = (
+    By.CSS_SELECTOR,
+    '.oe_list_record_selector > input:checked'
+)
