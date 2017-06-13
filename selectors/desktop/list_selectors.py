@@ -21,3 +21,8 @@ PATIENTS_BY_WARD_LIST_BUTTON = (
     '.oe_webclient .oe_application .oe_view_manager_body '
     '.oe_list_content tr .oe_list_field_action button[title=EWS]'
 )
+PATIENTS_WITHOUT_BED_PLACEMENT_BUTTON = (
+    By.CSS_SELECTOR,
+    '.oe_webclient .oe_application .oe_view_manager_body '
+    '.oe_list_content tr .oe_list_field_object button[title=Complete]'
+)
