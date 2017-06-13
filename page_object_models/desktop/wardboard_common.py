@@ -1,3 +1,4 @@
+# pylint:disable=invalid-name
 """ Common functionality for ward board pages """
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage

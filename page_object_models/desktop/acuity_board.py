@@ -1,4 +1,3 @@
-# pylint:disable=invalid-name
 """ Page Object Model for Acuity Board """
 
 from liveobs_ui.page_object_models.desktop.wardboard_common import \
@@ -7,7 +6,7 @@ from liveobs_ui.selectors.desktop.kanban_selectors import KANBAN_CARD, \
     KANBAN_CARD_CONTENT, KANBAN_CONTAINER
 
 
-class AcuityBoardPage( WardBoardPage):
+class AcuityBoardPage(WardBoardPage):
     """ Interact with the Acuity Board """
 
     def go_to_the_acuity_board(self):
