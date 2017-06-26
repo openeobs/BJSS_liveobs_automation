@@ -20,17 +20,6 @@ def user_with_role_logins(context, user_role):
     login_page.login(*login_details)
 
 
-@when("they view the task list")
-def user_views_task_list(context):
-    """
-    Have the user navigate to the task list
-
-    :param context: Behave context
-    """
-    task_list_page = ListPage(context.driver)
-    task_list_page.go_to_task_list()
-
-
 # @then("they see a list of the tasks for the patients in the locations "
 #       "they are assigned to")
 # def list_of_tasks_for_patient_assigned_to(context):
