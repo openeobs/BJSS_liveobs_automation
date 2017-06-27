@@ -29,12 +29,12 @@ SEARCH_DRAWER_FILTER_ITEMS = (
     By.CSS_SELECTOR,
     '.oe_webclient .oe_application .oe_view_manager '
     '.oe_view_manager_body .oe_search_drawer '
-    '.oe_searchview_filters:first-child() > dl > dd > ul > li'
+    '.oe_searchview_filters:first-child > dl > dd > ul > li'
 )
 
 SEARCH_DRAWER_GROUP_BY_ITEMS = (
     By.CSS_SELECTOR,
     '.oe_webclient .oe_application .oe_view_manager '
     '.oe_view_manager_body .oe_search_drawer '
-    '.oe_searchview_filters:last-child() > dl > dd > ul > li'
+    '.oe_searchview_filters:last-child > dl > dd > ul > li'
 )

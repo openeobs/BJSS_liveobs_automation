@@ -20,7 +20,7 @@ KANBAN_COLUMN_MENU = (
 KANBAN_COLUMN_MENU_ITEM = (
     By.CSS_SELECTOR,
     '.oe_dropdown_kanban.oe_opened '
-    '.oe_dropdown_menu li a[@data-action=toggle-fold]'
+    '.oe_dropdown_menu li a[data-action=toggle-fold]'
 )
 KANBAN_CARD = (
     By.CSS_SELECTOR,

@@ -9,7 +9,12 @@ LIST_VIEW_CONTAINER = (
 LIST_VIEW_ROW = (
     By.CSS_SELECTOR,
     '.oe_webclient .oe_application .oe_view_manager_body '
-    '.oe_list_content tbody:last-child() tr'
+    '.oe_list_content tbody > tr'
+)
+GROUPED_LIST_VIEW_ROW = (
+    By.CSS_SELECTOR,
+    '.oe_webclient .oe_application .oe_view_manager_body '
+    '.oe_list_content tbody:nth-of-type(2) > tr'
 )
 PATIENTS_BY_WARD_CHART_BUTTON = (
     By.CSS_SELECTOR,

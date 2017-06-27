@@ -15,6 +15,6 @@ LEFT_NAVIGATION_CONTAINER = (
 LEFT_NAVIGATION_ITEMS = (
     By.CSS_SELECTOR,
     '.openerp_webclient_container .oe_webclient '
-    'td.oe_leftbar .oe_secondary_menu_container '
-    '.oe_secondary_menu .oe_secondary_submenu > li > a'
+    'td.oe_leftbar .oe_secondary_menus_container '
+    '.oe_secondary_menu .oe_secondary_submenu li a'
 )

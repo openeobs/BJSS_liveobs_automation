@@ -11,7 +11,7 @@ from liveobs_ui.selectors.desktop.view_selectors import \
     VIEW_MANAGER_SWITCH_FORM_BUTTON, VIEW_MANAGER_SWITCH_KANBAN_BUTTON, \
     VIEW_MANAGER_SWITCH_LIST_BUTTON, VIEW_MANAGER_KANBAN, VIEW_MANAGER_FORM, \
     VIEW_MANAGER_LIST, VIEW_MANAGER_PAGER_NEXT, VIEW_MANAGER_PAGER_PREVIOUS, \
-    VIEW_MANAGER_WAIT
+    VIEW_MANAGER_WAIT, VIEW_MANAGER_BREADCRUMB
 from liveobs_ui.page_object_models.common.base_liveobs_page import \
     BaseLiveObsPage
 
@@ -31,12 +31,13 @@ class BaseDesktopPage(BaseLiveObsPage):
         """
         pages = self.driver.find_elements(*LEFT_NAVIGATION_ITEMS)
         for page in pages:
-            if page_title in page.text:
+            text_content = page.get_attribute('textContent').strip()
+            if page_title in text_content:
                 page_id = page.get_attribute('data-action-id')
                 page_active_selector = (
                     By.CSS_SELECTOR,
                     '.oe_secondary_submenu li.active '
-                    'a[@data-action-id={}]'.format(page_id)
+                    'a[data-action-id=\'{}\']'.format(page_id)
                 )
                 self.click_and_verify_change(page, page_active_selector)
 
@@ -57,7 +58,7 @@ class BaseDesktopPage(BaseLiveObsPage):
                     '.oe_webclient .oe_application .oe_view_manager '
                     '.oe_view_manager_body .oe_search_drawer '
                     '.oe_searchview_filters dd:first-child()'
-                    'li.badge[@data-index={}]'.format(data_id)
+                    'li.badge[data-index=\'{}\']'.format(data_id)
                 )
                 self.click_and_verify_change(filter_item, filter_selector)
 
@@ -95,8 +96,8 @@ class BaseDesktopPage(BaseLiveObsPage):
                     By.CSS_SELECTOR,
                     '.oe_webclient .oe_application .oe_view_manager '
                     '.oe_view_manager_body .oe_search_drawer '
-                    '.oe_searchview_filters dd:last-child()'
-                    'li.badge[@data-index={}]'.format(data_id)
+                    '.oe_searchview_filters dd:last-child'
+                    'li.badge[data-index=\'{}\']'.format(data_id)
                 )
                 self.click_and_verify_change(group_by_item, group_by_selector)
 
@@ -166,3 +167,36 @@ class BaseDesktopPage(BaseLiveObsPage):
         """
         next_button = self.driver.find_element(*VIEW_MANAGER_PAGER_NEXT)
         self.click_and_verify_change(next_button, VIEW_MANAGER_WAIT)
+
+    def get_breadcrumbs(self):
+        """
+        Get the breadcrumbs that allow to go back up a page in the navigation
+
+        :return: list of breadcrumb elements
+        """
+        return self.driver.find_elements(*VIEW_MANAGER_BREADCRUMB)
+
+    def click_breadcrumb(self, breadcrumb):
+        """
+        Click on the supplied breadcrumb and verify that it is no longer on the
+        page
+
+        :param breadcrumb: Breadcrumb element to click
+        """
+        breadcrumb_id = breadcrumb.get_attribute('data-id')
+        breadcrumb_selector = (
+            By.CSS_SELECTOR,
+            'a.oe_breadcrumb_item[data-id={}]'.format(breadcrumb_id)
+        )
+        self.click_and_verify_change(
+            breadcrumb, breadcrumb_selector, hidden=True)
+
+    def go_to_previous_page(self):
+        """
+        Go back to the page used to get to the patient record in the
+        breadcrumbs
+        """
+        breadcrumbs = self.get_breadcrumbs()
+        if breadcrumbs:
+            breadcrumb = breadcrumbs[-1]
+            self.click_breadcrumb(breadcrumb)

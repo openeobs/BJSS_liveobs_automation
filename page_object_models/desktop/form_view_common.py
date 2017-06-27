@@ -2,7 +2,7 @@
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
 from liveobs_ui.selectors.desktop.form_selectors import \
-    FORM_ACTIONBAR_BUTTON, FORM_TABS
+    FORM_ACTIONBAR_BUTTON, FORM_TABS, FORM_ACTIONBAR
 
 
 class BaseFormViewPage(BaseDesktopPage):
@@ -48,3 +48,10 @@ class BaseFormViewPage(BaseDesktopPage):
         for tab in tabs:
             if tab_name in tab.text:
                 return tab
+
+    def wait_for_form_view_to_load(self):
+        """
+        Wait until the form container has loaded, useful for ensuring that
+        nothing is executed until the view has loaded
+        """
+        self.wait_for_element(FORM_ACTIONBAR)

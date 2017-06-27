@@ -13,9 +13,9 @@ class PatientsWithoutBedPage(BaseListViewPage, WardBoardPage):
 
     def go_to_patients_without_bed(self):
         """ Navigate the user to the Patients Without Bed page """
-        self.go_to_page('Patients Without Bed')
+        self.go_to_page('Patients without bed')
 
-    def open_bed_placement_popup(self, patient_name):
+    def open_bed_placement_by_name(self, patient_name):
         """
         Find the row in the list for the supplied patient then open the
         bed placement popup
@@ -23,6 +23,14 @@ class PatientsWithoutBedPage(BaseListViewPage, WardBoardPage):
         :param patient_name: Name of patient who we want to place in bed
         """
         list_row = self.get_list_item_by_name(patient_name)
+        self.open_bed_placement_popup(list_row)
+
+    def open_bed_placement_popup(self, patient):
+        """
+        Open the bed placement popup for the supplied patient element
+
+        :param patient: Patient to click bed placement button on
+        """
         placement_button = \
-            list_row.find_element(*PATIENTS_WITHOUT_BED_PLACEMENT_BUTTON)
+            patient.find_element(*PATIENTS_WITHOUT_BED_PLACEMENT_BUTTON)
         self.click_and_verify_change(placement_button, MODAL_CONTAINER)

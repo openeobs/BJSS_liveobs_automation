@@ -2,6 +2,7 @@
 """ Common functionality for ward board pages """
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
+from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_WAIT
 
 
 class WardBoardPage(BaseDesktopPage):
@@ -42,3 +43,7 @@ class WardBoardPage(BaseDesktopPage):
     def select_unchanged_trend_filter(self):
         """ Select the Unchanged Trend filter """
         self.select_filter('Unchanged Trend')
+
+    def wait_for_data_refresh(self):
+        """ Wait until the data on the page is refreshed (via JS timeout) """
+        self.wait_for_element(VIEW_MANAGER_WAIT, wait_time=45)

@@ -15,6 +15,6 @@ STAND_IN_LIST_ITEM_SHARED = (By.CSS_SELECTOR, '.sharelist label.shared')
 STAND_IN_LIST_ITEM_CHECKBOX = \
     (By.CSS_SELECTOR, '.sharelist label .patient-share')
 STAND_IN_LIST_ITEM_PATIENT_DATA = \
-    (By.CSS_SELECTOR, '.sharelist label .task-meta:first-child()')
+    (By.CSS_SELECTOR, '.sharelist label .task-meta:first-child')
 STAND_IN_LIST_ITEM_SHARE_DATA = \
-    (By.CSS_SELECTOR, '.sharelist label .task-meta:last-child() .taskInfo')
+    (By.CSS_SELECTOR, '.sharelist label .task-meta:last-child .taskInfo')

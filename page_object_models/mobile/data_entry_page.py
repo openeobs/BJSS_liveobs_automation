@@ -2,12 +2,6 @@
 Page Object Model for Data Entry Page
 The Data Entry Page allows the user to submit observations and escalation tasks
 """
-import selenium.webdriver.support.expected_conditions as ec
-import selenium.webdriver.support.ui as ui
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.select import Select
-
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 from liveobs_ui.selectors.data_entry_selectors import PATIENT_INFO_POPUP, \
@@ -77,47 +71,6 @@ class DataEntryPage(BaseMobilePage):
         """
         form_cancel_button = self.driver.find_element(*FORM_CANCEL_BUTTON)
         self.click_and_verify_change(form_cancel_button, MODAL_DIALOG)
-
-    def fill_out_form(self, data):
-        """
-        Using the provided list fill out the form
-
-        Expected Data Format:
-
-        .. code-block:: python
-
-            {
-                'name': 'respiration_rate',
-                'value': '18',
-                'type': 'textbox'
-            }
-
-
-        :data: list of dictionaries that contain field names, value to enter
-            and field type
-        """
-        for field in data:
-            value = field.get('value')
-            name = field.get('name')
-            data_type = field.get('type')
-            field_locator = (By.NAME, name)
-
-            if data_type == 'select':
-                select_field = self.driver.find_element_by_name(name)
-                select_select = Select(select_field)
-                select_select.select_by_visible_text(value)
-                select_field.send_keys(Keys.TAB)
-                ui.WebDriverWait(self.driver, self.default_wait).until(
-                    ec.text_to_be_present_in_element(field_locator, value)
-                )
-            else:
-                input_field = self.driver.find_element_by_name(name)
-                input_field.send_keys(value)
-                input_field.send_keys(Keys.TAB)
-                ui.WebDriverWait(self.driver, self.default_wait).until(
-                    ec.text_to_be_present_in_element_value(
-                        field_locator, value)
-                )
 
     def confirm_submit_scored_ob(self):
         """
