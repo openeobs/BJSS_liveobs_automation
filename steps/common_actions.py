@@ -109,7 +109,7 @@ def verify_obs_field_is_displayed(context, observation_field):
 @then('the {observation_field} field is not displayed')
 def verify_obs_field_is_not_displayed(context, observation_field):
     """
-    Verify the specified field is displayed in the form
+    Verify the specified field is not displayed in the form
     :param context:
     :param observation_field:
     :return:
@@ -118,3 +118,24 @@ def verify_obs_field_is_not_displayed(context, observation_field):
     obs_field = context.driver.find_element(*field_selector)
     field_check = BaseMobilePage(context.driver)
     field_check.element_is_not_displayed(obs_field)
+
+
+@then('the {observation_data_entry_field} is Mandatory')
+def verify_field_is_mandatory(context, observation_data_entry_field):
+    """
+    Verify that a field in an observation form is set to
+    :param context:
+    :param observation_data_entry_field:
+    :return:
+    """
+
+
+@then('the {observation_data_entry_field} is Necessary')
+def verify_field_is_necessary(context, observation_data_entry_field):
+    """
+
+    :param context:
+    :param observation_data_entry_field:
+    :return:
+    """
+
