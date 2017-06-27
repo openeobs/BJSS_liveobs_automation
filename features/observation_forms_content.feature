@@ -12,3 +12,19 @@ Feature: Mobile - Observation forms
     And the My Patients list has loaded
     When a random patient is selected
     And the Take observation button is selected
+    And the NEWS observation is selected from the list
+    Then the NEWS observation form is displayed
+    And the Respiration Rate field is displayed
+    And the O2 Saturation field is displayed
+    And the Body Temperature field is displayed
+    And the Blood Pressure Systolic field is displayed
+    And the Blood Pressure Diastolic field is displayed
+    And the Pulse Rate field is displayed
+    And the AVPU field is displayed
+    And the Patient on supplemental O2 field is displayed
+    And the O2 Device field is not displayed
+
+
+
+
+
