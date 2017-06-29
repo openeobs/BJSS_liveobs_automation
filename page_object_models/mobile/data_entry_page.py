@@ -2,8 +2,9 @@
 Page Object Model for Data Entry Page
 The Data Entry Page allows the user to submit observations and escalation tasks
 """
-from liveobs_ui.selectors.mobile.data_entry_selectors import PATIENT_INFO_POPUP, \
-    FULL_SCREEN_PATIENT_INFO_BUTTON, PATIENT_INFO_POPUP_CLOSE_BUTTON
+from liveobs_ui.selectors.mobile.data_entry_selectors import \
+    PATIENT_INFO_POPUP, FULL_SCREEN_PATIENT_INFO_BUTTON, \
+    PATIENT_INFO_POPUP_CLOSE_BUTTON
 from liveobs_ui.selectors.mobile.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
 
