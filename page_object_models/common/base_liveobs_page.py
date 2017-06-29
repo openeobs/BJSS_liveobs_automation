@@ -182,3 +182,4 @@ class BaseLiveObsPage(object):
             assert element_object.is_not_displayed()
         except Exception as error:  # pylint: disable=broad-except
             _LOGGER.info(error)
+
