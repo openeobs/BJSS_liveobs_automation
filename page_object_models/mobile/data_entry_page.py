@@ -2,9 +2,9 @@
 Page Object Model for Data Entry Page
 The Data Entry Page allows the user to submit observations and escalation tasks
 """
-from liveobs_ui.selectors.data_entry_selectors import PATIENT_INFO_POPUP, \
+from liveobs_ui.selectors.mobile.data_entry_selectors import PATIENT_INFO_POPUP, \
     FULL_SCREEN_PATIENT_INFO_BUTTON, PATIENT_INFO_POPUP_CLOSE_BUTTON
-from liveobs_ui.selectors.modal import \
+from liveobs_ui.selectors.mobile.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
 
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
@@ -114,7 +114,9 @@ class DataEntryPage(BaseMobilePage):
     @staticmethod
     def verify_field_attribute_type(element_path, expected_state, something):
         """
-        Verifies that the attribute of a field in an observation form is set to the expected type
+        Verifies that the attribute of a field in an observation form is
+        set to the expected type
+
         :param element_path: the locator for the attribute in the form
         :param expected_state: Either 'Mandatory' or 'Necessary'
         :return:
@@ -133,13 +135,16 @@ class DataEntryPage(BaseMobilePage):
     @staticmethod
     def locate_attribute_path(field_input):
         """
-        Identify the class of the input field and return the specific locator for their attributes
+        Identify the class of the input field and return the specific locator
+        for their attributes
+
         :param field_input: the general locator for the field
         :return: locator for the attribute in the DOM
         """
         attribute = field_input.get_attribute("class")
         if attribute == "block obsField":
-            return field_input.find_element_by_xpath("div[@class='input-header']/input")
+            return field_input.find_element_by_xpath(
+                "div[@class='input-header']/input")
         elif attribute == "block obsSelectField":
-            return field_input.find_element_by_xpath("div[@class='input-body']/select")
-
+            return field_input.find_element_by_xpath(
+                "div[@class='input-body']/select")

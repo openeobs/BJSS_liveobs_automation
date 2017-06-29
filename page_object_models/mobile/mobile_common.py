@@ -3,12 +3,11 @@ Common Functionality for Mobile
 This class contains common functionality for the mobile frontend such as:
 - navigating to a particular URL
 """
-from liveobs_ui.selectors.list import LIST_CONTAINER
-
+from liveobs_ui.selectors.mobile.list import LIST_CONTAINER
 from liveobs_ui.page_object_models.common.base_liveobs_page import \
     BaseLiveObsPage
-from liveobs_ui.selectors.mobile.menu_selectors import TASK_ITEM, PATIENT_ITEM, \
-    LOGOUT_BUTTON
+from liveobs_ui.selectors.mobile.menu_selectors import TASK_ITEM, \
+    PATIENT_ITEM, LOGOUT_BUTTON
 
 
 class BaseMobilePage(BaseLiveObsPage):
