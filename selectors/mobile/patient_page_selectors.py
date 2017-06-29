@@ -9,3 +9,4 @@ OPEN_OBS_MENU_LIST_ITEMS = (By.CSS_SELECTOR, '#obs_menu .menu li a')
 OPEN_OBS_MENU_NEWS = (By.CSS_SELECTOR, '#obs_menu li a:first-child')
 OPEN_OBS_MENU_CLOSE_BUTTON = \
     (By.CSS_SELECTOR, '#obs_menu options li:first-child() a')
+

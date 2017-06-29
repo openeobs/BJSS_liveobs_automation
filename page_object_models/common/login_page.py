@@ -7,7 +7,7 @@ from selenium.webdriver.support.select import Select
 
 from liveobs_ui.page_object_models.common.base_liveobs_page import \
     BaseLiveObsPage
-from liveobs_ui.selectors.login_page_selectors import USERNAME_FIELD, \
+from liveobs_ui.selectors.mobile.login_page_selectors import USERNAME_FIELD, \
     PASSWORD_FIELD, SUBMIT_BUTTON, DATABASE_DROPDOWN, LOGIN_ERROR_ALERT, \
     LOGIN_FIELD
 

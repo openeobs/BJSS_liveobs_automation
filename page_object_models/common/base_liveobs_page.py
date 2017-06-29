@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from liveobs_ui.selectors.desktop.form_selectors import \
     FORM_VIEW_AUTOCOMPLETE_CONTAINER
+from selenium.common.exceptions import ElementNotVisibleException
 
 
 class BaseLiveObsPage(object):
@@ -151,3 +152,29 @@ class BaseLiveObsPage(object):
                 )
             )
         )
+
+    @staticmethod
+    def element_is_displayed(element_object):
+        """
+        Verify that an element is visible on the page
+
+        :param element_object: the object or element to verify
+        :return: asserts if element is displayed
+        """
+        try:
+            assert element_object.is_displayed()
+        except ElementNotVisibleException as e:
+            print(e)
+
+    @staticmethod
+    def element_is_not_displayed(element_object):
+        """
+        Ensure that an element is not visible on the page
+
+        :param element_object: the object or element to verify
+        :return: asserts if element is displayed
+        """
+        try:
+            assert element_object.is_not_displayed()
+        except Exception as e:
+            print(e)
