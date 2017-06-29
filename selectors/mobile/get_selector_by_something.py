@@ -40,3 +40,12 @@ def get_observation_form_field_selector(field_name):
         'Limb Movement - Right Leg': LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD,
         'Waist Measurement (cm)': WAIST_MEASSURE_ENTRY_FIELD,
     }.get(field_name)
+
+
+def get_button_selector(button_name):
+    """
+    something about what this does
+    """
+    return {
+        'Take observation': TAKE_OBSERVATION_BUTTON,
+    }.get(button_name)

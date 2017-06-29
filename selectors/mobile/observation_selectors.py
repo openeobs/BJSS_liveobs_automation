@@ -31,3 +31,6 @@ LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD = (By.ID, 'parent_limb_movement_left_arm')
 
 # Locators used in automation tests - Weight Obs form
 WAIST_MEASSURE_ENTRY_FIELD = (By.ID, 'parent_waist_measurement')
+
+# Locators for mobile buttons
+TAKE_OBSERVATION_BUTTON = (By.ID, 'take-observation')
