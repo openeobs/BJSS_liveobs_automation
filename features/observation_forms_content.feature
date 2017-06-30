@@ -53,3 +53,17 @@ Feature: Mobile - Observation forms
     And the Limb Movement - Right Arm field is displayed
     And the Limb Movement - Left Leg field is displayed
     And the Limb Movement - Right Leg field is displayed
+    And the Eyes Open entry field is set to Mandatory
+    And the Limb Movement - Right Leg entry field is set to Necessary
+
+
+  Scenario: Weight Observation Form is correctly displayed
+    Given a user with the Nurse role logs into the app
+    And they view the My Patients list
+    And the My Patients list has loaded
+    When a random patient is selected
+    And the Take observation button is selected
+    And the Weight observation is selected from the list
+    Then the Weight observation form is displayed
+    And the Waist Measurement (cm) field is displayed
+    And the Waist Measurement (cm) entry field is not set to Necessary

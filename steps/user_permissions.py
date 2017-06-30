@@ -1,7 +1,11 @@
 """ Step Implementations for user_permissions.feature """
-from behave import given, when, then
-from liveobs_ui.page_object_models.login_page import LoginPage
-from liveobs_ui.page_object_models.list_page import ListPage
+
+# pylint: disable=invalid-name
+# pylint: disable=no-name-in-module
+
+from behave import given, then
+from liveobs_ui.page_object_models.common.login_page import LoginPage
+from liveobs_ui.page_object_models.mobile.list_page import ListPage
 
 
 @given("a user with the {user_role} role logs into the app")
