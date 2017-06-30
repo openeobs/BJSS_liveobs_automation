@@ -3,6 +3,7 @@ Page Object Model for List Page
 The List Page is a base class for the task and patient lists as they use the
 same template to render content
 """
+import random
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.mobile.list import LIST_ITEM, LIST_CONTAINER, \
     LIST_ITEM_DATA_NAME, LIST_ITEM_DATA_INFO
@@ -69,3 +70,13 @@ class ListPage(BaseMobilePage):
         """
         task_info_el = list_item.find_element(*LIST_ITEM_DATA_INFO)
         return task_info_el.text
+
+    def select_random_patient(self):
+        """
+        Finds a random patient in the patient list and selects it
+
+        :return: selects and opens patient
+        """
+        patients = self.get_list_items()
+        patient = random.choice(patients)
+        self.open_item(patient)

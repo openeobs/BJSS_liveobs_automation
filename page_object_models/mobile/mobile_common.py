@@ -61,8 +61,34 @@ class BaseMobilePage(BaseLiveObsPage):
     def find_button_to_select(self, button_name):
         """
         Find a button in the page by name
-        :return:
+
+        :return: the button element on the page
         """
         button_selector = get_button_selector(button_name)
         button_element = self.driver.find_element(*button_selector)
         return button_element
+
+    def go_to_mobile_page(self, mobile_page):
+        """
+        Navigate to the specified page in the mobile app
+
+        :param mobile_page:
+        :return: Calls method to navigate to the Tasks or the Patients page
+        """
+        if mobile_page == 'My Patients':
+            self.go_to_patient_list()
+        elif mobile_page == 'Tasks':
+            self.go_to_task_list()
+
+    def verify_mobile_page_loaded(self, page_name):
+        """
+        Asserts the expected page has loaded
+        :param page_name: name of the page to verify
+        :return: true/false on assertion
+        """
+        if page_name == 'My Patients':
+            assert self.is_patient_list(), \
+                'Expected to be in {} but it is not'.format(page_name)
+        elif page_name == 'Tasks':
+            assert self.is_task_list(), \
+                'Expected to be in {} but it is not'.format(page_name)

@@ -7,6 +7,8 @@ from liveobs_ui.selectors.mobile.data_entry_selectors import \
     PATIENT_INFO_POPUP_CLOSE_BUTTON
 from liveobs_ui.selectors.mobile.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
+from liveobs_ui.selectors.mobile.get_selector_by_something import \
+    get_observation_form_type_selector, get_observation_form_field_selector
 
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
@@ -113,24 +115,25 @@ class DataEntryPage(BaseMobilePage):
         modal_page.click_modal_option(cancel_modal, 'Submit')
 
     @staticmethod
-    def verify_field_attribute_type(element_path, expected_state, something):
+    def verify_field_attribute_type(element_path, expected_state, state_set):
         """
         Verifies that the attribute of a field in an observation form is
         set to the expected type
 
         :param element_path: the locator for the attribute in the form
         :param expected_state: Either 'Mandatory' or 'Necessary'
+        :param state_set: the status of the expected_state to be true/false
         :return:
         """
         if expected_state == 'Mandatory':
-            if something == 'set to':
+            if state_set == 'set to':
                 assert element_path.get_attribute("data-required") == 'true'
-            elif something == 'not set to':
+            elif state_set == 'not set to':
                 assert element_path.get_attribute("data-required") == 'false'
         elif expected_state == 'Necessary':
-            if something == 'set to':
+            if state_set == 'set to':
                 assert element_path.get_attribute("data-necessary") == 'true'
-            elif something == 'not set to':
+            elif state_set == 'not set to':
                 assert element_path.get_attribute("data-necessary") == 'false'
 
     @staticmethod
@@ -149,3 +152,41 @@ class DataEntryPage(BaseMobilePage):
         elif attribute == "block obsSelectField":
             return field_input.find_element_by_xpath(
                 "div[@class='input-body']/select")
+
+    def verify_obs_form_displayed(self, obs_type):
+        """
+        Finds the data-type attribute for the currently open observation form
+        and compares the result to the expected data-type as per the obs_type
+        selected
+
+        :param obs_type: the observation selected
+        """
+        obs_form = self.driver.find_element_by_id('obsForm')
+        self.element_is_displayed(obs_form)
+        displayed_obs_form = self.get_data_model_from_form()
+        expected_obs_form = get_observation_form_type_selector(obs_type)
+        assert displayed_obs_form == expected_obs_form
+        assert self.get_data_model_from_form() == \
+            get_observation_form_type_selector(obs_type)
+
+    def verify_obs_field_displayed(self, obs_field):
+        """
+        Locates a specific field in an observation form and verifies its
+        visibility
+
+        :param obs_field: the observation field to look for
+        """
+        field_selector = get_observation_form_field_selector(obs_field)
+        obs_fields = self.driver.find_element(*field_selector)
+        self.element_is_displayed(obs_fields)
+
+    def verify_obs_field_not_displayed(self, obs_field):
+        """
+        Locate a specific field in an observation form and verifies it is not
+        visible
+
+        :param obs_field: the observation field to look for
+        """
+        field_selector = get_observation_form_field_selector(obs_field)
+        obs_fields = self.driver.find_element(*field_selector)
+        self.element_is_not_displayed(obs_fields)
