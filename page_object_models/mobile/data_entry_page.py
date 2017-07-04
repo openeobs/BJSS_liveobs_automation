@@ -115,18 +115,6 @@ class DataEntryPage(BaseMobilePage):
         modal_page.click_modal_option(cancel_modal, 'Submit')
 
     @staticmethod
-    def verify_field_attribute_type(element_path, expected_state):
-        """
-        Verifies that the attribute of a field in an observation form is
-        set to the expected type
-
-        :param element_path: the locator for the attribute in the form
-        :param expected_state: the attribute to check in element-path
-        :return: either 'true' or 'false' for the specified attribute's value
-        """
-        return element_path.get_attribute(expected_state)
-
-    @staticmethod
     def locate_attribute_path(field_input):
         """
         Identify the class of the input field and return the specific locator
