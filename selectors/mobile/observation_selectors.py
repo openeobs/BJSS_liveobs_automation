@@ -34,9 +34,3 @@ WAIST_MEASSURE_ENTRY_FIELD = (By.ID, 'parent_waist_measurement')
 
 # Locators for mobile buttons
 TAKE_OBSERVATION_BUTTON = (By.ID, 'take-observation')
-
-# Locators for observation forms data-types
-NEWS_FORM_DATA_TYPE = 'ews'
-NEURO_FORM_DATA_TYPE = 'neurological'
-BG_FORM_DATA_TYPE = 'blood_glucose'
-WEIGHT_FORM_DATA_TYPE = 'weight'

@@ -8,7 +8,7 @@ from liveobs_ui.selectors.mobile.data_entry_selectors import \
 from liveobs_ui.selectors.mobile.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
 from liveobs_ui.selectors.mobile.get_selector_by_something import \
-    get_observation_form_type_selector, get_observation_form_field_selector
+    get_element_selector
 
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
@@ -142,6 +142,9 @@ class DataEntryPage(BaseMobilePage):
         elif attribute == "block obsSelectField":
             return field_input.find_element_by_xpath(
                 "div[@class='input-body']/select")
+        else:
+            raise ValueError(" {} element doesn't belong to specified classes"
+                             .format(field_input))
 
     def verify_obs_form_displayed(self, obs_type):
         """
@@ -154,7 +157,7 @@ class DataEntryPage(BaseMobilePage):
         obs_form = self.driver.find_element_by_id('obsForm')
         self.element_is_displayed(obs_form)
         return self.get_data_model_from_form() == \
-            get_observation_form_type_selector(obs_type)
+            get_element_selector(obs_type)
 
     def verify_obs_field_displayed(self, obs_field):
         """
@@ -163,7 +166,7 @@ class DataEntryPage(BaseMobilePage):
 
         :param obs_field: the observation field to look for
         """
-        field_selector = get_observation_form_field_selector(obs_field)
+        field_selector = get_element_selector(obs_field)
         obs_fields = self.driver.find_element(*field_selector)
         return self.element_is_displayed(obs_fields)
 
@@ -174,6 +177,6 @@ class DataEntryPage(BaseMobilePage):
 
         :param obs_field: the observation field to look for
         """
-        field_selector = get_observation_form_field_selector(obs_field)
+        field_selector = get_element_selector(obs_field)
         obs_fields = self.driver.find_element(*field_selector)
         return self.element_is_not_displayed(obs_fields)

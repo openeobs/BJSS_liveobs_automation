@@ -9,7 +9,7 @@ from liveobs_ui.page_object_models.common.base_liveobs_page import \
 from liveobs_ui.selectors.mobile.menu_selectors import TASK_ITEM, \
     PATIENT_ITEM, LOGOUT_BUTTON
 from liveobs_ui.selectors.mobile.get_selector_by_something import \
-    get_button_selector
+    get_element_selector
 
 
 class BaseMobilePage(BaseLiveObsPage):
@@ -64,6 +64,6 @@ class BaseMobilePage(BaseLiveObsPage):
 
         :return: the button element on the page
         """
-        button_selector = get_button_selector(button_name)
+        button_selector = get_element_selector(button_name)
         button_element = self.driver.find_element(*button_selector)
         return button_element

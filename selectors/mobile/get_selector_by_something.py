@@ -10,11 +10,12 @@ from .observation_selectors import BLOOD_GLUCOSE_ENTRY_FIELD, \
     PUP_RIGHT_SIZE_ENTRY_FIELD, LIMB_MOVE_LEFT_ARM_ENTRY_FIELD, \
     LIMB_MOVE_LEFT_LEG_ENTRY_FIELD, LIMB_MOVE_RIGHT_ARM_ENTRY_FIELD, \
     LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD, WAIST_MEASSURE_ENTRY_FIELD, \
-    TAKE_OBSERVATION_BUTTON, NEWS_FORM_DATA_TYPE, NEURO_FORM_DATA_TYPE, \
+    TAKE_OBSERVATION_BUTTON
+from .constants import NEWS_FORM_DATA_TYPE, NEURO_FORM_DATA_TYPE, \
     BG_FORM_DATA_TYPE, WEIGHT_FORM_DATA_TYPE
 
 
-def get_observation_form_field_selector(field_name):
+def get_element_selector(element_name):
     """ something about what this does
 
     """
@@ -41,27 +42,9 @@ def get_observation_form_field_selector(field_name):
         'Limb Movement - Left Leg': LIMB_MOVE_LEFT_LEG_ENTRY_FIELD,
         'Limb Movement - Right Leg': LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD,
         'Waist Measurement (cm)': WAIST_MEASSURE_ENTRY_FIELD,
-    }.get(field_name)
-
-
-def get_button_selector(button_name):
-    """
-    something about what this does
-    """
-    return {
         'Take observation': TAKE_OBSERVATION_BUTTON,
-    }.get(button_name)
-
-
-def get_observation_form_type_selector(obs_type):
-    """
-    Find and return the expected attribute for a specific obs form
-    :param obs_type: the observation form expected
-    :return: the path to the data-type attribute
-    """
-    return {
         'NEWS': NEWS_FORM_DATA_TYPE,
         'Neurological': NEURO_FORM_DATA_TYPE,
         'Blood Glucose': BG_FORM_DATA_TYPE,
         'Weight': WEIGHT_FORM_DATA_TYPE,
-    }.get(obs_type)
+    }.get(element_name)
