@@ -163,20 +163,21 @@ class BaseLiveObsPage(object):
         Verify that an element is visible on the page
 
         :param element_object: the object or element to verify
-        :return: asserts if element is displayed
+        :return: either True/False for the element being displayed
         """
         try:
-            assert element_object.is_displayed()
+            return element_object.is_displayed()
         except ElementNotVisibleException as error:
             _LOGGER.info(error)
+            return False
 
     @staticmethod
     def element_is_not_displayed(element_object):
         """
-        Ensure that an element is not visible on the page
+        Verify that an element is not visible on the page
 
         :param element_object: the object or element to verify
-        :return: asserts if element is displayed
+        :return: either True/False for the element not being displayed
         """
         try:
             assert element_object.is_not_displayed()
