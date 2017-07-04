@@ -167,4 +167,4 @@ class DataEntryPage(BaseMobilePage):
         """
         field_selector = get_element_selector(obs_field)
         obs_fields = self.driver.find_element(*field_selector)
-        return self.element_is_not_displayed(obs_fields)
+        return not self.element_is_not_displayed(obs_fields)
