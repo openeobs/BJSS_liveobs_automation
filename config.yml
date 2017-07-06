@@ -4,6 +4,6 @@ user_role_map:
   Nurse: nasir
   Doctor: dale
 database: nhclinical
-server: "http://176.34.133.2"
+server: "http://54.246.138.149"
 urls:
   login: "/mobile/login"

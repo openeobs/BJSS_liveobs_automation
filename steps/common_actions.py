@@ -3,13 +3,17 @@
 # pylint: disable=invalid-name
 # pylint: disable=no-name-in-module
 
-# from time import sleep
+from time import sleep
+from selenium import webdriver
 from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
+from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
 from liveobs_ui.selectors.mobile.get_selector_by_something import \
-    get_observation_form_field_selector
+    get_element_selector
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
+from liveobs_ui.selectors.mobile.patient_page_selectors import \
+    ADHOC_OBS_MENU_BUTTON
 
 
 @given("they view the {page_select} list")
@@ -22,7 +26,10 @@ def user_views_task_list(context, page_select):
     :param context: Behave context
     """
     patient_list = ListPage(context.driver)
-    patient_list.go_to_mobile_page(page_select)
+    if page_select == 'My Patients':
+        patient_list.go_to_patient_list()
+    elif page_select == 'Tasks':
+        patient_list.go_to_task_list()
 
 
 @given("the {page_name} list has loaded")
@@ -35,7 +42,12 @@ def test_check(context, page_name):
     :param page_name: name of the page expected, passed to verify correct URL
     """
     loaded_page = ListPage(context.driver)
-    loaded_page.verify_mobile_page_loaded(page_name)
+    if page_name == 'My Patients':
+        assert loaded_page.is_patient_list(), \
+            'Expected to be in {} but it is not'.format(page_name)
+    elif page_name == 'Tasks':
+        assert loaded_page.is_task_list(), \
+            'Expected to be in {} but it is not'.format(page_name)
 
 
 @when('the {button_name} button is selected')
@@ -74,9 +86,12 @@ def select_take_specific_obs_from_list(context, observation_type):
     :return: selects the specified observation from the list to open
         the observation form
     """
+    patient_page = PatientPage(context.driver)
+    # patient_page.open_observation_form(observation_type)
     obs_element = context.driver.find_element_by_partial_link_text(
         observation_type)
-    obs_element.click()
+    patient_page.click_and_verify_change(obs_element, ADHOC_OBS_MENU_BUTTON,
+                                         hidden=True)
 
 
 @then('the {observation_type} observation form is displayed')
@@ -85,11 +100,12 @@ def verify_obs_form_is_displayed(context, observation_type):
     Verify the specified observation form is displayed
 
     :param context: Behave context
-    :param observation_type: name of the observation form to be checked - not
-    currently implemented
+    :param observation_type: name of the observation form to be checked
     """
     form_check = DataEntryPage(context.driver)
-    form_check.verify_obs_form_displayed(observation_type)
+    assert form_check.verify_obs_form_displayed(observation_type), \
+        "Expected Form for '{}' to be displayed but it isn't.".format(
+            observation_type)
 
 
 @then('the {observation_field} field is displayed')
@@ -101,7 +117,9 @@ def verify_obs_field_is_displayed(context, observation_field):
     :param observation_field: name of the observation field to be checked
     """
     field_check = DataEntryPage(context.driver)
-    field_check.verify_obs_field_displayed(observation_field)
+    assert field_check.verify_obs_field_displayed(observation_field), \
+        "Expected field '{}' to be displayed but it isn't.".format(
+            observation_field)
 
 
 @then('the {observation_field} field is not displayed')
@@ -113,10 +131,12 @@ def verify_obs_field_is_not_displayed(context, observation_field):
     :param observation_field: name of the observation field to be checked
     """
     field_check = DataEntryPage(context.driver)
-    field_check.verify_obs_field_not_displayed(observation_field)
+    assert field_check.verify_obs_field_not_displayed(observation_field), \
+        "Expected field '{}' to not be displayed but it is.".format(
+            observation_field)
 
 
-@then('the {obs_data_entry_field} entry field is {state_set} '
+@then('the {obs_data_entry_field} entry field is {state_set} to '
       '{expected_state_type}')
 def verify_field_is_necessary(context, obs_data_entry_field,
                               state_set, expected_state_type):
@@ -129,10 +149,44 @@ def verify_field_is_necessary(context, obs_data_entry_field,
     :param state_set: specifies the true/false state to verify
     :param expected_state_type: Either 'Mandatory' or 'Necessary'
     """
-    field_selector = get_observation_form_field_selector(
+    field_selector = get_element_selector(
         obs_data_entry_field)
     field_input = context.driver.find_element(*field_selector)
     stuff = DataEntryPage(context.driver)
     attribute_type_path = stuff.locate_attribute_path(field_input)
-    stuff.verify_field_attribute_type(
-        attribute_type_path, expected_state_type, state_set)
+    if expected_state_type == 'Mandatory':
+        if state_set == 'set':
+            assert attribute_type_path.get_attribute(
+                "data-required") == 'true'
+        elif state_set == 'not set':
+            assert attribute_type_path.get_attribute(
+                "data-required") == 'false'
+    elif expected_state_type == 'Necessary':
+        if state_set == 'set':
+            assert attribute_type_path.get_attribute(
+                "data-necessary") == 'true'
+        elif state_set == 'not set':
+            assert attribute_type_path.get_attribute(
+                "data-necessary") == 'false'
+
+
+@when('the value {value} is inputted in the {input_field} field')
+def input_value_in_field(context, value, input_field):
+    field_selector = get_element_selector(
+        input_field)
+    stuff = DataEntryPage(context.driver)
+    field_input = context.driver.find_element(*field_selector)
+    foo = stuff.locate_attribute_path(field_input)
+    stuff.fill_input_field(foo, value)
+    # sleep(2)
+
+
+@when('the value {value} is selected in the {input_field} field')
+def input_value_in_field(context, value, input_field):
+    field_selector = get_element_selector(
+        input_field)
+    stuff = DataEntryPage(context.driver)
+    field_input = context.driver.find_element(*field_selector)
+    foo = stuff.locate_attribute_path(field_input)
+    stuff.fill_select_field(foo, value)
+    # sleep(2)
