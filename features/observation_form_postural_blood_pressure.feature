@@ -17,6 +17,6 @@ Feature: Postural Blood Pressure Observation - Data Entry
     And the Standing Blood Pressure Systolic field is not displayed
     And the Standing Blood Pressure Diastolic field is not displayed
     When the value 120 is inputted in the Sitting Blood Pressure Systolic field
-    When the value 80 is inputted in the Sitting Blood Pressure Diastolic field
+    And the value 80 is inputted in the Sitting Blood Pressure Diastolic field
     Then the Standing Blood Pressure Systolic field is displayed
     And the Standing Blood Pressure Diastolic field is displayed
