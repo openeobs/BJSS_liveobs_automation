@@ -124,10 +124,10 @@ class DataEntryPage(BaseMobilePage):
         :return: locator for the attribute in the DOM
         """
         attribute = field_input.get_attribute("class")
-        if attribute == "block obsField":
+        if 'obsField' in attribute:
             return field_input.find_element_by_xpath(
                 "div[@class='input-header']/input")
-        elif attribute == "block obsSelectField":
+        elif 'obsSelectField' in attribute:
             return field_input.find_element_by_xpath(
                 "div[@class='input-body']/select")
         else:
@@ -167,4 +167,4 @@ class DataEntryPage(BaseMobilePage):
         """
         field_selector = get_element_selector(obs_field)
         obs_fields = self.driver.find_element(*field_selector)
-        return not self.element_is_not_displayed(obs_fields)
+        return not self.element_is_displayed(obs_fields)
