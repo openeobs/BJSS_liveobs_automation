@@ -23,5 +23,5 @@ Feature: Neurological Observation - Data Entry
     And the Limb Movement - Right Arm field is displayed
     And the Limb Movement - Left Leg field is displayed
     And the Limb Movement - Right Leg field is displayed
-    And the Eyes Open entry field is set to Mandatory
-    And the Limb Movement - Right Leg entry field is set to Necessary
+    And the Eyes Open entry field is not set to Mandatory
+    And the Limb Movement - Right Leg entry field is not set to Necessary

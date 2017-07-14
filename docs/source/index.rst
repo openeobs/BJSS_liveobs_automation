@@ -36,8 +36,9 @@ If you want to run a particular suite you can use
 .. toctree::
    :maxdepth: 2
    :caption: Steps:
+   :glob:
 
-   steps/user_permissions
+   steps/*
 
 
 

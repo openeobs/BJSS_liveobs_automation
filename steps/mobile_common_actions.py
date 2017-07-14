@@ -154,20 +154,21 @@ def verify_field_is_necessary(context, obs_data_entry_field,
     field_input = context.driver.find_element(*field_selector)
     stuff = DataEntryPage(context.driver)
     attribute_type_path = stuff.locate_attribute_path(field_input)
-    if expected_state_type == 'Mandatory':
-        if state_set == 'set':
-            assert attribute_type_path.get_attribute(
-                "data-required") == 'true'
-        elif state_set == 'not set':
-            assert attribute_type_path.get_attribute(
-                "data-required") == 'false'
-    elif expected_state_type == 'Necessary':
-        if state_set == 'set':
-            assert attribute_type_path.get_attribute(
-                "data-necessary") == 'true'
-        elif state_set == 'not set':
-            assert attribute_type_path.get_attribute(
-                "data-necessary") == 'false'
+    states = {
+        'set': 'true',
+        'not set': 'false'
+    }
+    attrib = {
+        'Mandatory': stuff.get_state_of_el(
+            attribute_type_path,
+            'data-required',
+            states.get(state_set)),
+        'Necessary': stuff.get_state_of_el(
+            attribute_type_path,
+            'data-necessary',
+            states.get(state_set))
+    }
+    assert attrib.get(expected_state_type)
 
 
 @when('the value {value} is inputted in the {input_field} field')
@@ -185,7 +186,6 @@ def input_value_in_field(context, value, input_field):
     field_input = context.driver.find_element(*field_selector)
     field_locator = stuff.locate_attribute_path(field_input)
     stuff.fill_input_field(field_locator, value)
-    # sleep(2)
 
 
 @when('the value {value} is selected in the {input_field} field')
@@ -203,4 +203,3 @@ def select_value_in_field(context, value, input_field):
     field_input = context.driver.find_element(*field_selector)
     field_locator = stuff.locate_attribute_path(field_input)
     stuff.fill_select_field(field_locator, value)
-    # sleep(2)
