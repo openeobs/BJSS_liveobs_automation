@@ -3,8 +3,8 @@
 # pylint: disable=invalid-name
 # pylint: disable=no-name-in-module
 
-from time import sleep
-from selenium import webdriver
+# from time import sleep
+# from selenium import webdriver
 from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
@@ -172,21 +172,35 @@ def verify_field_is_necessary(context, obs_data_entry_field,
 
 @when('the value {value} is inputted in the {input_field} field')
 def input_value_in_field(context, value, input_field):
+    """
+
+    :param context:
+    :param value:
+    :param input_field:
+    :return:
+    """
     field_selector = get_element_selector(
         input_field)
     stuff = DataEntryPage(context.driver)
     field_input = context.driver.find_element(*field_selector)
-    foo = stuff.locate_attribute_path(field_input)
-    stuff.fill_input_field(foo, value)
+    field_locator = stuff.locate_attribute_path(field_input)
+    stuff.fill_input_field(field_locator, value)
     # sleep(2)
 
 
 @when('the value {value} is selected in the {input_field} field')
-def input_value_in_field(context, value, input_field):
+def select_value_in_field(context, value, input_field):
+    """
+
+    :param context:
+    :param value:
+    :param input_field:
+    :return:
+    """
     field_selector = get_element_selector(
         input_field)
     stuff = DataEntryPage(context.driver)
     field_input = context.driver.find_element(*field_selector)
-    foo = stuff.locate_attribute_path(field_input)
-    stuff.fill_select_field(foo, value)
+    field_locator = stuff.locate_attribute_path(field_input)
+    stuff.fill_select_field(field_locator, value)
     # sleep(2)
