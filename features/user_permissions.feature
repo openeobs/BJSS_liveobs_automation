@@ -2,7 +2,6 @@
   # JIRA: EOBS-
   # Scenarios covered:
 
-
 Feature: User Permissions for Tasks
   In order to have access to only the functionality I'm allowed to do
   As a user of the system with a specified user role

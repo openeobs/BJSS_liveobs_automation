@@ -1,8 +1,8 @@
 # Features Added/Changed:
 Please add the name of the feature files added or changed in this PR
 
-# Feature files checks:
-- [ ] JIRA ticket reference
+# Feature file checks:
+- [ ] JIRA ticket reference number
 - [ ] Scenarios covered listed
 
 # Possible issues:
@@ -10,7 +10,7 @@ Please add a summary of any possible issues that could raised from the code chan
 
 
 # General Checks:
-- [ ] Linting passing with score 10/10
+- [ ] Linting passing with score 10/10 (Happy Travis!)
 - [ ] All Tests passing on local run
 - [ ] All commented out code has a reason for it documented
 - [ ] All methods have a detailed docstring / changed methods have updated docstring
