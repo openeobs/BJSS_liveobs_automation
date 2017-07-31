@@ -2,6 +2,7 @@
 
 # pylint: disable=invalid-name
 # pylint: disable=no-name-in-module
+# pylint: disable=unused-argument
 
 from behave import given, then
 from liveobs_ui.page_object_models.common.login_page import LoginPage
