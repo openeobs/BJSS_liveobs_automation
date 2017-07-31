@@ -2,8 +2,13 @@ language: python
 python:
 - '2.7'
 - '3.6'
+before_install:
+- export TRAVIS_NODE_VERSION="6.11.1"
+- rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION
 install:
 - pip install -r requirements.txt
-#script:
-#- flake8 .
-#- pylint liveobs_ui
+- npm install
+script:
+- flake8 steps
+- pylint steps --rcfile=.pylintrc
+- npm run lint

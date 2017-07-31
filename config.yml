@@ -1,0 +1,10 @@
+---
+user_role_map:
+  HCA: hal
+  Nurse: nasir
+  Doctor: dale
+database: nhclinical
+#server: "http://54.246.138.149"
+server: "http://bz2bxga.nhtek.io"
+urls:
+  login: "/mobile/login"
