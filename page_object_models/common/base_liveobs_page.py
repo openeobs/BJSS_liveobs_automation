@@ -10,6 +10,8 @@ from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import ElementNotVisibleException
 from liveobs_ui.selectors.desktop.form_selectors import \
     FORM_VIEW_AUTOCOMPLETE_CONTAINER
+from liveobs_ui.selectors.mobile.get_selector_by_something \
+    import get_element_selector
 from time import sleep
 
 
@@ -142,6 +144,7 @@ class BaseLiveObsPage(object):
 
     def enter_many2one_tag_value(self, element, value):
         """
+
         Add value to many2one tag input then verify that the tag has been added
 
         :param element: many2one tag input element
@@ -183,3 +186,11 @@ class BaseLiveObsPage(object):
         :return: bool
         """
         return el.get_attribute(attribute) == state
+
+    def get_element_by_lookup(self, element_name):
+        """
+        Get an element by the lookup
+        :param element_name: look up term to match
+        :return: webelement
+        """
+        return self.driver.find_element(*get_element_selector(element_name))
