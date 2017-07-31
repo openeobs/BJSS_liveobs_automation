@@ -7,7 +7,7 @@ from liveobs_ui.selectors.mobile.data_entry_selectors import \
     PATIENT_INFO_POPUP_CLOSE_BUTTON
 from liveobs_ui.selectors.mobile.modal import \
     FULLSCREEN_MODAL, FULLSCREEN_MODAL_BUTTON, MODAL_DIALOG
-from liveobs_ui.selectors.mobile.get_selector_by_something import \
+from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
 
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage

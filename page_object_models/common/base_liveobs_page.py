@@ -3,16 +3,14 @@ import time
 import logging
 import selenium.webdriver.support.expected_conditions as ec
 import selenium.webdriver.support.ui as ui
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import ElementNotVisibleException
 from liveobs_ui.selectors.desktop.form_selectors import \
     FORM_VIEW_AUTOCOMPLETE_CONTAINER
-from liveobs_ui.selectors.mobile.get_selector_by_something \
+from liveobs_ui.selectors.mobile.get_selector_by_lookup \
     import get_element_selector
-from time import sleep
 
 
 _LOGGER = logging.getLogger(__name__)
@@ -177,15 +175,15 @@ class BaseLiveObsPage(object):
             return False
 
     @staticmethod
-    def get_state_of_el(el, attribute, state):
+    def get_state_of_el(element, attribute, state):
         """
         Return if attribute on element is a particular state
-        :param el: Webelement
+        :param element: Webelement
         :param attribute: attribute to find
         :param state: expected value
         :return: bool
         """
-        return el.get_attribute(attribute) == state
+        return element.get_attribute(attribute) == state
 
     def get_element_by_lookup(self, element_name):
         """

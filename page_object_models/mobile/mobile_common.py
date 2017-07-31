@@ -8,7 +8,7 @@ from liveobs_ui.page_object_models.common.base_liveobs_page import \
     BaseLiveObsPage
 from liveobs_ui.selectors.mobile.menu_selectors import TASK_ITEM, \
     PATIENT_ITEM, LOGOUT_BUTTON
-from liveobs_ui.selectors.mobile.get_selector_by_something import \
+from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
 
 
