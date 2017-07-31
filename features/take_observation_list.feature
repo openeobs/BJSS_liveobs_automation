@@ -11,6 +11,15 @@ Feature: Mobile UI - 'Take Observation' dropdown list
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
-    When a random patient is selected
+    When Patient Doyle, Worth Scott is selected
     And the Take observation button is selected
-#    Then the NEWS observation is listed # step not implemented
+    Then the NEWS observation is listed
+    And the Neurological observation is listed
+    And the Blood Glucose observation is listed
+    And the Weight observation is listed
+    And the Postural Blood Pressure observation is listed
+    And the Height observation is listed
+    And the Blood Product observation is listed
+    And the Food and Fluid observation is not listed
+    And the GCS observation is not listed
+    And the Bristol Stool observation is not listed

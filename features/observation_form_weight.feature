@@ -8,7 +8,7 @@ Feature: Weight Observation - Data Entry
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
-    When a random patient is selected
+    When Patient Doyle, Worth Scott is selected
     And the Take observation button is selected
     And the Weight observation is selected from the list
     Then the Weight observation form is displayed
