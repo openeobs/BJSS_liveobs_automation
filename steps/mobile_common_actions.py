@@ -3,13 +3,11 @@
 # pylint: disable=invalid-name
 # pylint: disable=no-name-in-module
 
-# from time import sleep
-# from selenium import webdriver
 from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
-from liveobs_ui.selectors.mobile.get_selector_by_something import \
+from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
 from liveobs_ui.selectors.mobile.patient_page_selectors import \
     ADHOC_OBS_MENU_BUTTON
