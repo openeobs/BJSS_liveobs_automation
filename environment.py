@@ -17,9 +17,10 @@ def before_all(context):
         "version": "58.0",
 
     }
-    test_name = 'Testing Automation with Sauce Labs'
+    test_name = 'Selenium for Neovahealth/openeobs run {}'.format(
+        environ.get('TRAVIS_JOB_NUMBER', None))
     build_tag = environ.get('BUILD_TAG', None)
-    tunnel_id = environ.get('TUNNEL_IDENTIFIER', None)
+    tunnel_id = environ.get('TRAVIS_JOB_NUMBER', None)
     username = environ.get('SAUCE_USERNAME', None)
     access_key = environ.get('SAUCE_ACCESS_KEY', None)
 
