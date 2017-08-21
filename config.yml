@@ -5,6 +5,6 @@ user_role_map:
   Doctor: dale
 database: nhclinical
 #server: "http://54.246.138.149"
-server: "localhost:8069"
+server: "http://localhost:8069"
 urls:
   login: "/mobile/login"
