@@ -4,8 +4,6 @@ install_sauce_connect:
 	tar -xf sauce_connect.tar.gz
 	rm sauce_connect.tar.gz
 	mv sc-4.4.9-linux sauce_connect
-	apt-get update
-	apt-get install deamon
 
 run_sauce_connect:
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
