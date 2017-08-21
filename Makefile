@@ -4,10 +4,12 @@ install:
 	virtualenv venv
 	venv/bin/pip install -r requirements.txt
 
-setup_chromedriver:
-	#export PATH=$$PATH:/usr/lib/chromium-browser/
+install_chromedriver:
+	curl -o chromedriver.zip -SL https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
+	unzip -d chromedriver chromedriver.zip
+	rm chromedriver.zip
 
-run: setup_chromedriver
-	PATH=$$PATH:/usr/lib/chromium-browser/ venv/bin/behave features/
+run: install_chromedriver
+	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
-.PHONY: install run
+.PHONY: install run install_chromedriver
