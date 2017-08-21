@@ -7,6 +7,7 @@ install_sauce_connect:
 
 run_sauce_connect:
 	sauce_connect/bin/sc -u ${SAUCELABS_USERNAME} -k ${SAUCELABS_ACCESS_TOKEN} -l sauce_connect.log -i ${GO_REVISION_LIVEOBS} &
+	sleep 15
 
 install:
 	virtualenv venv
