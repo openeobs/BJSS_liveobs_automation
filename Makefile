@@ -19,7 +19,7 @@ install_chromedriver:
 	rm chromedriver.zip
 
 run: install_chromedriver
-	curl -o http://localhost:8069/web
+	curl http://localhost:8069/web
 	sleep 15
 	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
