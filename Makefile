@@ -6,8 +6,12 @@ install_sauce_connect:
 	mv sc-4.4.9-linux sauce_connect
 
 run_sauce_connect:
-	$$(nohup sauce_connect/bin/sc -u ${SAUCELABS_USERNAME} -k ${SAUCELABS_ACCESS_TOKEN} -l sauce_connect.log -i ${GO_REVISION_LIVEOBS} &) \
-		&& sleep 30
+	(nohup sauce_connect/bin/sc \
+		-u ${SAUCELABS_USERNAME} \
+		-k ${SAUCELABS_ACCESS_TOKEN} \
+		-l sauce_connect.log \
+		-i ${GO_REVISION_LIVEOBS} &)
+	sleep 30
 
 install:
 	virtualenv venv
