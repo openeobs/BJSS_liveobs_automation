@@ -8,8 +8,8 @@ from os import environ
 def before_all(context):
     """
     Before all features and scenarios are run set up environment
-    
-    :param context: Behave context 
+
+    :param context: Behave context
     """
     desired_caps = {
         "platform": "Windows 10",
@@ -17,12 +17,12 @@ def before_all(context):
         "version": "58.0",
 
     }
-    test_name = 'Selenium for Neovahealth/openeobs run {}'.format(
-        environ.get('TRAVIS_JOB_NUMBER', None))
-    build_tag = environ.get('BUILD_TAG', None)
-    tunnel_id = environ.get('TRAVIS_JOB_NUMBER', None)
-    username = environ.get('SAUCE_USERNAME', None)
-    access_key = environ.get('SAUCE_ACCESS_KEY', None)
+    test_name = 'Selenium for run {}'.format(
+        environ.get('GO_PIPELINE_LABEL', None))
+    build_tag = environ.get('GO_PIPELINE_LABEL', None)
+    tunnel_id = environ.get('GO_REVISION_LIVEOBS', None)
+    username = environ.get('SAUCELABS_USERNAME', None)
+    access_key = environ.get('SAUCELABS_ACCESS_TOKEN', None)
 
     selenium_endpoint = "https://%s:%s@ondemand.saucelabs.com:443/wd/hub" % (
     username, access_key)
@@ -46,14 +46,14 @@ def before_all(context):
             browser.session_id, test_name))
     else:
         raise WebDriverException("Never created!")
-    context.driver = webdriver.Chrome()
+    context.driver = browser
     context.helpers = AutomationHelpers('config.yml')
 
 
 def after_all(context):
     """
     After all features and scenarios are run clean up the environment
-    
-    :param context: Behave context 
+
+    :param context: Behave context
     """
     context.driver.quit()
