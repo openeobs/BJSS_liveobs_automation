@@ -6,7 +6,7 @@ install_sauce_connect:
 	mv sc-4.4.9-linux sauce_connect
 
 run_sauce_connect:
-	test -f /var/tmp/sc.pid && kill -9 $(cat /var/tmp/sc.pid)
+	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid)
 	(nohup sauce_connect/bin/sc \
 		-u ${SAUCELABS_USERNAME} \
 		-k ${SAUCELABS_ACCESS_TOKEN} \
