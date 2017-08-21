@@ -30,6 +30,8 @@ def before_all(context):
     desired_caps['tunnelIdentifier'] = tunnel_id
     desired_caps['name'] = test_name
 
+    print "Using tunnelIdentifier = {}".format(tunnel_id)
+
     executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
     browser = webdriver.Remote(
         command_executor=executor,
