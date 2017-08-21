@@ -4,15 +4,17 @@ install_sauce_connect:
 	tar -xf sauce_connect.tar.gz
 	rm sauce_connect.tar.gz
 	mv sc-4.4.9-linux sauce_connect
+	apt-get update
+	apt-get install deamon
 
 run_sauce_connect:
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
-	(nohup sauce_connect/bin/sc \
+	deamon -- $(pwd)/sauce_connect/bin/sc \
 		-u ${SAUCELABS_USERNAME} \
 		-k ${SAUCELABS_ACCESS_TOKEN} \
 		-l sauce_connect.log \
 		-i ${GO_REVISION_LIVEOBS} \
-		--pidfile /var/tmp/sc.pid &)
+		--pidfile /var/tmp/sc.pid
 	sleep 30
 
 install:
