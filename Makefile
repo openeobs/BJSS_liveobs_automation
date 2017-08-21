@@ -10,7 +10,8 @@ run_sauce_connect:
 		-u ${SAUCELABS_USERNAME} \
 		-k ${SAUCELABS_ACCESS_TOKEN} \
 		-l sauce_connect.log \
-		-i ${GO_REVISION_LIVEOBS} &)
+		-i ${GO_REVISION_LIVEOBS} \
+		--pidfile sauce_connect/bin/sc.pid &)
 	sleep 30
 
 install:
