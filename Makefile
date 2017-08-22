@@ -7,7 +7,7 @@ install_sauce_connect:
 
 run_sauce_connect:
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
-	deamon -- $(pwd)/sauce_connect/bin/sc \
+	daemon -- $(pwd)/sauce_connect/bin/sc \
 		-u ${SAUCELABS_USERNAME} \
 		-k ${SAUCELABS_ACCESS_TOKEN} \
 		-l sauce_connect.log \
