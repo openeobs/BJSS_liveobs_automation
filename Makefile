@@ -1,6 +1,6 @@
 #!/usr/bin/make
 
-GATEWAY=$(shell ip r l | awk '/^default/ {print $3}')
+GATEWAY=$(shell ip r l | awk '/^default/ {print $$3}')
 
 install_sauce_connect:
 	curl -o sauce_connect.tar.gz -SL https://saucelabs.com/downloads/sc-4.4.9-linux.tar.gz
