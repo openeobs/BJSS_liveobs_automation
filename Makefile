@@ -10,7 +10,7 @@ install_sauce_connect:
 
 run_sauce_connect:
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
-	daemon -- $(pwd)/sauce_connect/bin/sc \
+	screen -d -m ./sauce_connect/bin/sc \
 		-u ${SAUCELABS_USERNAME} \
 		-k ${SAUCELABS_ACCESS_TOKEN} \
 		-l sauce_connect.log \
@@ -28,8 +28,12 @@ install_chromedriver:
 	rm chromedriver.zip
 
 run: install_chromedriver
-	curl -sf --head http://${GATEWAY}:8069/web
-	sleep 5
+	@curl -sf --head http://${GATEWAY}:8069/web
+	@sleep 5
 	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
-.PHONY: install run install_chromedriver install_sauce_connect run_sauce_connect
+clean_up:
+	docker-compose stop
+	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
+
+.PHONY: install run install_chromedriver install_sauce_connect run_sauce_connect clean_up
