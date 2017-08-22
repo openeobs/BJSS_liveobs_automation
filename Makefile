@@ -28,8 +28,8 @@ install_chromedriver:
 	rm chromedriver.zip
 
 run: install_chromedriver
-	curl http://${GATEWAY}:8069/web
-	sleep 15
-	# PATH=$$PATH:chromedriver/ venv/bin/behave features/
+	curl -sf --head http://${GATEWAY}:8069/web
+	sleep 5
+	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
 .PHONY: install run install_chromedriver install_sauce_connect run_sauce_connect

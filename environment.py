@@ -50,6 +50,10 @@ def before_all(context):
         raise WebDriverException("Never created!")
     context.driver = browser
     context.helpers = AutomationHelpers('config.yml')
+    if environ.get('GATEWAY'):
+        context.helpers.config['server'] = 'http://{}:8069'.format(
+            environ.get('GATEWAY'))
+
 
 
 def after_all(context):
