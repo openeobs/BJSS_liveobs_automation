@@ -34,7 +34,6 @@ run: install_chromedriver
 	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
 clean_up:
-	docker-compose stop
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
 
 .PHONY: install run install_chromedriver install_sauce_connect run_sauce_connect clean_up
