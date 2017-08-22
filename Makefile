@@ -1,4 +1,7 @@
 #!/usr/bin/make
+
+GATEWAY=$(shell ip r l | awk '/^default/ {print $3}')
+
 install_sauce_connect:
 	curl -o sauce_connect.tar.gz -SL https://saucelabs.com/downloads/sc-4.4.9-linux.tar.gz
 	tar -xf sauce_connect.tar.gz
@@ -25,8 +28,8 @@ install_chromedriver:
 	rm chromedriver.zip
 
 run: install_chromedriver
-	curl http://localhost:8069/web
+	curl http://${GATEWAY}:8069/web
 	sleep 15
-	PATH=$$PATH:chromedriver/ venv/bin/behave features/
+	# PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
 .PHONY: install run install_chromedriver install_sauce_connect run_sauce_connect
