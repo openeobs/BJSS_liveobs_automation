@@ -47,6 +47,7 @@ def get_browser():
                     browser.session_id, test_name))
         else:
             raise WebDriverException("Never created!")
+        return browser
     else:
         return webdriver.Chrome()
 
