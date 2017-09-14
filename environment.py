@@ -3,6 +3,7 @@ from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.remote.remote_connection import RemoteConnection
 from automation_helpers import AutomationHelpers
 from os import environ
+from erppeek import Client
 
 
 def get_browser():
@@ -58,9 +59,14 @@ def before_all(context):
 
     :param context: Behave context
     """
-
     context.driver = get_browser()
     context.helpers = AutomationHelpers('config.yml')
+    context.client = Client(
+        context.helpers.config.get('server'),
+        db='nhclinical',
+        user='admin',
+        password='admin',
+    )
 
 
 def after_all(context):
