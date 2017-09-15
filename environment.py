@@ -63,7 +63,7 @@ def before_all(context):
     context.helpers = AutomationHelpers('config.yml')
     context.client = Client(
         context.helpers.config.get('server'),
-        db='nhclinical',
+        db='db',
         user='admin',
         password='admin',
     )
