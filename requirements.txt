@@ -6,4 +6,3 @@ git+git://github.com/BJSS/BJSS_liveobs_selenium.git@master
 git+git://github.com/behave/behave.git@master
 PyYAML==3.12
 ERPpeek==1.6.3
-haikunator==2.1.0
