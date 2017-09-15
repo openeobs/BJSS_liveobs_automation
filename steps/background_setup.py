@@ -1,6 +1,6 @@
 """ Steps to use in the background set up of the features """
-from behave import given
 from uuid import uuid4
+from behave import given
 
 
 @given('the user {user_name} exists with the {user_role} role')
@@ -225,3 +225,52 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
             placement_activity, {'location_id': location_search})
         activity_model.complete(placement_activity)
     context.patient = patient_name
+
+
+@given('the user {user_name} is allocated to {location} of {parent_location}')
+def ensure_user_allocated_to_location(
+        context, user_name, location, parent_location):
+    """
+    Make sure that the user allocated to the supplied location
+    :param context: Behave context
+    :param user_name: Name of the user to find and allocate
+    :param location: name of the location to allocate user to
+    :param parent_location: Parent of the location to allocate to
+    """
+    user_model = context.client.model('res.users')
+    location_model = context.client.model('nh.clinical.location')
+    user_search = user_model.search(
+        [
+            ['name', '=', user_name]
+        ]
+    )
+    if not user_search:
+        raise Exception("User not in system")
+    else:
+        user_search = user_search[0]
+    parent_location_search = location_model.search(
+        [
+            ['name', '=', parent_location]
+        ]
+    )
+    if not parent_location_search:
+        raise Exception("Parent location not found in system")
+    else:
+        parent_location_search = parent_location_search[0]
+    location_search = location_model.search(
+        [
+            ['name', '=', location],
+            ['parent_id', '=', parent_location_search]
+        ]
+    )
+    if not location_search:
+        raise Exception("Location not in system")
+    else:
+        location_search = location_search[0]
+    user_locations = \
+        user_model.read(user_search, ['location_ids']).get('location_ids')
+    if location_search not in user_locations:
+        user_locations.append(location_search)
+        user_model.write(user_search, {
+            'location_ids': [[6, 0, user_locations]]
+        })
