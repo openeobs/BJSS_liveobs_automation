@@ -1,14 +1,14 @@
 """ Steps to use in the background set up of the features """
 from behave import given
-from haikunator import Haikunator
 
 
-@given('a user exists with the {user_role} role')
-def ensure_user_with_role(context, user_role):
+@given('the user {user_name} exists with the {user_role} role')
+def ensure_user_with_role(context, user_name, user_role):
     """
     Do a search for user with the specified role or create one
 
     :param context: Behave context
+    :param user_name: Name for the user
     :param user_role: Role for the user
     """
     user_model = context.client.model('res.users')
@@ -22,12 +22,18 @@ def ensure_user_with_role(context, user_role):
         raise Exception("No group {} found".format(user_role))
     user_search = user_model.search(
         [
-            ['groups_id', 'in', group_search]
+            ['name', '=', user_name]
         ]
     )
     if user_search:
-        context.helpers.user = \
-            user_model.read(user_search[0], ['login']).get('login')
+        found_user = user_model.read(user_search[0], ['login', 'groups_id'])
+        if not group_search[0] in found_user.get('groups_id'):
+            user_model.write(found_user.get('id'), {
+                'groups_id': [
+                    [6, 0, found_user.get('groups_id') + group_search]
+                ]
+            })
+        context.helpers.user = found_user.get('login')
     else:
         category_model = context.client.model('res.partner.category')
         location_model = context.client.model('nh.clinical.location')
@@ -52,11 +58,10 @@ def ensure_user_with_role(context, user_role):
                 pos_id.append(location['pos_id'][0])
         else:
             raise Exception("No hospital in system")
-        haiku = Haikunator()
-        user_login = haiku.haikunate(token_length=0)
+        user_login = user_name.lower().replace(' ', '_').strip()
         user_model.create(
             {
-                'name': user_login,
+                'name': user_name,
                 'login': user_login,
                 'password': user_login,
                 'category_id': [[6, 0, [category_search]]],
@@ -66,3 +71,14 @@ def ensure_user_with_role(context, user_role):
             }
         )
         context.helpers.user = user_login
+
+
+@given("the user is responsible for the patient {patient_name}")
+def ensure_user_responsible_for_patient(context, patient_name):
+    """
+    Make the user responsible for the specified patient
+
+    :param context: Behave context
+    :param patient_name: Name of the patient to set user to be responsible for
+    """
+    pass
