@@ -15,6 +15,8 @@ PULSE_RATE_ENTRY_FIELD = (By.ID, 'parent_pulse_rate')
 AVPU_ENTRY_FIELD = (By.ID, 'parent_avpu_text')
 SUP_O2_ENTRY_FIELD = (By.ID, 'parent_oxygen_administration_flag')
 O2_DEVICE_ENTRY_FIELD = (By.ID, 'parent_device_id')
+FLOW_RATE_DATA_TYPE = (By.ID, 'parent_flow_rate')
+CONCENTRATION_DATA_TYPE = (By.ID, 'parent_concentration')
 
 # Locator used in automation tests - Neuro Obs form
 EYES_OPEN_ENTRY_FIELD = (By.ID, 'parent_eyes')
@@ -40,3 +42,5 @@ STAN_BP_DIAS_ENTRY_FIELD = (By.ID, 'parent_diastolic_standing')
 
 # Locators for mobile buttons
 TAKE_OBSERVATION_BUTTON = (By.ID, 'take-observation')
+POPUP_RISK = (By.CSS_SELECTOR, '#submit_observation strong')
+NEWS_SCORE = (By.CSS_SELECTOR, 'div#submit_observation>h2')

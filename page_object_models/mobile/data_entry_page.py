@@ -168,3 +168,24 @@ class DataEntryPage(BaseMobilePage):
         field_selector = get_element_selector(obs_field)
         obs_fields = self.driver.find_element(*field_selector)
         return not self.element_is_displayed(obs_fields)
+
+    def verify_clinical_risk_displayed(self, cli_risk_expected):
+        """
+        Return the displayed Clinical Risk displayed in the submission
+        confirmation popup
+        :param: cli_risk_expected: stuff
+        :return: boolean
+        """
+        element_locator = get_element_selector(cli_risk_expected)
+        popup_element = self.driver.find_element(*element_locator)
+        return self.element_is_displayed(popup_element)
+
+    def get_clinical_risk_in_popup(self, cli_risk_expected):
+        """
+
+        :param cli_risk_expected:
+        :return:
+        """
+        element_locator = get_element_selector(cli_risk_expected)
+        popup_element = self.driver.find_element(*element_locator)
+        return popup_element.text
