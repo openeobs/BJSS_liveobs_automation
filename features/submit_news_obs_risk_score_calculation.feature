@@ -2,7 +2,7 @@
 # JIRA: EOBS-1087
 # Scenarios covered: 1, 2 and part of 4
 
-Feature: NEWS Observation - Submit observation. Calculate Score/Risk.
+Feature: NEWS observation. Calculate Score/Risk.
 
   Scenario Outline: NEWS Observation is correctly submitted. Risk and Score from 0 to 18
     Given a user with the Nurse role logs into the app
@@ -47,9 +47,7 @@ Feature: NEWS Observation - Submit observation. Calculate Score/Risk.
     | 23        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 17    |
     | 25        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 18    |
 
-
 #  Following scenarios currently blocked by EOBS-1864
-#
 #
 #  Scenario Outline: NEWS Observation is correctly submitted. Risk and Score 19 & 20
 #    Given a user with the Nurse role logs into the app

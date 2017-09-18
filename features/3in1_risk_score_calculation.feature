@@ -2,7 +2,7 @@
 # JIRA: EOBS-1087
 # Scenarios covered: Score 3 in 1 field bring Risk to Medium
 
-Feature: NEWS Observation - Calculate Score/Risk for 3in1 cases.
+Feature: NEWS Score/Risk for 3in1 cases.
 
   Scenario Outline: 3 in 1 observations get correct score/risk
     Given a user with the Nurse role logs into the app
