@@ -182,9 +182,10 @@ class DataEntryPage(BaseMobilePage):
 
     def get_clinical_risk_in_popup(self, cli_risk_expected):
         """
-
-        :param cli_risk_expected:
-        :return:
+        Locates and returns the risk from an observation in the confirmation
+        popup
+        :param cli_risk_expected: value expected to be returned
+        :return: string in specified element
         """
         element_locator = get_element_selector(cli_risk_expected)
         popup_element = self.driver.find_element(*element_locator)
