@@ -22,7 +22,7 @@ def get_or_create_user(client, name, group_id, category_id):
     )
     if user_search:
         found_user = user_model.read(user_search[0], ['login', 'groups_id'])
-        if not group_id in found_user.get('groups_id'):
+        if group_id not in found_user.get('groups_id'):
             user_model.write(found_user.get('id'), {
                 'groups_id': [
                     [6, 0, found_user.get('groups_id') + group_id]
