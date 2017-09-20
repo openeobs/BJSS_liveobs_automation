@@ -53,7 +53,8 @@ class PatientPage(BaseMobilePage):
         :param observation_name: Name of the observation to open
         """
         self.open_adhoc_menu()
-        self.get_observation_in_list(observation_name)
+        return self.get_observation_in_list(observation_name)
+
 
     def close_adhoc_menu(self):
         """
