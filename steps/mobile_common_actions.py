@@ -220,20 +220,21 @@ def submit_the_form(context):
     form_page.submit_form()
 
 
-@then('the {value_to_check} submitted is {clinical_risk}')
-def confirm_calculated_clinical_risk(context, value_to_check, clinical_risk):
+@then('the {value_to_check} submitted is {expected_value}')
+def confirm_calculated_value(context, value_to_check, expected_value):
     """
-
+    Gets and verifies a value (clinical risk or score) displayed in the
+    submission confirmation popup
     :param context: behave driver
     :param value_to_check: The value 'name' to look for. Can be Clinical Risk,
-     or GSC score. Refers to a specific locator in the page, by text.
-    :param clinical_risk: the value expected
+     NEWS score or GSC score. Refers to a specific locator in the page, by text
+    :param expected_value: the value expected
     :return: boolean
     """
     form_page = DataEntryPage(context.driver)
-    stuffing = form_page.get_clinical_risk_in_popup(value_to_check)
-    assert clinical_risk in stuffing, \
-        "Expected clinical risk '{}' not displayed.".format(clinical_risk)
+    displayed_value = form_page.get_clinical_risk_in_popup(value_to_check)
+    assert expected_value in displayed_value, \
+        "Expected clinical risk '{}' not displayed.".format(expected_value)
 
 
 @then('the {obs_name} observation is confirmed')
