@@ -7,10 +7,10 @@ from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
+from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
+
 from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
-from liveobs_ui.selectors.mobile.patient_page_selectors import \
-    ADHOC_OBS_MENU_BUTTON
 
 
 @given("they view the {page_select} list")
@@ -96,11 +96,7 @@ def select_take_specific_obs_from_list(context, observation_type):
         the observation form
     """
     patient_page = PatientPage(context.driver)
-    # patient_page.open_observation_form(observation_type)
-    obs_element = context.driver.find_element_by_partial_link_text(
-        observation_type)
-    patient_page.click_and_verify_change(obs_element, ADHOC_OBS_MENU_BUTTON,
-                                         hidden=True)
+    patient_page.get_observation_in_list(observation_type)
 
 
 @then('the {observation_type} observation form is displayed')
@@ -196,6 +192,7 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
     Verifies an observation is listed in the Take Observation list
     :param context: behave context
     :param obs_name: text for the observation to find
+    :param shown: determines if the element should/should not be on the page
     """
     patient_page = PatientPage(context.driver)
     if shown == 'is':
@@ -206,3 +203,48 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
         assert not patient_page.get_observation_in_menu(obs_name), \
             "Unexpected observation '{}' is displayed in the list".format(
                 obs_name)
+
+
+@then('the form is submitted')
+def submit_the_form(context):
+    """
+    Submits an observation form
+    :param context: behave context
+    """
+    form_page = DataEntryPage(context.driver)
+    form_page.submit_form()
+
+
+@then('the {value_to_check} submitted is {expected_value}')
+def confirm_calculated_value(context, value_to_check, expected_value):
+    """
+    Gets and verifies a value (clinical risk or score) displayed in the
+    submission confirmation popup
+    :param context: behave driver
+    :param value_to_check: The value 'name' to look for. Can be Clinical Risk,
+     NEWS score or GSC score. Refers to a specific locator in the page, by text
+    :param expected_value: the value expected
+    :return: boolean
+    """
+    form_page = DataEntryPage(context.driver)
+    displayed_value = form_page.get_clinical_risk_in_popup(value_to_check)
+    assert expected_value in displayed_value, \
+        "Expected clinical risk '{}' not displayed.".format(expected_value)
+
+
+@then('the {obs_name} observation is confirmed')
+def confirm_observation_submission(context, obs_name):
+    """
+    Verifies the correct message and observation name is displayed upon
+    confirming the submission of an observation form
+    :param context: behave context
+    :param obs_name: name of the observation expected
+    :return: boolean
+    """
+    form_page = DataEntryPage(context.driver)
+    form_page.confirm_submit_scored_ob()
+    modal_page = ModalPage(context.driver)
+    modals = modal_page.get_open_modals()
+    submit_modal = modals[0]
+    assert modal_page.get_modal_title(submit_modal) == \
+        'Successfully Submitted {} Observation'.format(obs_name)
