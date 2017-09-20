@@ -11,8 +11,6 @@ from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 
 from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
-from liveobs_ui.selectors.mobile.patient_page_selectors import \
-    ADHOC_OBS_MENU_BUTTON
 
 
 @given("they view the {page_select} list")
@@ -98,10 +96,7 @@ def select_take_specific_obs_from_list(context, observation_type):
         the observation form
     """
     patient_page = PatientPage(context.driver)
-    obs_element = context.driver.find_element_by_partial_link_text(
-        observation_type)
-    patient_page.click_and_verify_change(obs_element, ADHOC_OBS_MENU_BUTTON,
-                                         hidden=True)
+    patient_page.get_observation_in_list(observation_type)
 
 
 @then('the {observation_type} observation form is displayed')
