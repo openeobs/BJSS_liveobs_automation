@@ -51,10 +51,10 @@ class PatientPage(BaseMobilePage):
         open the observation form
 
         :param observation_name: Name of the observation to open
+        :return: Boolean. Returns if the page is the intended observation
         """
         self.open_adhoc_menu()
         return self.get_observation_in_list(observation_name)
-
 
     def close_adhoc_menu(self):
         """
@@ -68,6 +68,7 @@ class PatientPage(BaseMobilePage):
         Find the specified observation and open the observation form
 
         :param observation_name: Name of the observation to open
+        :return: Boolean. Returns if the page is the intended observation
         """
         observation = self.get_observation_in_menu(observation_name)
         if observation:
