@@ -53,13 +53,7 @@ class PatientPage(BaseMobilePage):
         :param observation_name: Name of the observation to open
         """
         self.open_adhoc_menu()
-        observation = self.get_observation_in_menu(observation_name)
-        if observation:
-            observation_url = observation.get_attribute('href')
-            self.click_and_verify_change(
-                observation, ADHOC_OBS_MENU_BUTTON, hidden=True)
-            return observation_url in self.driver.current_url
-        return False
+        self.get_observation_in_list(observation_name)
 
     def close_adhoc_menu(self):
         """
@@ -67,3 +61,17 @@ class PatientPage(BaseMobilePage):
         """
         close_button = self.driver.find_element(*OPEN_OBS_MENU_CLOSE_BUTTON)
         self.click_and_verify_change(close_button, OPEN_OBS_MENU, hidden=True)
+
+    def get_observation_in_list(self, observation_name):
+        """
+        Find the specified observation and open the observation form
+
+        :param observation_name: Name of the observation to open
+        """
+        observation = self.get_observation_in_menu(observation_name)
+        if observation:
+            observation_url = observation.get_attribute('href')
+            self.click_and_verify_change(
+                observation, ADHOC_OBS_MENU_BUTTON, hidden=True)
+            return observation_url in self.driver.current_url
+        return False
