@@ -197,6 +197,7 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
     Verifies an observation is listed in the Take Observation list
     :param context: behave context
     :param obs_name: text for the observation to find
+    :param shown: determines if the element should/should not be on the page
     """
     patient_page = PatientPage(context.driver)
     if shown == 'is':
@@ -230,7 +231,6 @@ def confirm_calculated_clinical_risk(context, value_to_check, clinical_risk):
     :return: boolean
     """
     form_page = DataEntryPage(context.driver)
-    form_page.verify_clinical_risk_displayed(value_to_check)
     stuffing = form_page.get_clinical_risk_in_popup(value_to_check)
     assert clinical_risk in stuffing, \
         "Expected clinical risk '{}' not displayed.".format(clinical_risk)
