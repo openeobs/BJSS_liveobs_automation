@@ -4,7 +4,7 @@
 
 Feature: Submit Full Blood Glucose Observation
 
-  Scenario: Full Blood Glucose Observation is correctly submitted.
+  Scenario Outline: Full Blood Glucose Observation is correctly submitted.
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
@@ -12,6 +12,12 @@ Feature: Submit Full Blood Glucose Observation
     And the Take observation button is selected
     And the Blood Glucose observation is selected from the list
     Then the Blood Glucose observation form is displayed
-    When the value 10 is inputted in the Blood Glucose (mmol/L) field
+    When the value <vol_blood_glu> is inputted in the Blood Glucose (mmol/L) field
     Then the form is submitted
     And the Blood Glucose observation is confirmed
+
+    Examples:
+    |vol_blood_glu|
+    |0            |
+    |200          |
+    |100          |

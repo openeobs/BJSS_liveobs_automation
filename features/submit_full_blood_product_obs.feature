@@ -4,7 +4,7 @@
 
 Feature: Submit Full Blood Product Observation
 
-Scenario: Blood Product observation is correctly submitted
+Scenario Outline: Blood Product observation is correctly submitted
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
@@ -12,7 +12,16 @@ Scenario: Blood Product observation is correctly submitted
     And the Take observation button is selected
     And the Blood Product observation is selected from the list
     Then the Blood Product observation form is displayed
-    When the value 10 is inputted in the Vol (ml) field
-    And the value FFP is selected in the Blood Product (Applied Infusion) field
+    When the value <vol> is inputted in the Vol (ml) field
+    And the value <blood_prod> is selected in the Blood Product (Applied Infusion) field
     Then the form is submitted
     And the Blood Product observation is confirmed
+
+    Examples:
+    |vol    |blood_prod       |
+    |0.1    |RBC              |
+    |10000  |FFP              |
+    |0.1    |Platelets        |
+    |10000  |Human Albumin Sol|
+    |100    |DLI              |
+    |5000   |Stem Cells       |

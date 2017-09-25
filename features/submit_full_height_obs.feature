@@ -4,7 +4,7 @@
 
 Feature: Verifying submission for full height observation.
 
-  Scenario: Height observation is correctly submitted
+  Scenario Outline: Height observation is correctly submitted
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
@@ -12,6 +12,11 @@ Feature: Verifying submission for full height observation.
     And the Take observation button is selected
     And the Height observation is selected from the list
     Then the Height observation form is displayed
-    When the value 1.5 is inputted in the Height (m) field
+    When the value <height> is inputted in the Height (m) field
     Then the form is submitted
     And the Height observation is confirmed
+
+    Examples:
+    |height|
+    |0.1   |
+    |3.0   |
