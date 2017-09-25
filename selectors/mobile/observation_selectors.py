@@ -34,6 +34,13 @@ LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD = (By.ID, 'parent_limb_movement_left_arm')
 # Locators used in automation tests - Weight Obs form
 WAIST_MEASSURE_ENTRY_FIELD = (By.ID, 'parent_waist_measurement')
 
+# Locators used in automation tests - Height Obs form
+HEIGHT_ENTRY_FIELD = (By.ID, 'parent_height')
+
+# Locators used in automation tests - Blood Product Obs form
+BLOOD_PRODUCT_ENTRY_FIELD = (By.ID, 'parent_product')
+VOL_ENTRY_FIELD = (By.ID, 'parent_vol')
+
 # Locators used in automation tests - Postural Blood Pressure Obs form
 SIT_BP_SYS_ENTRY_FIELD = (By.ID, 'parent_systolic_sitting')
 SIT_BP_DIAS_ENTRY_FIELD = (By.ID, 'parent_diastolic_sitting')
