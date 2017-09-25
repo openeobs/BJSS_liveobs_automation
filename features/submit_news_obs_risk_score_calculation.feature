@@ -21,8 +21,8 @@ Feature: NEWS observation. Calculate Score/Risk.
     And the value <AVPU> is selected in the AVPU field
     And the value <sup_o2> is selected in the Patient on supplemental O2 field
     Then the form is submitted
-    And the Score submitted is <score>
-    And the Clinical Risk submitted is <risk>
+    And the Full Score submitted is <score>
+    And the Full Clinical Risk submitted is <risk>
     And the NEWS observation is confirmed
 
   Examples:

@@ -11,6 +11,7 @@ from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 
 from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
+from .strings import get_string_regex
 
 
 @given("they view the {page_select} list")
@@ -215,21 +216,36 @@ def submit_the_form(context):
     form_page.submit_form()
 
 
-@then('the {value_to_check} submitted is {expected_value}')
-def confirm_calculated_value(context, value_to_check, expected_value):
+@then('the {obs_type} {value_to_check} submitted is {expected_value}')
+def confirm_calculated_value(
+        context, obs_type, value_to_check, expected_value):
     """
-    Gets and verifies a value (clinical risk or score) displayed in the
+    Gets and verifies a value (clinical risk or score) displayed in the partial
     submission confirmation popup
     :param context: behave driver
-    :param value_to_check: The value 'name' to look for. Can be Clinical Risk,
-     NEWS score or GSC score. Refers to a specific locator in the page, by text
-    :param expected_value: the value expected
+    :param obs_type: specifies using regex or locators to match against the
+    value_to_check parameter
+    :param value_to_check: The value 'name' to look for. Refers to a specific
+    locator in the page, by text
+    :param expected_value: the value expected. Example: 'No' Clinical Risk or
+    '2' Score
     :return: boolean
     """
-    form_page = DataEntryPage(context.driver)
-    displayed_value = form_page.get_clinical_risk_in_popup(value_to_check)
-    assert expected_value in displayed_value, \
-        "Expected clinical risk '{}' not displayed.".format(expected_value)
+    popup_options = ModalPage(context.driver)
+    modals = popup_options.get_open_modals()
+    submit_modal = modals[0]
+    if obs_type == 'Partial':
+        displayed_value = popup_options.get_modal_content(submit_modal)
+        modal_regex = get_string_regex(value_to_check)
+        regex_match = modal_regex.search(displayed_value)
+        assert regex_match.groups()[0] == expected_value, \
+            "Expected clinical risk '{}' not displayed.".format(expected_value)
+    else:
+        form_page = DataEntryPage(context.driver)
+        displayed_value = form_page.get_clinical_risk_in_popup(
+            value_to_check)
+        assert expected_value in displayed_value, \
+            "Expected clinical risk '{}' not displayed.".format(expected_value)
 
 
 @then('the {obs_name} observation is confirmed')
@@ -247,4 +263,38 @@ def confirm_observation_submission(context, obs_name):
     modals = modal_page.get_open_modals()
     submit_modal = modals[0]
     assert modal_page.get_modal_title(submit_modal) == \
-        'Successfully Submitted {} Observation'.format(obs_name)
+        'Successfully Submitted {} Observation'.format(obs_name), \
+        "Expected message for '{}' not presented".format(obs_name)
+
+
+@then('the {modal_title} popup is displayed')
+def confirm_reason_popup_displayed(context, modal_title):
+    """
+    Checks that the title (text) of the expected popup matches that of the one
+    displayed
+
+    :param context: behave context
+    :param modal_title: String. The title expected in the popup
+    :return: boolean
+    """
+    modals_page = ModalPage(context.driver)
+    modals = modals_page.get_open_modals()
+    submit_modal = modals[0]
+    assert modal_title in modals_page.get_modal_title(submit_modal), \
+        "Expected title '{}' not presented".format(modal_title)
+
+
+@then('the reason {reason} is selected')
+def select_partial_reason_in_popup(context, reason):
+    """
+    Selects specified reason in the drop-down and submits the selection in the
+    reason for partial obs popup
+
+    :param context: behave context
+    :param reason: reason to be selected in the drop-down
+    """
+    popup_options = ModalPage(context.driver)
+    modals = popup_options.get_open_modals()
+    submit_modal = modals[0]
+    popup_options.select_reason_in_modal(submit_modal, reason)
+    popup_options.click_modal_option(submit_modal, 'Submit')
