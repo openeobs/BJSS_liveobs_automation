@@ -117,7 +117,7 @@ class ModalPage(BaseMobilePage):
         :param modal: Modal with select box
         :param value_to_select: Value to select in select box
         """
-        select_field = modal.find_element_by_name('reason')
+        select_field = modal.find_element_by_tag_name('select')
         select_select = Select(select_field)
         select_select.select_by_visible_text(value_to_select)
         select_field.send_keys(Keys.TAB)
