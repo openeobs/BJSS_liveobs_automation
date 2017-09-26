@@ -29,7 +29,7 @@ PUP_LEFT_REACT_ENTRY_FIELD = (By.ID, 'parent_pupil_left_reaction')
 LIMB_MOVE_LEFT_ARM_ENTRY_FIELD = (By.ID, 'parent_limb_movement_left_arm')
 LIMB_MOVE_RIGHT_ARM_ENTRY_FIELD = (By.ID, 'parent_limb_movement_right_arm')
 LIMB_MOVE_LEFT_LEG_ENTRY_FIELD = (By.ID, 'parent_limb_movement_left_leg')
-LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD = (By.ID, 'parent_limb_movement_left_arm')
+LIMB_MOVE_RIGHT_LEG_ENTRY_FIELD = (By.ID, 'parent_limb_movement_right_leg')
 
 # Selectors used in automation tests - Weight Obs form
 WEIGHT_ENTRY_FIELD = (By.ID, 'parent_weight')
