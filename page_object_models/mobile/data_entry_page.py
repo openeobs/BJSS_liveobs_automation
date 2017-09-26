@@ -14,6 +14,7 @@ from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 from liveobs_ui.selectors.mobile.form import PATIENT_INFO_BUTTON, \
     FORM_CANCEL_BUTTON, FORM_SUBMIT_BUTTON, FORM
+from selenium.common.exceptions import WebDriverException
 
 
 class DataEntryPage(BaseMobilePage):
@@ -64,10 +65,16 @@ class DataEntryPage(BaseMobilePage):
 
     def submit_form(self):
         """
-        Press the submit button on the form
+        Try to press the submit button on the form. Otherwise scroll down and
+        try again. (Scroll implemented to deal with EOBS-1864)
         """
         form_submit_button = self.driver.find_element(*FORM_SUBMIT_BUTTON)
-        self.click_and_verify_change(form_submit_button, MODAL_DIALOG)
+        try:
+            self.click_and_verify_change(form_submit_button, MODAL_DIALOG)
+        except WebDriverException:
+            self.driver.execute_script(
+                "window.scrollTo(0, document.body.scrollHeight);")
+            self.click_and_verify_change(form_submit_button, MODAL_DIALOG)
 
     def cancel_form(self):
         """
