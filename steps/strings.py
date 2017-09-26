@@ -16,10 +16,11 @@ REGEXES = {
 }
 
 
-def get_string_regex(nice_human_name):
+def get_string_regex(element_reference):
     """
-    Get a string regex by supplying a nicer name or something, I dunno
-    :param nice_human_name:
-    :return:
+    Get a string regex by supplying an element reference as a parameter
+
+    :param element_reference: reference to the specific regex
+    :return: regex object
     """
-    return re.compile(REGEXES.get(nice_human_name))
+    return re.compile(REGEXES.get(element_reference))

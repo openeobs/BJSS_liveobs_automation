@@ -220,15 +220,21 @@ def submit_the_form(context):
 def confirm_calculated_value(
         context, obs_type, value_to_check, expected_value):
     """
-    Gets and verifies a value (clinical risk or score) displayed in the partial
+    Gets and verifies a value (clinical risk or score) displayed in the
     submission confirmation popup
+
+    Expected Data examples:
+
+    .. code-block:: gherkin
+
+        Then the Full Score submitted is 12
+
     :param context: behave driver
     :param obs_type: specifies using regex or locators to match against the
-    value_to_check parameter
+        value_to_check parameter
     :param value_to_check: The value 'name' to look for. Refers to a specific
-    locator in the page, by text
-    :param expected_value: the value expected. Example: 'No' Clinical Risk or
-    '2' Score
+        locator in the page, by text
+    :param expected_value: the value expected.
     :return: boolean
     """
     popup_options = ModalPage(context.driver)
