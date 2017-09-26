@@ -47,7 +47,6 @@ Feature: NEWS observation. Calculate Score/Risk.
     | 23        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 17    |
     | 25        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 18    |
 
-
   Scenario Outline: NEWS Observation is correctly submitted. Risk and Score 19 & 20
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
