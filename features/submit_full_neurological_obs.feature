@@ -24,7 +24,7 @@ Scenario Outline: Neurological observation is correctly submitted
     And the value <limb_left_leg> is selected in the Limb Movement - Left Leg field
     And the value <limb_right_leg> is selected in the Limb Movement - Right Leg field
     Then the form is submitted
-    And the Score submitted is <score>
+    And the Full Score submitted is <score>
     And the Neurological observation is confirmed
 
   Examples:

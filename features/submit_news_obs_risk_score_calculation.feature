@@ -21,8 +21,8 @@ Feature: NEWS observation. Calculate Score/Risk.
     And the value <AVPU> is selected in the AVPU field
     And the value <sup_o2> is selected in the Patient on supplemental O2 field
     Then the form is submitted
-    And the Score submitted is <score>
-    And the Clinical Risk submitted is <risk>
+    And the Full Score submitted is <score>
+    And the Full Clinical Risk submitted is <risk>
     And the NEWS observation is confirmed
 
   Examples:
@@ -47,32 +47,30 @@ Feature: NEWS observation. Calculate Score/Risk.
     | 23        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 17    |
     | 25        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 18    |
 
-#  Following scenarios currently blocked by EOBS-1864
-#
-#  Scenario Outline: NEWS Observation is correctly submitted. Risk and Score 19 & 20
-#    Given a user with the Nurse role logs into the app
-#    And they view the My Patients list
-#    And the My Patients list has loaded
-#    When Patient Doyle, Worth Scott is selected
-#    And the Take observation button is selected
-#    And the NEWS observation is selected from the list
-#    Then the NEWS observation form is displayed
-#    When the value <resp_rate> is inputted in the Respiration Rate field
-#    And the value <o2_sat> is inputted in the O2 Saturation field
-#    And the value <temperature> is inputted in the Body Temperature field
-#    And the value <bp_sys> is inputted in the Blood Pressure Systolic field
-#    And the value <bp_dias> is inputted in the Blood Pressure Diastolic field
-#    And the value <pulse> is inputted in the Pulse Rate field
-#    And the value <AVPU> is selected in the AVPU field
-#    And the value <sup_o2> is selected in the Patient on supplemental O2 field
-#    And the value <device_type> is selected in the O2 Device field
-#    And the value <flow_rate> is inputted in the Flow Rate (l/min) field
-#    Then the form is submitted
-#    And the Score submitted is <score>
-#    And the Clinical Risk submitted is <risk>
-#    And the NEWS observation is confirmed
-#
-#  Examples:
-#    | resp_rate | o2_sat | temperature | bp_sys | bp_dias| pulse | AVPU          | sup_o2 | device_type   | flow_rate | risk   | score |
-#    | 25        | 90     | 40.0        | 220    | 80     | 40    | Pain          | Yes    | Nasal Cannula | 82        |High    | 19    |
-#    | 8         | 90     | 35.0        | 221    | 80     | 39    | Unresponsive  | Yes    | Nasal Cannula | 82        |High    | 20    |
+  Scenario Outline: NEWS Observation is correctly submitted. Risk and Score 19 & 20
+    Given a user with the Nurse role logs into the app
+    And they view the My Patients list
+    And the My Patients list has loaded
+    When Patient Doyle, Worth Scott is selected
+    And the Take observation button is selected
+    And the NEWS observation is selected from the list
+    Then the NEWS observation form is displayed
+    When the value <resp_rate> is inputted in the Respiration Rate field
+    And the value <o2_sat> is inputted in the O2 Saturation field
+    And the value <temperature> is inputted in the Body Temperature field
+    And the value <bp_sys> is inputted in the Blood Pressure Systolic field
+    And the value <bp_dias> is inputted in the Blood Pressure Diastolic field
+    And the value <pulse> is inputted in the Pulse Rate field
+    And the value <AVPU> is selected in the AVPU field
+    And the value <sup_o2> is selected in the Patient on supplemental O2 field
+    And the value <device_type> is selected in the O2 Device field
+    And the value <flow_rate> is inputted in the Flow Rate (l/min) field
+    Then the form is submitted
+    And the Full Score submitted is <score>
+    And the Full Clinical Risk submitted is <risk>
+    And the NEWS observation is confirmed
+
+  Examples:
+    | resp_rate | o2_sat | temperature | bp_sys | bp_dias| pulse | AVPU          | sup_o2 | device_type   | flow_rate | risk   | score |
+    | 25        | 90     | 40.0        | 220    | 80     | 40    | Pain          | Yes    | Nasal Cannula | 82        |High    | 19    |
+    | 8         | 90     | 35.0        | 221    | 80     | 39    | Unresponsive  | Yes    | Nasal Cannula | 82        |High    | 20    |
