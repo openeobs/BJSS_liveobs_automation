@@ -1,5 +1,7 @@
 # pylint: disable=too-many-locals,no-member
 # pylint: disable=too-many-branches,too-many-statements
+# pylint: disable=invalid-name
+# pylint: disable=no-name-in-module
 """ Steps to use in the background set up of the features """
 from uuid import uuid4
 from behave import given
@@ -108,7 +110,7 @@ def ensure_user_with_role(context, user_name, user_role):
     category_model = context.client.model('res.partner.category')
     groups = list()
     groups.append(get_role_id_for_group(
-        group_model,  'NH Clinical {} Group'.format(user_role)))
+        group_model, 'NH Clinical {} Group'.format(user_role)))
     groups.append(get_role_id_for_group(group_model, 'Employee'))
     category_id = get_role_id_for_category(category_model, user_role)
     user_search = get_or_create_user(
