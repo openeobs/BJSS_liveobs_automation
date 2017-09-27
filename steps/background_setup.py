@@ -5,12 +5,12 @@ from uuid import uuid4
 from behave import given
 
 
-def get_or_create_user(client, name, group_id, category_id):
+def get_or_create_user(client, name, groups, category_id):
     """
     Do a search and find user, if no user then create them
     :param client: ERPPeek Client
     :param name: Name of the user to find
-    :param group_id: ID for user role
+    :param groups: list of groups for user role
     :param category_id: ID for user role
     :return: user_id
     """
@@ -22,12 +22,13 @@ def get_or_create_user(client, name, group_id, category_id):
     )
     if user_search:
         found_user = user_model.read(user_search[0], ['login', 'groups_id'])
-        if group_id not in found_user.get('groups_id'):
-            user_model.write(found_user.get('id'), {
-                'groups_id': [
-                    [6, 0, found_user.get('groups_id') + group_id]
-                ]
-            })
+        for group_id in groups:
+            if group_id not in found_user.get('groups_id'):
+                user_model.write(found_user.get('id'), {
+                    'groups_id': [
+                        [6, 0, found_user.get('groups_id') + group_id]
+                    ]
+                })
         return found_user.get('login')
     else:
         location_model = client.model('nh.clinical.location')
@@ -50,7 +51,7 @@ def get_or_create_user(client, name, group_id, category_id):
                 'login': user_login,
                 'password': user_login,
                 'category_id': [[6, 0, [category_id]]],
-                'groups_id': [[6, 0, group_id]],
+                'groups_id': [[6, 0, groups]],
                 'location_ids': [[6, 0, []]],
                 'pos_ids': [[6, 0, pos_id]]
             }
@@ -67,12 +68,12 @@ def get_role_id_for_group(model, group):
     """
     group_search = model.search(
         [
-            ['name', '=', 'NH Clinical {} Group'.format(group)]
+            ['name', '=', group]
         ]
     )
     if not group_search:
         raise Exception("No group {} found".format(group))
-    return group_search
+    return group_search[0]
 
 
 def get_role_id_for_category(category_model, user_role):
@@ -105,10 +106,13 @@ def ensure_user_with_role(context, user_name, user_role):
 
     group_model = context.client.model('res.groups')
     category_model = context.client.model('res.partner.category')
-    group_id = get_role_id_for_group(group_model, user_role)
+    groups = list()
+    groups.append(get_role_id_for_group(
+        group_model,  'NH Clinical {} Group'.format(user_role)))
+    groups.append(get_role_id_for_group(group_model, 'Employee'))
     category_id = get_role_id_for_category(category_model, user_role)
     user_search = get_or_create_user(
-        context.client, user_name, group_id, category_id)
+        context.client, user_name, groups, category_id)
     context.helpers.user = user_search
 
 
