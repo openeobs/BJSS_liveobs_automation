@@ -7,10 +7,11 @@ from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
+from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
+
 from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
-from liveobs_ui.selectors.mobile.patient_page_selectors import \
-    ADHOC_OBS_MENU_BUTTON
+from .strings import get_string_regex
 
 
 @given("they view the {page_select} list")
@@ -96,11 +97,7 @@ def select_take_specific_obs_from_list(context, observation_type):
         the observation form
     """
     patient_page = PatientPage(context.driver)
-    # patient_page.open_observation_form(observation_type)
-    obs_element = context.driver.find_element_by_partial_link_text(
-        observation_type)
-    patient_page.click_and_verify_change(obs_element, ADHOC_OBS_MENU_BUTTON,
-                                         hidden=True)
+    patient_page.get_observation_in_list(observation_type)
 
 
 @then('the {observation_type} observation form is displayed')
@@ -196,6 +193,7 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
     Verifies an observation is listed in the Take Observation list
     :param context: behave context
     :param obs_name: text for the observation to find
+    :param shown: determines if the element should/should not be on the page
     """
     patient_page = PatientPage(context.driver)
     if shown == 'is':
@@ -206,3 +204,103 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
         assert not patient_page.get_observation_in_menu(obs_name), \
             "Unexpected observation '{}' is displayed in the list".format(
                 obs_name)
+
+
+@then('the form is submitted')
+def submit_the_form(context):
+    """
+    Submits an observation form
+    :param context: behave context
+    """
+    form_page = DataEntryPage(context.driver)
+    form_page.submit_form()
+
+
+@then('the {obs_type} {value_to_check} submitted is {expected_value}')
+def confirm_calculated_value(
+        context, obs_type, value_to_check, expected_value):
+    """
+    Gets and verifies a value (clinical risk or score) displayed in the
+    submission confirmation popup
+
+    Expected Data examples:
+
+    .. code-block:: gherkin
+
+        Then the Full Score submitted is 12
+
+    :param context: behave driver
+    :param obs_type: specifies using regex or locators to match against the
+        value_to_check parameter
+    :param value_to_check: The value 'name' to look for. Refers to a specific
+        locator in the page, by text
+    :param expected_value: the value expected.
+    :return: boolean
+    """
+    popup_options = ModalPage(context.driver)
+    modals = popup_options.get_open_modals()
+    submit_modal = modals[0]
+    if obs_type == 'Partial':
+        displayed_value = popup_options.get_modal_content(submit_modal)
+        modal_regex = get_string_regex(value_to_check)
+        regex_match = modal_regex.search(displayed_value)
+        assert regex_match.groups()[0] == expected_value, \
+            "Expected clinical risk '{}' not displayed.".format(expected_value)
+    else:
+        form_page = DataEntryPage(context.driver)
+        displayed_value = form_page.get_clinical_risk_in_popup(
+            value_to_check)
+        assert expected_value in displayed_value, \
+            "Expected clinical risk '{}' not displayed.".format(expected_value)
+
+
+@then('the {obs_name} observation is confirmed')
+def confirm_observation_submission(context, obs_name):
+    """
+    Verifies the correct message and observation name is displayed upon
+    confirming the submission of an observation form
+    :param context: behave context
+    :param obs_name: name of the observation expected
+    :return: boolean
+    """
+    form_page = DataEntryPage(context.driver)
+    form_page.confirm_submit_scored_ob()
+    modal_page = ModalPage(context.driver)
+    modals = modal_page.get_open_modals()
+    submit_modal = modals[0]
+    assert modal_page.get_modal_title(submit_modal) == \
+        'Successfully Submitted {} Observation'.format(obs_name), \
+        "Expected message for '{}' not presented".format(obs_name)
+
+
+@then('the {modal_title} popup is displayed')
+def confirm_reason_popup_displayed(context, modal_title):
+    """
+    Checks that the title (text) of the expected popup matches that of the one
+    displayed
+
+    :param context: behave context
+    :param modal_title: String. The title expected in the popup
+    :return: boolean
+    """
+    modals_page = ModalPage(context.driver)
+    modals = modals_page.get_open_modals()
+    submit_modal = modals[0]
+    assert modal_title in modals_page.get_modal_title(submit_modal), \
+        "Expected title '{}' not presented".format(modal_title)
+
+
+@then('the reason {reason} is selected')
+def select_partial_reason_in_popup(context, reason):
+    """
+    Selects specified reason in the drop-down and submits the selection in the
+    reason for partial obs popup
+
+    :param context: behave context
+    :param reason: reason to be selected in the drop-down
+    """
+    popup_options = ModalPage(context.driver)
+    modals = popup_options.get_open_modals()
+    submit_modal = modals[0]
+    popup_options.select_reason_in_modal(submit_modal, reason)
+    popup_options.click_modal_option(submit_modal, 'Submit')

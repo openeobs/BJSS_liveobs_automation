@@ -25,7 +25,7 @@ Feature: User Permissions for Tasks
       | Assess Patient                        |
       | Inform Shift Coordinator              |
       | Review Frequency                      |
-      | Urgently Inform Medical Team          |
+      | Urgently inform medical team          |
       | Immediately Inform Medical Team       |
       | Inform Medical Team?                  |
       | Call an Ambulance (2222/9999)         |
@@ -33,6 +33,7 @@ Feature: User Permissions for Tasks
       | F&F - 6am Fluid Intake Review         |
       | F&F - 3pm Fluid Intake Review         |
       | NEWS Observation                      |
+      | Inform FY2                            |
 
   Scenario: Mobile Task List Permissions for Doctor
     Given a user with the Doctor role logs into the app
