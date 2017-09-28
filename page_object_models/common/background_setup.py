@@ -39,7 +39,7 @@ def get_role_id_for_category(category_model, user_role):
         raise Exception("No category {} found".format(user_role))
 
 
-def find_if_user(client, name):
+def get_or_create_user(client, name):
     """
     Checks if a user exists by given name, otherwise creates one with that name
 
@@ -106,10 +106,13 @@ def assign_user_roles(client, name, role):
     )
     role_category = get_role_id_for_category(category_model, role)
     user = get_user_record(client, name)
-    user.write({
-        'groups_id': [[4, user_role]],
-        'category_id': [[6, 0, [role_category]]]
-    })
+    if user:
+        user.write({
+            'groups_id': [[4, user_role]],
+            'category_id': [[6, 0, [role_category]]]
+        })
+    else:
+        raise Exception("User %s is not in the system", name)
 
 
 def get_user_record(client, name):
