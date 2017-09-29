@@ -74,7 +74,7 @@ def select_random_patient_in_list(context):
     select_patient.select_random_patient()
 
 
-@when('Patient {patient_name} is selected')
+@when('the Patient {patient_name} is selected')
 def select_defined_patient(context, patient_name):
     """
     Finds a named patient in the list and selects it

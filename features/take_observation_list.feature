@@ -11,7 +11,7 @@ Feature: Mobile UI - 'Take Observation' dropdown list
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When the Patient Doyle, Worth Scott is selected
     And the Take observation button is selected
     Then the NEWS observation is listed
     And the Neurological observation is listed

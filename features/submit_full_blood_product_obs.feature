@@ -4,11 +4,17 @@
 
 Feature: Submit Full Blood Product Observation
 
-Scenario Outline: Blood Product observation is correctly submitted
-    Given a user with the Nurse role logs into the app
+  Background: BP Obs - Set up
+    Given the user BloodProdObs Nurse exists
+    And user BloodProdObs Nurse has the role of Nurse
+    And the patient BloodProdObs Patient is in BloodProdObs Bed of Ward Test
+    And the user BloodProdObs Nurse is allocated to BloodProdObs Bed of Ward Test
+
+  Scenario Outline: Blood Product observation is correctly submitted
+    Given the user BloodProdObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When the Patient Patient, BloodProdObs is selected
     And the Take observation button is selected
     And the Blood Product observation is selected from the list
     Then the Blood Product observation form is displayed

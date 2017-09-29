@@ -7,6 +7,8 @@
 from behave import given, then
 from liveobs_ui.page_object_models.common.login_page import LoginPage
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
+from liveobs_ui.page_object_models.common.background_setup import \
+    get_user_credentials
 
 
 @given("a user with the {user_role} role logs into the app")
@@ -25,7 +27,7 @@ def user_with_role_logins(context, user_role):
     login_page.login(*login_details)
 
 
-# @then("they see a list of the tasks for the patients in the locations "
+# @then("they see a list of the tasks for the patients in the locations "t
 #       "they are assigned to")
 # def list_of_tasks_for_patient_assigned_to(context):
 #     """
@@ -61,3 +63,23 @@ def list_of_tasks_for_role_task_types(context, user_role):
         task_name = task_list_page.get_task_info_from_item(task)
         assert (task_name in tasks_for_role), \
             "{} task not in {}".format(task_name, tasks_for_role)
+
+
+@given("the user {user_name} logs into the {app_view} app")
+def user_logs_into_app(context, user_name, app_view):
+    """
+    Navigates to web/mobile login page and logs in as user saved in context.
+    If no user is found, it raises an exception
+    :param context: behave context
+    :param user_name: the name of the user. Used to locate the user in context
+    :param app_view: either mobile or desktop
+    """
+    login_page = LoginPage(context.driver)
+    login_url = context.helpers.config.get('server') + \
+        context.helpers.config.get('urls').get('{}_login'.format(app_view))
+    login_page.driver.get(login_url)
+    username = get_user_credentials(context.client, user_name)
+    if username:
+        login_page.login(username, username)
+    else:
+        raise ValueError('No user found')
