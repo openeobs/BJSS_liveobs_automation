@@ -11,7 +11,7 @@ from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
 
 from liveobs_ui.selectors.mobile.get_selector_by_lookup import \
     get_element_selector
-from .strings import get_string_regex
+from steps.strings import get_string_regex
 
 
 @given("they view the {page_select} list")
