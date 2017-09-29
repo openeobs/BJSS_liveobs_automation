@@ -12,12 +12,12 @@ def get_browser():
     :return: Selenium driver
     """
     if environ.get('GO_PIPELINE_LABEL'):
-        #     desired_caps = {
-        #         "platform": "Windows 10",
-        #         "browserName": "chrome",
-        #         "version": "58.0",
-        #
-        #     }
+        desired_caps = {
+            "platform": "Windows 10",
+            "browserName": "chrome",
+            "version": "58.0",
+
+        }
         #     test_name = 'Selenium for run {}'.format(
         #         environ.get('GO_PIPELINE_LABEL', None))
         #     build_tag = environ.get('GO_PIPELINE_LABEL', None)
@@ -32,11 +32,12 @@ def get_browser():
         #     desired_caps['tunnelIdentifier'] = tunnel_id
         #     desired_caps['name'] = test_name
         #
-        #     executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
-        #     browser = webdriver.Remote(
-        #         command_executor=executor,
-        #         desired_capabilities=desired_caps
-        #     )
+        selenium_endpoint = "http://127.0.0.1:4444/wd/hub"
+        executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
+        browser = webdriver.Remote(
+            command_executor=executor,
+            desired_capabilities=desired_caps
+        )
         #
         #     # This is specifically for SauceLabs plugin.
         #     # In case test fails after selenium session creation having this
@@ -49,9 +50,7 @@ def get_browser():
         #     else:
         #         raise WebDriverException("Never created!")
         #     return browser
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('headless')
-        return webdriver.Chrome(chrome_options=chrome_options)
+        return browser
     else:
         return webdriver.Chrome()
 
