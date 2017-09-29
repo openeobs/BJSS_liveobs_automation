@@ -35,28 +35,6 @@ def ensure_user_has_role(context, name, role):
     assign_user_roles(user_model, name, role)
 
 
-# @given('the user {user_name} exists with the {user_role} role')
-# def ensure_user_with_role(context, user_name, user_role):
-#     """
-#     Do a search for user with the specified role or create one
-#
-#     :param context: Behave context
-#     :param user_name: Name for the user
-#     :param user_role: Role for the user
-#     """
-#
-#     group_model = context.client.model('res.groups')
-#     category_model = context.client.model('res.partner.category')
-#     groups = list()
-#     groups.append(get_role_id_for_group(
-#         group_model, 'NH Clinical {} Group'.format(user_role)))
-#     groups.append(get_role_id_for_group(group_model, 'Employee'))
-#     category_id = get_role_id_for_category(category_model, user_role)
-#     user_search = get_or_create_user(
-#         context.client, user_name, groups, category_id)
-#     context.helpers.user = user_search
-
-
 @given("the patient {patient_name} is in {location} of {parent_location}")
 def ensure_patient_in_system(context, patient_name, location, parent_location):
     """
