@@ -13,10 +13,10 @@ from liveobs_ui.page_object_models.common.background_setup import \
 @given('the user {name} exists')
 def ensure_user_record_exists(context, name):
     """
+    Checks if user record is in the system, otherwise it creates it
 
-    :param context:
-    :param name:
-    :return:
+    :param context: behave context
+    :param name: name of the user to search for
     """
     user_model = context.client
     get_or_create_user(user_model, name)
@@ -25,11 +25,11 @@ def ensure_user_record_exists(context, name):
 @given('user {name} has the role of {role}')
 def ensure_user_has_role(context, name, role):
     """
+    Checks if user has role assigned, otherwise assigns it
 
-    :param context:
-    :param name:
-    :param role:
-    :return:
+    :param context: behave context
+    :param name: name of the user to check
+    :param role: role to verify/assign
     """
     user_model = context.client
     assign_user_roles(user_model, name, role)
