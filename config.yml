@@ -8,3 +8,5 @@ database: nhclinical
 server: "http://localhost:8069"
 urls:
   login: "/mobile/login"
+  mobile_login: "/mobile/login"
+  desktop_login: "/web/login"
