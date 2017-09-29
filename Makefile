@@ -31,6 +31,7 @@ run: install_chromedriver
 	@curl -sf --head http://${GATEWAY}:8069/web
 	@sleep 5
 	@sed -i "s,localhost,${GATEWAY},g" config.yml
+	@sed -i "s,nhclinical,db,g" config.yml
 	PATH=$$PATH:chromedriver/ venv/bin/behave features/
 
 clean_up:
