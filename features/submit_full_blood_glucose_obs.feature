@@ -11,10 +11,10 @@ Feature: Submit Full Blood Glucose Observation
     And the user BloodGluObs Nurse is allocated to BloodGluObs Bed of Ward Test
 
   Scenario Outline: Blood Glucose observation is correctly submitted
-    Given user BloodGluObs Nurse logs into the mobile app
+    Given the user BloodGluObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, BloodGluObs is selected
+    When the Patient Patient, BloodGluObs is selected
     And the Take observation button is selected
     And the Blood Glucose observation is selected from the list
     Then the Blood Glucose observation form is displayed

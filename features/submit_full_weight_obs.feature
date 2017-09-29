@@ -11,10 +11,10 @@ Feature: Verifying submission for full weight observation.
     And the user WeightObs Nurse is allocated to WeightObs Bed of Ward Test
 
   Scenario Outline: Weight observation is correctly submitted
-    Given user WeightObs Nurse logs into the mobile app
+    Given the user WeightObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, WeightObs is selected
+    When the Patient Patient, WeightObs is selected
     And the Take observation button is selected
     And the Weight observation is selected from the list
     Then the Weight observation form is displayed

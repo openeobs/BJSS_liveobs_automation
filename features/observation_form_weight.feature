@@ -11,10 +11,10 @@ Feature: Weight Observation - Data Entry
     And the user WeightForm Nurse is allocated to WeightForm Bed3 of Ward Test
 
   Scenario: Weight Observation Form is correctly displayed
-    Given user WeightForm Nurse logs into the mobile app
+    Given the user WeightForm Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, WeightForm is selected
+    When the Patient Patient, WeightForm is selected
     And the Take observation button is selected
     And the Weight observation is selected from the list
     Then the Weight observation form is displayed

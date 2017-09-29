@@ -11,10 +11,10 @@ Feature: Submit Full Blood Product Observation
     And the user BloodProdObs Nurse is allocated to BloodProdObs Bed of Ward Test
 
   Scenario Outline: Blood Product observation is correctly submitted
-    Given user BloodProdObs Nurse logs into the mobile app
+    Given the user BloodProdObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, BloodProdObs is selected
+    When the Patient Patient, BloodProdObs is selected
     And the Take observation button is selected
     And the Blood Product observation is selected from the list
     Then the Blood Product observation form is displayed

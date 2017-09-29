@@ -11,10 +11,10 @@ Feature: NEWS observation. Calculate Score/Risk.
     And the user NEWSFullScore Nurse is allocated to NEWSFullScore Bed of Ward Test
 
   Scenario Outline: NEWS Observation is correctly submitted. Risk and Score from 0 to 18
-    Given user NEWSFullScore Nurse logs into the mobile app
+    Given the user NEWSFullScore Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, NEWSFullScore is selected
+    When the Patient Patient, NEWSFullScore is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

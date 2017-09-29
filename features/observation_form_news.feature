@@ -11,10 +11,10 @@ Feature: NEWS Observation - Data Entry
     And the user NEWSForm Nurse is allocated to NEWSForm Bed of Ward Test
 
   Scenario: NEWS Observation Form is correctly displayed
-    Given user NEWSForm Nurse logs into the mobile app
+    Given the user NEWSForm Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, NEWSForm is selected
+    When the Patient Patient, NEWSForm is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

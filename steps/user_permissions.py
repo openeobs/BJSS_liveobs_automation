@@ -65,7 +65,7 @@ def list_of_tasks_for_role_task_types(context, user_role):
             "{} task not in {}".format(task_name, tasks_for_role)
 
 
-@given("user {user_name} logs into the {app_view} app")
+@given("the user {user_name} logs into the {app_view} app")
 def user_logs_into_app(context, user_name, app_view):
     """
     Navigates to web/mobile login page and logs in as user saved in context.

@@ -11,10 +11,10 @@ Feature: Blood Glucose Observation - Data Entry
     And the user BloodGlu Nurse is allocated to BloodGlu Bed of Ward Test
 
   Scenario: Blood Glucose Observation Form is correctly displayed
-    Given user BloodGlu Nurse logs into the mobile app
+    Given the user BloodGlu Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, BloodGlu is selected
+    When the Patient Patient, BloodGlu is selected
     And the Take observation button is selected
     And the Blood Glucose observation is selected from the list
     Then the Blood Glucose observation form is displayed

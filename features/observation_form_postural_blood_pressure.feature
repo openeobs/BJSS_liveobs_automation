@@ -11,10 +11,10 @@ Feature: Postural Blood Pressure Observation - Data Entry
     And the user PBPForm Nurse is allocated to PBPForm Bed of Ward Test
 
   Scenario: Postural Blood Pressure Observation Form is correctly displayed
-    Given user PBPForm Nurse logs into the mobile app
+    Given the user PBPForm Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Patient, PBPForm is selected
+    When the Patient Patient, PBPForm is selected
     And the Take observation button is selected
     And the Postural Blood Pressure observation is selected from the list
     Then the Postural Blood Pressure observation form is displayed
