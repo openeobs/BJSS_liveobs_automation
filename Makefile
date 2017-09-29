@@ -22,6 +22,16 @@ install:
 	@virtualenv venv
 	venv/bin/pip install -r requirements.txt
 
+setup_chrome:
+	@docker pull yukinying/chrome-headless-browser-selenium
+
+run_chrome:
+	@docker run -d --name selenium --shm=size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444
+	@
+
+stop_chrome:
+	@docker stop selenium
+
 install_chromedriver:
 	@curl -o chromedriver.zip -SL https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
 	@unzip -d chromedriver chromedriver.zip

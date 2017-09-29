@@ -29,7 +29,7 @@ def get_browser():
         #     desired_caps['tunnelIdentifier'] = tunnel_id
         #     desired_caps['name'] = test_name
         #
-    selenium_endpoint = "http://192.168.99.100:4444/wd/hub"
+    selenium_endpoint = "http://localhost:4444/wd/hub"
     executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
     browser = webdriver.Remote(
         command_executor=executor,
