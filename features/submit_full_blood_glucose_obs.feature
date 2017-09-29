@@ -4,11 +4,17 @@
 
 Feature: Submit Full Blood Glucose Observation
 
-  Scenario Outline: Full Blood Glucose Observation is correctly submitted.
-    Given a user with the Nurse role logs into the app
+  Background: BG Obs - Set up
+    Given the user BloodGluObs Nurse exists
+    And user BloodGluObs Nurse has the role of Nurse
+    And the patient BloodGluObs Patient is in BloodGluObs Bed of Ward Test
+    And the user BloodGluObs Nurse is allocated to BloodGluObs Bed of Ward Test
+
+  Scenario Outline: Blood Glucose observation is correctly submitted
+    Given user BloodGluObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When Patient Patient, BloodGluObs is selected
     And the Take observation button is selected
     And the Blood Glucose observation is selected from the list
     Then the Blood Glucose observation form is displayed

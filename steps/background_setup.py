@@ -6,116 +6,55 @@
 from uuid import uuid4
 from behave import given
 
-
-def get_or_create_user(client, name, groups, category_id):
-    """
-    Do a search and find user, if no user then create them
-    :param client: ERPPeek Client
-    :param name: Name of the user to find
-    :param groups: list of groups for user role
-    :param category_id: ID for user role
-    :return: user_id
-    """
-    user_model = client.model('res.users')
-    user_search = user_model.search(
-        [
-            ['name', '=', name]
-        ]
-    )
-    if user_search:
-        found_user = user_model.read(user_search[0], ['login', 'groups_id'])
-        for group_id in groups:
-            if group_id not in found_user.get('groups_id'):
-                user_model.write(found_user.get('id'), {
-                    'groups_id': [
-                        [6, 0, found_user.get('groups_id') + group_id]
-                    ]
-                })
-        return found_user.get('login')
-    else:
-        location_model = client.model('nh.clinical.location')
-        location_search = location_model.search(
-            [
-                ['usage', '=', 'hospital']
-            ]
-        )
-        pos_id = []
-        if location_search:
-            location = location_model.read(location_search[0], ['pos_id'])
-            if location.get('pos_id'):
-                pos_id.append(location['pos_id'][0])
-        else:
-            raise Exception("No hospital in system")
-        user_login = name.lower().replace(' ', '_').strip()
-        user_model.create(
-            {
-                'name': name,
-                'login': user_login,
-                'password': user_login,
-                'category_id': [[6, 0, [category_id]]],
-                'groups_id': [[6, 0, groups]],
-                'location_ids': [[6, 0, []]],
-                'pos_ids': [[6, 0, pos_id]]
-            }
-        )
-        return user_login
+from liveobs_ui.page_object_models.common.background_setup import \
+    get_or_create_user, assign_user_roles
 
 
-def get_role_id_for_group(model, group):
-    """
-    Get the ID for the group
-    :param model: Group Model
-    :param group: Name of the group
-    :return: ID for the group
-    """
-    group_search = model.search(
-        [
-            ['name', '=', group]
-        ]
-    )
-    if not group_search:
-        raise Exception("No group {} found".format(group))
-    return group_search[0]
-
-
-def get_role_id_for_category(category_model, user_role):
-    """
-    Get the ID for the category
-    :param category_model: Category Model
-    :param user_role: Name of the category
-    :return: ID for the category
-    """
-    category_search = category_model.search(
-        [
-            ['name', '=', user_role]
-        ]
-    )
-    if category_search:
-        return category_search[0]
-    else:
-        raise Exception("No category {} found".format(user_role))
-
-
-@given('the user {user_name} exists with the {user_role} role')
-def ensure_user_with_role(context, user_name, user_role):
-    """
-    Do a search for user with the specified role or create one
-
-    :param context: Behave context
-    :param user_name: Name for the user
-    :param user_role: Role for the user
+@given('the user {name} exists')
+def ensure_user_record_exists(context, name):
     """
 
-    group_model = context.client.model('res.groups')
-    category_model = context.client.model('res.partner.category')
-    groups = list()
-    groups.append(get_role_id_for_group(
-        group_model, 'NH Clinical {} Group'.format(user_role)))
-    groups.append(get_role_id_for_group(group_model, 'Employee'))
-    category_id = get_role_id_for_category(category_model, user_role)
-    user_search = get_or_create_user(
-        context.client, user_name, groups, category_id)
-    context.helpers.user = user_search
+    :param context:
+    :param name:
+    :return:
+    """
+    user_model = context.client
+    get_or_create_user(user_model, name)
+
+
+@given('user {name} has the role of {role}')
+def ensure_user_has_role(context, name, role):
+    """
+
+    :param context:
+    :param name:
+    :param role:
+    :return:
+    """
+    user_model = context.client
+    assign_user_roles(user_model, name, role)
+
+
+# @given('the user {user_name} exists with the {user_role} role')
+# def ensure_user_with_role(context, user_name, user_role):
+#     """
+#     Do a search for user with the specified role or create one
+#
+#     :param context: Behave context
+#     :param user_name: Name for the user
+#     :param user_role: Role for the user
+#     """
+#
+#     group_model = context.client.model('res.groups')
+#     category_model = context.client.model('res.partner.category')
+#     groups = list()
+#     groups.append(get_role_id_for_group(
+#         group_model, 'NH Clinical {} Group'.format(user_role)))
+#     groups.append(get_role_id_for_group(group_model, 'Employee'))
+#     category_id = get_role_id_for_category(category_model, user_role)
+#     user_search = get_or_create_user(
+#         context.client, user_name, groups, category_id)
+#     context.helpers.user = user_search
 
 
 @given("the patient {patient_name} is in {location} of {parent_location}")

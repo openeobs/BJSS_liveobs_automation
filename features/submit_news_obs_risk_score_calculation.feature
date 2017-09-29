@@ -4,11 +4,17 @@
 
 Feature: NEWS observation. Calculate Score/Risk.
 
+  Background: NEWS Risk/Score calculation - Set up
+    Given the user NEWSFullScore Nurse exists
+    And user NEWSFullScore Nurse has the role of Nurse
+    And the patient NEWSFullScore Patient is in NEWSFullScore Bed of Ward Test
+    And the user NEWSFullScore Nurse is allocated to NEWSFullScore Bed of Ward Test
+
   Scenario Outline: NEWS Observation is correctly submitted. Risk and Score from 0 to 18
-    Given a user with the Nurse role logs into the app
+    Given user NEWSFullScore Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When Patient Patient, NEWSFullScore is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed
@@ -48,10 +54,10 @@ Feature: NEWS observation. Calculate Score/Risk.
     | 25        | 91     | 35.0        | 220    | 80     | 40    | Voice         | No     | High    | 18    |
 
   Scenario Outline: NEWS Observation is correctly submitted. Risk and Score 19 & 20
-    Given a user with the Nurse role logs into the app
+    Given user NEWSFullScore Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When Patient Patient, NEWSFullScore is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

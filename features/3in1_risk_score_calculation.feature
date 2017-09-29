@@ -4,11 +4,17 @@
 
 Feature: NEWS Score/Risk for 3in1 cases.
 
+  Background: 3in1 NEWS - Set up user and Patient for the test
+    Given the user NEWS3in1 Nurse exists
+    And user NEWS3in1 Nurse has the role of Nurse
+    And the patient NEWS 3in1Pat is in NEWS 3in1 of Ward Test
+    And the user NEWS3in1 Nurse is allocated to NEWS 3in1 of Ward Test
+
   Scenario Outline: 3 in 1 observations get correct score/risk
-    Given a user with the Nurse role logs into the app
+    Given user NEWS 3in1 logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When Patient Doyle, Worth Scott is selected
+    When Patient 3in1Pat, NEWS is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed
