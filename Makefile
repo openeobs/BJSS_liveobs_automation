@@ -26,8 +26,7 @@ setup_chrome:
 	@docker pull yukinying/chrome-headless-browser-selenium
 
 run_chrome:
-	@docker run -d --name selenium --shm=size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444
-	@
+	@docker run -d --name selenium --shm-size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444 yukinying/chrome-headless-browser-selenium
 
 stop_chrome:
 	@docker stop selenium
