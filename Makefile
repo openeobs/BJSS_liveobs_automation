@@ -42,7 +42,7 @@ run: install_chromedriver
 	@sleep 5
 	@sed -i "s,localhost,${GATEWAY},g" config.yml
 	@sed -i "s,nhclinical,db,g" config.yml
-	PATH=$$PATH:chromedriver/ GATEWAY="${GATEWAY}"" venv/bin/behave features/
+	PATH=$$PATH:chromedriver/ GATEWAY="${GATEWAY}" venv/bin/behave features/
 
 clean_up:
 	test -f /var/tmp/sc.pid && kill -9 $$(cat /var/tmp/sc.pid) || /bin/true
