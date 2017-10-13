@@ -30,6 +30,7 @@ run_chrome:
 
 stop_chrome:
 	@docker stop selenium
+	@docker rm selenium
 
 install_chromedriver:
 	@curl -o chromedriver.zip -SL https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
