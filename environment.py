@@ -16,6 +16,7 @@ def get_browser():
         desired_caps = options.to_capabilities()
         selenium_host = environ.get('GATEWAY', 'localhost')
         selenium_endpoint = "http://{}:4444/wd/hub".format(selenium_host)
+        print('using URL: {}'.format(selenium_endpoint))
         executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
         browser = webdriver.Remote(
             command_executor=executor,
