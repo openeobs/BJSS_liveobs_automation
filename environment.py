@@ -14,7 +14,8 @@ def get_browser():
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')
         desired_caps = options.to_capabilities()
-        selenium_endpoint = "http://localhost:4444/wd/hub"
+        selenium_host = environ.get('GATEWAY', 'localhost')
+        selenium_endpoint = "http://{}:4444/wd/hub".format(selenium_host)
         executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
         browser = webdriver.Remote(
             command_executor=executor,
