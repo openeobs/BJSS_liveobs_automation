@@ -29,8 +29,8 @@ run_chrome:
 	@docker run -d --name selenium --shm-size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444 yukinying/chrome-headless-browser-selenium
 
 stop_chrome:
-	@docker stop selenium
-	@docker rm selenium
+	@docker stop selenium || /bin/true
+	@docker rm selenium || /bin/true
 
 install_chromedriver:
 	@curl -o chromedriver.zip -SL https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip
