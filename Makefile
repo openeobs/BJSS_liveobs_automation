@@ -23,10 +23,10 @@ install:
 	venv/bin/pip install -r requirements.txt
 
 setup_chrome:
-	@docker pull yukinying/chrome-headless-browser-selenium
+	@docker pull yukinying/chrome-headless-browser-selenium:64.0.3278.0
 
 run_chrome:
-	@docker run -d --name selenium --shm-size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444 yukinying/chrome-headless-browser-selenium
+	@docker run -d --name selenium --shm-size=1024m --cap-add SYS_ADMIN -p 0.0.0.0:4444:4444 yukinying/chrome-headless-browser-selenium:64.0.3278.0
 
 stop_chrome:
 	@docker stop selenium || /bin/true
