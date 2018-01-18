@@ -268,9 +268,14 @@ def confirm_observation_submission(context, obs_name):
     modal_page = ModalPage(context.driver)
     modals = modal_page.get_open_modals()
     submit_modal = modals[0]
-    assert modal_page.get_modal_title(submit_modal) == \
-        'Successfully Submitted {} Observation'.format(obs_name), \
-        "Expected message for '{}' not presented".format(obs_name)
+
+    expected_modal_title = 'Successfully Submitted {} Observation'.format(
+        obs_name)
+    actual_modal_title = modal_page.get_modal_title(submit_modal)
+
+    assert expected_modal_title == actual_modal_title, \
+        "The expected modal title is '{}' but the actual modal title is {}"\
+        .format(expected_modal_title, actual_modal_title)
 
 
 @then('the {modal_title} popup is displayed')
