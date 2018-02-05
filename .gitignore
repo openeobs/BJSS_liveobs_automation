@@ -102,3 +102,8 @@ ENV/
 
 #idea file
 .idea
+
+#automation tests
+allure-report/
+liveobs_auto_test_output/
+node_modules/
