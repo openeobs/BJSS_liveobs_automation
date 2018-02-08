@@ -2,7 +2,7 @@
   # JIRA: EOBS-476
   # Scenarios covered: Shift coordinator page visibility
 
-Feature: Page visibility for user Shift Coordinator
+Feature: Page visibility for Shift Coordinator user - Desktop
 
   Background: Shift Coordinator page visibility - Set up user for the test
     Given the user SC_476 exists
@@ -11,14 +11,13 @@ Feature: Page visibility for user Shift Coordinator
 
   Scenario: Shift Coordinator page visibility
     Given the user SC_476 logs into the desktop app
-    When I wait for a bit
     Then the available menu items are filtered for the Shift Coordinator role
-#    Then the list of tasks is filtered to show tasks for the Shift Coordinator role
       | page                        |
       | Acuity Board                |
       | Patients by Ward            |
       | Recently Discharged         |
       | Recently Transferred        |
+      | Patients without bed        |
       | Overdue Tasks               |
       | Workload                    |
       | My Dashboard                |
@@ -28,3 +27,5 @@ Feature: Page visibility for user Shift Coordinator
       | Nursing Shift Change        |
       | Nursing Re-Allocation       |
       | Medical Shift Change        |
+      | Create Patient Visit        |
+      | Visits In-Progress          |

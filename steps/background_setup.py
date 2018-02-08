@@ -235,4 +235,3 @@ def ensure_user_allocated_to_location(
         user_model.write(user_search, {
             'location_ids': [[6, 0, user_locations]]
         })
-

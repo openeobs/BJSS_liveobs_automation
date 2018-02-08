@@ -4,14 +4,13 @@
 # pylint: disable=no-name-in-module
 # pylint: disable=unused-argument
 
-from behave import given, then, when
+from behave import given, then
 from liveobs_ui.page_object_models.common.login_page import LoginPage
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
 from liveobs_ui.page_object_models.common.background_setup import \
     get_user_credentials
-import time
 
 
 @given("a user with the {user_role} role logs into the app")
@@ -87,23 +86,23 @@ def user_logs_into_app(context, user_name, app_view):
         login_page.login(username, username, desktop=is_desktop)
     else:
         raise ValueError('No user found')
+    login_page.verify_page_loaded(app_view)
 
 
 @then("the available menu items are filtered for the {user_role} role")
-def something_done(context, user_role):
+def verify_correct_desktop_menu_items_available(context, user_role):
     """
+
+    :param context:
     :param user_role:
     :return:
     """
     pages_for_role = []
+    for row in context.table:
+        pages_for_role.append(row.get('page'))
     page_list = BaseDesktopPage(context.driver)
     pages = page_list.get_menu_items_list()
     for page in pages:
         page_name = page_list.get_menu_item_text(page)
         assert (page_name in pages_for_role), \
-            "{} task not in {}".format(page_name, pages_for_role)
-
-
-@when("I wait for a bit")
-def wait_for_it(context):
-    time.sleep(20)
+            "'{}' page not in {}".format(page_name, pages_for_role)
