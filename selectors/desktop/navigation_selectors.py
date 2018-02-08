@@ -18,3 +18,6 @@ LEFT_NAVIGATION_ITEMS = (
     'td.oe_leftbar .oe_secondary_menus_container '
     '.oe_secondary_menu .oe_secondary_submenu li a'
 )
+
+LEFT_NAVIGATION_ITEMS_NAME = (
+    By.CSS_SELECTOR, '.oe_secondary_submenu li a .oe_menu_text')

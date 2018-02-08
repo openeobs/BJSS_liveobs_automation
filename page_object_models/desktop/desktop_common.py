@@ -2,7 +2,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from liveobs_ui.selectors.desktop.navigation_selectors import \
-    LEFT_NAVIGATION_ITEMS
+    LEFT_NAVIGATION_ITEMS, LEFT_NAVIGATION_ITEMS_NAME
 from liveobs_ui.selectors.desktop.search_selectors import \
     SEARCH_OPTIONS_DRAW_BUTTON, SEARCH_DRAWER, SEARCH_DRAWER_FILTER_ITEMS, \
     SEARCH_DRAWER_GROUP_BY_ITEMS, SEARCH_INPUT, SEARCH_AUTOCOMPLETE, \
@@ -200,3 +200,27 @@ class BaseDesktopPage(BaseLiveObsPage):
         if breadcrumbs:
             breadcrumb = breadcrumbs[-1]
             self.click_breadcrumb(breadcrumb)
+
+    def get_menu_items_list(self):
+        """
+        Returns a list of all the items in the left menu section on the
+        desktop app
+
+        :return: A list of all the WebElement items
+        :rtype: List of WebElements
+        """
+        return self.driver.find_elements(*LEFT_NAVIGATION_ITEMS)
+
+    @staticmethod
+    def get_menu_item_text(menu_item):
+        """
+        Returns the text attribute of an element on an item
+        in the left menu section on the desktop app
+
+        :param menu_item: WebElement from where to get the text element
+        :return: The text within the WebElement
+        :rtype: unicode
+        """
+
+        menu_info = menu_item.find_element(*LEFT_NAVIGATION_ITEMS_NAME)
+        return menu_info.text

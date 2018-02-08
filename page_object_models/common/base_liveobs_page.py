@@ -9,6 +9,9 @@ from selenium.webdriver.support.select import Select
 from selenium.common.exceptions import ElementNotVisibleException
 from liveobs_ui.selectors.desktop.form_selectors import \
     FORM_VIEW_AUTOCOMPLETE_CONTAINER
+from liveobs_ui.selectors.desktop.navigation_selectors import \
+    LEFT_NAVIGATION_ITEMS
+from liveobs_ui.selectors.mobile.header import HEADER_CONTAINER
 from liveobs_ui.selectors.mobile.get_selector_by_lookup \
     import get_element_selector
 
@@ -142,7 +145,6 @@ class BaseLiveObsPage(object):
 
     def enter_many2one_tag_value(self, element, value):
         """
-
         Add value to many2one tag input then verify that the tag has been added
 
         :param element: many2one tag input element
@@ -192,3 +194,15 @@ class BaseLiveObsPage(object):
         :return: webelement
         """
         return self.driver.find_element(*get_element_selector(element_name))
+
+    def verify_page_loaded(self, app_view):
+        """
+        Waits for a specific element to be visible on the screen the 'desktop'
+        or 'mobile' app to ensure the page has loaded before progressing
+
+        :param app_view: Either 'mobile' or 'desktop'
+        """
+        if app_view == 'desktop':
+            self.wait_for_element(LEFT_NAVIGATION_ITEMS)
+        else:
+            self.wait_for_element(HEADER_CONTAINER)

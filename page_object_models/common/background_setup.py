@@ -100,10 +100,19 @@ def assign_user_roles(client, name, role):
     """
     group_model = client.model('res.groups')
     category_model = client.model('res.partner.category')
-    user_role = get_role_id_for_group(
-        group_model,
-        'NH Clinical {} Group'.format(role)
-    )
+    #
+    # TODO EOBS-2335
+    #
+    if role == 'System Administrator':
+        user_role = get_role_id_for_group(
+            group_model,
+            'NH Clinical {} Group'.format('Admin')
+        )
+    else:
+        user_role = get_role_id_for_group(
+            group_model,
+            'NH Clinical {} Group'.format(role)
+        )
     role_category = get_role_id_for_category(category_model, role)
     user = get_user_record(client, name)
     if user:
