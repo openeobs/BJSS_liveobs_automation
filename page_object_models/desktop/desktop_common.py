@@ -221,6 +221,5 @@ class BaseDesktopPage(BaseLiveObsPage):
         :return: The text within the WebElement
         :rtype: unicode
         """
-
         menu_info = menu_item.find_element(*LEFT_NAVIGATION_ITEMS_NAME)
         return menu_info.text
