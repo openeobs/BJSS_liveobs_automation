@@ -101,7 +101,7 @@ def assign_user_roles(client, name, role):
     group_model = client.model('res.groups')
     category_model = client.model('res.partner.category')
     #
-    # TODO EOBS-2335
+    # Refactor: EOBS-2335
     #
     if role == 'System Administrator':
         user_role = get_role_id_for_group(
