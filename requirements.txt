@@ -1,8 +1,9 @@
 flake8==3.3.0
-pylint==1.7.1
+pylint==1.7.5
 selenium==3.6.0
 sphinx==1.6.1
 git+git://github.com/BJSS/BJSS_liveobs_selenium.git@master
 git+git://github.com/behave/behave.git@master
 PyYAML==3.12
 ERPpeek==1.6.3
+astroid==1.5.3
