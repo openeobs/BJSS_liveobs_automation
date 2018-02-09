@@ -78,6 +78,7 @@ def select_random_patient_in_list(context):
 def select_defined_patient(context, patient_name):
     """
     Finds a named patient in the list and selects it
+
     :param context: behave context
     :param patient_name: the name and surenae of the patient to be selected
     """
@@ -171,6 +172,7 @@ def verify_field_is_necessary(context, obs_data_entry_field,
 def input_value_in_field(context, value, input_type, input_field):
     """
     Inputs or selects a specified value into a field
+
     :param context: behave context
     :param value: a value/option to input/select
     :param input_type: either input or select field
@@ -191,6 +193,7 @@ def input_value_in_field(context, value, input_type, input_field):
 def verify_obs_in_take_obs_list(context, obs_name, shown):
     """
     Verifies an observation is listed in the Take Observation list
+
     :param context: behave context
     :param obs_name: text for the observation to find
     :param shown: determines if the element should/should not be on the page
@@ -210,6 +213,7 @@ def verify_obs_in_take_obs_list(context, obs_name, shown):
 def submit_the_form(context):
     """
     Submits an observation form
+
     :param context: behave context
     """
     form_page = DataEntryPage(context.driver)
@@ -259,6 +263,7 @@ def confirm_observation_submission(context, obs_name):
     """
     Verifies the correct message and observation name is displayed upon
     confirming the submission of an observation form
+
     :param context: behave context
     :param obs_name: name of the observation expected
     :return: boolean

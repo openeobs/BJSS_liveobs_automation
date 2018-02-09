@@ -12,7 +12,6 @@ Feature: Page visibility for Senior Manager user - Desktop
   Scenario: Senior Manager page visibility
     Given the user SM_476 logs into the desktop app
     Then the available menu items are filtered for the Senior Manager role
-
       | page                        |
       | Patients by Ward            |
       | Recently Discharged         |

@@ -72,6 +72,7 @@ def user_logs_into_app(context, user_name, app_view):
     """
     Navigates to web/mobile login page and logs in as user saved in context.
     If no user is found, it raises an exception
+
     :param context: behave context
     :param user_name: the name of the user. Used to locate the user in context
     :param app_view: either mobile or desktop
@@ -81,8 +82,8 @@ def user_logs_into_app(context, user_name, app_view):
         context.helpers.config.get('urls').get('{}_login'.format(app_view))
     login_page.driver.get(login_url)
     username = get_user_credentials(context.client, user_name)
-    is_desktop = app_view == 'desktop'
     if username:
+        is_desktop = app_view == 'desktop'
         login_page.login(username, username, desktop=is_desktop)
     else:
         raise ValueError('No user found')
@@ -92,17 +93,16 @@ def user_logs_into_app(context, user_name, app_view):
 @then("the available menu items are filtered for the {user_role} role")
 def verify_correct_desktop_menu_items_available(context, user_role):
     """
+    Verify that the menu items available in the in the desktop menu are only
+    those specified for the role the user is associated with
 
-    :param context:
-    :param user_role:
-    :return:
+    :param context: Behave context
+    :param user_role: Role assigned to the user
     """
-    pages_for_role = []
-    for row in context.table:
-        pages_for_role.append(row.get('page'))
+    expected_pages = [row.get('page') for row in context.table]
     page_list = BaseDesktopPage(context.driver)
     pages = page_list.get_menu_items_list()
     for page in pages:
-        page_name = page_list.get_menu_item_text(page)
-        assert (page_name in pages_for_role), \
-            "'{}' page not in {}".format(page_name, pages_for_role)
+        actual_page = page_list.get_menu_item_text(page)
+        assert (actual_page in expected_pages), \
+            "'{}' page not in {}".format(actual_page, expected_pages)

@@ -12,7 +12,6 @@ Feature: Page visibility for System Admin user - Desktop
   Scenario: System Admin page visibility
     Given the user SA_476 logs into the desktop app
     Then the available menu items are filtered for the System Admin role
-
       | page                        |
       | Recently Discharged         |
       | Recently Transferred        |
