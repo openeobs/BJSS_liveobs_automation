@@ -193,6 +193,7 @@ def ensure_user_allocated_to_location(
         context, user_name, location, parent_location):
     """
     Make sure that the user allocated to the supplied location
+
     :param context: Behave context
     :param user_name: Name of the user to find and allocate
     :param location: name of the location to allocate user to

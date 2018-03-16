@@ -4,7 +4,6 @@ user_role_map:
   Nurse: nasir
   Doctor: dale
 database: nhclinical
-#server: "http://dzzmqlr.nhtek.io"
 server: "http://localhost:8069"
 urls:
   login: "/mobile/login"
