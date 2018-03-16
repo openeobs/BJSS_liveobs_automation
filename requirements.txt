@@ -5,7 +5,6 @@ pylint==1.7.5
 astroid==1.5.3
 selenium==3.6.0
 sphinx==1.6.1
-git+git://github.com/BJSS/BJSS_liveobs_selenium.git@master
-git+git://github.com/behave/behave.git@master
+behave
 PyYAML==3.12
 ERPpeek==1.6.3
