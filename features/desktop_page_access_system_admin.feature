@@ -18,7 +18,7 @@ Feature: Page visibility for System Admin user - Desktop
       | Overdue Tasks               |
       | My Dashboard                |
       | Ward Dashboard              |
-      | Open eObs Users             |
+      | LiveObs Users               |
       | Locations                   |
       | Patients                    |
       | Patient Visits              |
