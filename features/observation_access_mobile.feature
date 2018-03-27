@@ -1,6 +1,11 @@
 # Created by Nayira.Sanchez at 15/03/2018
-Feature: #Enter feature name here
-  # Enter feature description here
+@wip
+Feature: Observation access on mobile
+
+  As a user,
+  I would like to be able to perform observations on the patients under my
+  care,
+  In order to collect data on their health and take preventative measures.
 
 Feature: NEWS Observation - User has access to observation
 

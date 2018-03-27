@@ -1,6 +1,11 @@
 # Created by Nayira.Sanchez at 15/03/2018
-Feature: #Enter feature name here
-  # Enter feature description here
+@wip
+Feature: Patient access on mobile
+
+  As a user,
+  I would like to be able to view the current status of all the patients on my
+  ward,
+  So that I decide which patient needs my attention next.
 
   Background: Setting Tom Data
     Given the user Tom Nurse exists
