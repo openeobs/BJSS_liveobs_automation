@@ -1,12 +1,12 @@
 # Created by Tom.Leighton at 18/09/2017
 # JIRA: EOBS-893
 # Scenarios covered: 2, 3, 4, 5
-
 Feature: Verifying submission for full neurological observation.
 
   Background: Neuro Obs - Set up
     Given the user Neuro Nurse exists
     And user Neuro Nurse has the role of Nurse
+    And the user Neuro Nurse is in the current Shift for Ward Test
     And the patient Neuro Patient is in Neuro Bed of Ward Test
     And the user Neuro Nurse is allocated to Neuro Bed of Ward Test
 

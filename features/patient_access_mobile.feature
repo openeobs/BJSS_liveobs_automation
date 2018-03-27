@@ -10,7 +10,7 @@ Feature: Patient access on mobile
   Background: Setting Tom Data
     Given the user Tom Nurse exists
     And user Tom Nurse has the role of Nurse
-    And the user Tom Nurse is in Shift for Ward Tom
+    And the user Tom Nurse is in the current Shift for Ward Tom
 
     And the user Dan Nurse exists
     And user Dan Nurse has the role of Nurse
@@ -18,7 +18,7 @@ Feature: Patient access on mobile
 
     And the user Tom HCA exists
     And user Tom HCA has the role of HCA
-    And the user Tom HCA is in Shift for Ward Tom
+    And the user Tom HCA is in the current Shift for Ward Tom
 
     And the user Dan HCA exists
     And user Dan HCA has the role of HCA

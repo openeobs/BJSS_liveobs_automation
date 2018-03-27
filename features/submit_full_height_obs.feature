@@ -1,12 +1,12 @@
 # Created by Tom.Leighton at 18/09/2017
 # JIRA: EOBS-1564
 # Scenarios covered: Needs to be defined
-
 Feature: Verifying submission for full height observation.
 
   Background: Hight Obs - Set up
     Given the user HightObs Nurse exists
     And user HightObs Nurse has the role of Nurse
+    And the user HightObs Nurse is in the current Shift for Ward Test
     And the patient HightObs Patient is in HightObs Bed of Ward Test
     And the user HightObs Nurse is allocated to HightObs Bed of Ward Test
 

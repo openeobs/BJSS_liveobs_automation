@@ -1,12 +1,12 @@
 # Created by Tom.Leighton at 18/09/2017
 # JIRA: EOBS-1565
 # Scenarios covered: Needs to be defined
-
 Feature: Submit Full Blood Product Observation
 
   Background: BP Obs - Set up
     Given the user BloodProdObs Nurse exists
     And user BloodProdObs Nurse has the role of Nurse
+    And the user BloodProdObs Nurse is in the current Shift for Ward Test
     And the patient BloodProdObs Patient is in BloodProdObs Bed of Ward Test
     And the user BloodProdObs Nurse is allocated to BloodProdObs Bed of Ward Test
 

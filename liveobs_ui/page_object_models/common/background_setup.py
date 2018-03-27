@@ -155,3 +155,77 @@ def get_user_credentials(client, name):
     if user_search:
         return user_search.login
     return None
+
+
+def create_locations_if_necessary(
+        context, location_name=None, parent_location_name=None):
+    # check parent location
+    location_model = context.client.model('nh.clinical.location')
+    context_model = context.client.model('nh.clinical.context')
+    eobs_context = context_model.search(
+        [
+            ['name', '=', 'eobs']
+        ]
+    )
+    if not eobs_context:
+        raise Exception('No eobs context found in system')
+    # if parent location doesn't exist then create it
+    parent_location_id = location_model.search(
+        [
+            ['name', '=', parent_location_name]
+        ]
+    )
+    if not parent_location_id:
+        hospital_search = location_model.search(
+            [
+                ['usage', '=', 'hospital']
+            ]
+        )
+        if not hospital_search:
+            hospital_search = location_model.create(
+                {
+                    'name': 'Test Hospital',
+                    'code': 'TESTHOSP',
+                    'type': 'pos',
+                    'usage': 'hospital'
+                }
+            )
+        parent_location_code = parent_location_name.replace(' ', '_').strip()
+        parent_location_id = location_model.create(
+            {
+                'name': parent_location_name,
+                'code': parent_location_code,
+                'type': 'poc',
+                'usage': 'ward',
+                'parent_id': hospital_search[0],
+                'context_ids': [[6, 0, eobs_context]]
+            }
+        )
+        parent_location_id = parent_location_id.id
+    else:
+        parent_location_id = parent_location_id[0]
+        context.ward = location_model.browse(parent_location_id)
+
+    if location_name is not None:
+        # check location
+        location_search = location_model.search(
+            [
+                ['name', '=', location_name],
+                ['parent_id', '=', parent_location_id]
+            ]
+        )
+        # if location doesn't exist then create it under parent
+        if not location_search:
+            location_search = location_model.create(
+                {
+                    'name': location_name,
+                    'code': location_name.replace(' ', '_').strip(),
+                    'type': 'poc',
+                    'usage': 'bed',
+                    'parent_id': parent_location_id,
+                    'context_ids': [[6, 0, eobs_context]]
+                }
+            )
+            context.bed_id = location_search.id
+        else:
+            context.bed_id = location_search[0]

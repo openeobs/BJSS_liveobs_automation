@@ -16,7 +16,7 @@ Feature: NEWS Observation - User has access to observation
 
     And the user NAYI exists
     And user NAYI has the role of Nurse
-    And the user NAYI is in Shift for Ward Test
+    And the user NAYI is in the current Shift for Ward Tom
 
     And the patient NEWSForm Patient is in NEWSForm Bed of Ward Test
 
