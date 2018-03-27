@@ -236,3 +236,6 @@ def ensure_user_allocated_to_location(
         user_model.write(user_search, {
             'location_ids': [[6, 0, user_locations]]
         })
+
+@given('the user {user_name} is in Shift for {parent_location}')
+def blah():
