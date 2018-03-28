@@ -1,7 +1,6 @@
 # Created by Nayira.Sanchez at 11/07/2017
   # JIRA: EOBS-979, EOBS-898, EOBS-893, EOBS-900, EOBS-1087
   # Scenarios covered: EOBS-898.1, EOBS-893.1, EOBS-900.1, EOBS-1087.1
-
 Feature: Mobile UI - 'Take Observation' dropdown list
   # When the user presses the 'Take Observation' button in the mobile app,
   # a drop down list is presented that allows the user to select the type
@@ -11,6 +10,13 @@ Feature: Mobile UI - 'Take Observation' dropdown list
     Given a user with the Nurse role logs into the app
     And they view the My Patients list
     And the My Patients list has loaded
+    # TODO readers of this specification will expect the patient name to be
+    # displayed normally like 'Scott Worth Doyle'. It may be slightly confusing
+    # at first so I think we should keep the name ordinary and handle the
+    # formatting in the steps layer.
+    #
+    # It will make sense to have the name like this only when we are
+    # specifically explaining that behaviour, i.e. in the patient card feature.
     When the Patient Doyle, Worth Scott is selected
     And the Take observation button is selected
     Then the NEWS observation is listed
