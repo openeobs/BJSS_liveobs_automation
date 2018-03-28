@@ -74,9 +74,9 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
         ]
     )
     # if patient not found then create them
+    api_model = context.client.model('nh.eobs.api')
     if not patient_search:
         hospital_number = str(uuid4().int)[:8]
-        api_model = context.client.model('nh.eobs.api')
         patient_search = api_model.register(
             hospital_number,
             {
@@ -104,7 +104,7 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
         api_model.admit(
             hospital_number,
             {
-                'location': context.ward_code,
+                'location': context.ward.code,
             }
         )
     # check patient isn't in location then place them there

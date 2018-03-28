@@ -5,6 +5,8 @@
 
 from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
+from liveobs_ui.page_object_models.mobile.patient_list_page import \
+    PatientListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
@@ -48,6 +50,13 @@ def test_check(context, page_name):
             'Expected to be in {} but it is not'.format(page_name)
 
 
+@then('the Patient {patient_name} is in the list')
+def assert_patient_in_list(context, patient_name):
+    patient_list = PatientListPage(context.driver)
+    patient = patient_list.get_patient(patient_name)
+    assert patient, "Patient '{}' is not in list".format(patient_name)
+
+
 @when('the {button_name} button is selected')
 def press_button_with_name(context, button_name):
     """
@@ -70,17 +79,17 @@ def select_random_patient_in_list(context):
     :param context: Behave context
     :return: selects a random patient card from the Patient list in the app
     """
-    select_patient = ListPage(context.driver)
+    select_patient = PatientListPage(context.driver)
     select_patient.select_random_patient()
 
 
 @when('the Patient {patient_name} is selected')
 def select_defined_patient(context, patient_name):
     """
-    Finds a named patient in the list and selects it
+    Finds a named patient in the list and selects it.
 
     :param context: behave context
-    :param patient_name: the name and surenae of the patient to be selected
+    :param patient_name: the name and surname of the patient to be selected
     """
     select_patient = ListPage(context.driver)
     patient = select_patient.get_list_item(patient_name)
