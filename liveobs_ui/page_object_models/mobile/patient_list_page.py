@@ -29,10 +29,11 @@ class PatientListPage(ListPage):
         patient = random.choice(patients)
         self.open_item(patient)
 
-    def get_patient(self, patient_name):
+    def get_list_item(self, patient_name):
         reformatted_patient_name = self.reformat_patient_name_for_patient_card(
             patient_name)
-        patient_card = self.get_list_item(reformatted_patient_name)
+        patient_card = super(PatientListPage, self).get_list_item(
+            reformatted_patient_name)
         return patient_card
 
     @staticmethod

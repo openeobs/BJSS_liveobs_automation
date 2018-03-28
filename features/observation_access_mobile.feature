@@ -12,11 +12,12 @@ Feature: NEWS Observation - User has access to observation
   Background: NEWS Form - Set up
     Given the user NEWSForm Nurse exists
     And user NEWSForm Nurse has the role of Nurse
+    And the user NEWSForm Nurse is in the current Shift for Ward Test
     And the user NEWSForm Nurse is allocated to NEWSForm Bed of Ward Test
 
-    And the user NAYI exists
-    And user NAYI has the role of Nurse
-    And the user NAYI is in the current Shift for Ward Tom
+    And the user NAYI Nurse exists
+    And user NAYI Nurse has the role of Nurse
+    And the user NAYI Nurse is in the current Shift for Ward Test
 
     And the patient NEWSForm Patient is in NEWSForm Bed of Ward Test
 
@@ -25,14 +26,14 @@ Feature: NEWS Observation - User has access to observation
     Given the user NEWSForm Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSForm is selected
+    When the Patient NEWSForm Patient is selected
     And the Take observation button is selected
-    And the NEWS observation is displayed
+    Then the NEWS observation is listed
 
   Scenario: NEWS Observation Form is correctly displayed
-    Given the user NAYI logs into the mobile app
+    Given the user NAYI Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSForm is selected
+    When the Patient NEWSForm Patient is selected
     And the Take observation button is selected
-    And the NEWS observation is not displayed
+    Then the NEWS observation is not listed

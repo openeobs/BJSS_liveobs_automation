@@ -53,7 +53,7 @@ def test_check(context, page_name):
 @then('the Patient {patient_name} is in the list')
 def assert_patient_in_list(context, patient_name):
     patient_list = PatientListPage(context.driver)
-    patient = patient_list.get_patient(patient_name)
+    patient = patient_list.get_list_item(patient_name)
     assert patient, "Patient '{}' is not in list".format(patient_name)
 
 
@@ -91,9 +91,9 @@ def select_defined_patient(context, patient_name):
     :param context: behave context
     :param patient_name: the name and surname of the patient to be selected
     """
-    select_patient = ListPage(context.driver)
-    patient = select_patient.get_list_item(patient_name)
-    select_patient.open_item(patient)
+    patient_list = PatientListPage(context.driver)
+    patient = patient_list.get_list_item(patient_name)
+    patient_list.open_item(patient)
 
 
 @when('the {observation_type} observation is selected from the list')
