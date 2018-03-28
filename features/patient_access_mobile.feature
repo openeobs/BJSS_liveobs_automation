@@ -37,6 +37,10 @@ Feature: Patient access on mobile
     And user Tom Doctor has the role of Doctor
     And the user Tom Doctor is allocated to Ward Test of Greenfield University Hospital
 
+    And the user Tom Senior Manager exists
+    And user Tom Senior Manager has the role of Senior Manager
+    And the user Tom Senior Manager is allocated to Ward Test of Greenfield University Hospital
+
   Scenario Outline: All users are able to see all patients in their ward.
     Given the user <user> logs into the mobile app
     And they view the My Patients list
@@ -52,6 +56,7 @@ Feature: Patient access on mobile
     |Dan Nurse            |
     |Tom Shift Coordinator|
     |Tom Doctor           |
+    |Tom Senior Manager   |
 
 #  Scenario Outline: Users of Ward Shift have full patient visibility after re-allocation
 #    Given the user <user> logs into the mobile app
