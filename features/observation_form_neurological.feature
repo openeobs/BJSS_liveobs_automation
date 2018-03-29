@@ -7,6 +7,7 @@ Feature: Neurological Observation - Data Entry
   Background: Neuro Form - Set up
     Given the user Neuro Nurse exists
     And user Neuro Nurse has the role of Nurse
+    And the user Neuro Nurse is in the current Shift for Ward Test
     And the patient Neuro Patient is in Neuro Bed of Ward Test
     And the user Neuro Nurse is allocated to Neuro Bed of Ward Test
 
@@ -14,7 +15,7 @@ Feature: Neurological Observation - Data Entry
     Given the user Neuro Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, Neuro is selected
+    When the Patient Neuro Patient is selected
     And the Take observation button is selected
     And the Neurological observation is selected from the list
     Then the Neurological observation form is displayed

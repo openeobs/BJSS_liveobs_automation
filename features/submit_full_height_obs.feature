@@ -4,17 +4,17 @@
 Feature: Verifying submission for full height observation.
 
   Background: Hight Obs - Set up
-    Given the user HightObs Nurse exists
-    And user HightObs Nurse has the role of Nurse
-    And the user HightObs Nurse is in the current Shift for Ward Test
-    And the patient HightObs Patient is in HightObs Bed of Ward Test
-    And the user HightObs Nurse is allocated to HightObs Bed of Ward Test
+    Given the user HeightObs Nurse exists
+    And user HeightObs Nurse has the role of Nurse
+    And the user HeightObs Nurse is in the current Shift for Ward Test
+    And the patient HeightObs Patient is in HeightObs Bed of Ward Test
+    And the user HeightObs Nurse is allocated to HeightObs Bed of Ward Test
 
   Scenario Outline: Height observation is correctly submitted
-    Given the user HightObs Nurse logs into the mobile app
+    Given the user HeightObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, HightObs is selected
+    When the Patient HeightObs Patient is selected
     And the Take observation button is selected
     And the Height observation is selected from the list
     Then the Height observation form is displayed

@@ -7,6 +7,7 @@ Feature: Partial NEWS obs - Submit with Reason 'Asleep'
   Background: Set up user and Patient for the test
     Given the user NEWSPartial Nurse exists
     And user NEWSPartial Nurse has the role of Nurse
+    And the user NEWSPartial Nurse is in the current Shift for Ward Test
     And the patient NEWSPartial Patient is in NEWSPartial Bed of Ward Test
     And the user NEWSPartial Nurse is allocated to NEWSPartial Bed of Ward Test
 
@@ -14,7 +15,7 @@ Feature: Partial NEWS obs - Submit with Reason 'Asleep'
     Given the user NEWSPartial Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSPartial is selected
+    When the Patient NEWSPartial Patient is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

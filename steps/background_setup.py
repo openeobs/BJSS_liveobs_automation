@@ -45,6 +45,10 @@ def add_user_to_shift(context, name, ward):
 
     values = {}
     user = get_user_record(context.client, name)
+    # TODO Refactor to check the actual user groups.
+    # There should not have to be 'Nurse' or 'HCA' in the names of the people
+    # in the specification. There is a line in the feature file for describing
+    # what role they are in.
     if 'Nurse' in name:
         values['nurses'] = [(4, user.id)]
     elif 'HCA' in name:

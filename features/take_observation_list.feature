@@ -17,7 +17,7 @@ Feature: Mobile UI - 'Take Observation' dropdown list
     #
     # It will make sense to have the name like this only when we are
     # specifically explaining that behaviour, i.e. in the patient card feature.
-    When the Patient Doyle, Worth Scott is selected
+    When the Patient Worth Scott Doyle is selected
     And the Take observation button is selected
     Then the NEWS observation is listed
     And the Neurological observation is listed
