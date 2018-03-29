@@ -12,3 +12,19 @@ to ensure they are correct for your local instance.
 
 # Running on GoCD
 Use the Makefile targets.
+
+# The three layers of automation
+It is good practice to divide test automation code up into three separate 
+layers of abstraction (see page 156 of **Specification by Example**) so that 
+concerns are separated. For example say a class changes in the UI, we want 
+there to be minimum changes to the automation code necessary to make the tests 
+operational again. Proper abstraction achieves that.
+
+The three layers are:
+1. **Business rule level**. This is the conceptual layer. It is expressed in feature
+files that describe the business rules in an abstract manner.
+1. **User workflow level**. This is the logical layer. It is expressed in the 
+steps files. They should consist of well abstracted methods that describe the 
+logical actions necessary to achieve a user goal.
+1. **Technical activity level**. This is the physical layer. It describes the 
+physical actions that must be taken by the user to perform a workflow. 
