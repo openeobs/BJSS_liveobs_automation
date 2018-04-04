@@ -7,7 +7,7 @@ Feature: NEWS Score/Risk for 3in1 cases.
   Background: 3in1 NEWS - Set up user and Patient for the test
     Given the user NEWS3in1 Nurse exists
     And user NEWS3in1 Nurse has the role of Nurse
-    And the user NEWS3in1 Nurse is in the current Shift for Ward Test
+    And the user NEWS3in1 Nurse is in Shift for Ward Test
     And the patient NEWS 3in1Pat is in NEWS 3in1 of Ward Test
     And the user NEWS3in1 Nurse is allocated to NEWS 3in1 of Ward Test
 

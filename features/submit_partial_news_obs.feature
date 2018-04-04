@@ -7,7 +7,7 @@ Feature: Partial NEWS obs - Submit with Reason 'Asleep'
   Background: Set up user and Patient for the test
     Given the user NEWSPartial Nurse exists
     And user NEWSPartial Nurse has the role of Nurse
-    And the user NEWSPartial Nurse is in the current Shift for Ward Test
+    And the user NEWSPartial Nurse is in Shift for Ward Test
     And the patient NEWSPartial Patient is in NEWSPartial Bed of Ward Test
     And the user NEWSPartial Nurse is allocated to NEWSPartial Bed of Ward Test
 

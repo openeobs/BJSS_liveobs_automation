@@ -83,7 +83,7 @@ def select_defined_patient(context, patient_name):
     :param patient_name: the name and surname of the patient to be selected
     """
     patient_list = ListPage(context.driver)
-    patient = patient_list.get_list_item(patient_name)
+    patient = patient_list.get_patient_card(patient_name)
     patient_list.open_item(patient)
 
 

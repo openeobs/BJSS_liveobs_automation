@@ -7,7 +7,7 @@ Feature: NEWS Observation - Data Entry
   Background: NEWS Form - Set up
     Given the user NEWSForm Nurse exists
     And user NEWSForm Nurse has the role of Nurse
-    And the user NEWSForm Nurse is in the current Shift for Ward Test
+    And the user NEWSForm Nurse is in Shift for Ward Test
     And the patient NEWSForm Patient is in NEWSForm Bed of Ward Test
     And the user NEWSForm Nurse is allocated to NEWSForm Bed of Ward Test
 

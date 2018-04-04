@@ -7,7 +7,7 @@ Feature: Postural Blood Pressure Observation - Data Entry
   Background: PBP Form -Set up
     Given the user PBPForm Nurse exists
     And user PBPForm Nurse has the role of Nurse
-    And the user PBPForm Nurse is in the current Shift for Ward Test
+    And the user PBPForm Nurse is in Shift for Ward Test
     And the patient PBPForm Patient is in PBPForm Bed of Ward Test
     And the user PBPForm Nurse is allocated to PBPForm Bed of Ward Test
 

@@ -7,7 +7,7 @@ Feature: Blood Glucose Observation - Data Entry
   Background: BG Obs - Set up user and Patient for the test
     Given the user BloodGlu Nurse exists
     And user BloodGlu Nurse has the role of Nurse
-    And the user BloodGlu Nurse is in the current Shift for Ward Test
+    And the user BloodGlu Nurse is in Shift for Ward Test
     And the patient BloodGlu Patient is in BloodGlu Bed of Ward Test
     And the user BloodGlu Nurse is allocated to BloodGlu Bed of Ward Test
 

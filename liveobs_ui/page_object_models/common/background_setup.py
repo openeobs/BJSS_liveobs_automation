@@ -158,7 +158,7 @@ def get_user_credentials(client, name):
 
 
 def create_parent_locations_if_necessary(
-        context, location_name, parent_location_name=None):
+        context, location_name=None, parent_location_name=None):
     """
     Searches for specified locations, creates them otherwise.
 

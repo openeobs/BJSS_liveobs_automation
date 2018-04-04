@@ -6,7 +6,7 @@ Feature: Submit Full Blood Glucose Observation
   Background: BG Obs - Set up
     Given the user BloodGluObs Nurse exists
     And user BloodGluObs Nurse has the role of Nurse
-    And the user BloodGluObs Nurse is in the current Shift for Ward Test
+    And the user BloodGluObs Nurse is in Shift for Ward Test
     And the patient BloodGluObs Patient is in BloodGluObs Bed of Ward Test
     And the user BloodGluObs Nurse is allocated to BloodGluObs Bed of Ward Test
 

@@ -6,7 +6,7 @@ Feature: Verifying submission for full height observation.
   Background: Hight Obs - Set up
     Given the user HeightObs Nurse exists
     And user HeightObs Nurse has the role of Nurse
-    And the user HeightObs Nurse is in the current Shift for Ward Test
+    And the user HeightObs Nurse is in Shift for Ward Test
     And the patient HeightObs Patient is in HeightObs Bed of Ward Test
     And the user HeightObs Nurse is allocated to HeightObs Bed of Ward Test
 

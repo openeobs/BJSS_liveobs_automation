@@ -7,7 +7,7 @@ Feature: Weight Observation - Data Entry
   Background: Weight Form - Set up
     Given the user WeightForm Nurse exists
     And user WeightForm Nurse has the role of Nurse
-    And the user WeightForm Nurse is in the current Shift for Ward Test
+    And the user WeightForm Nurse is in Shift for Ward Test
     And the patient WeightForm Patient is in WeightForm Bed3 of Ward Test
     And the user WeightForm Nurse is allocated to WeightForm Bed3 of Ward Test
 

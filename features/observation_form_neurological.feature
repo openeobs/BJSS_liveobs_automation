@@ -7,7 +7,7 @@ Feature: Neurological Observation - Data Entry
   Background: Neuro Form - Set up
     Given the user Neuro Nurse exists
     And user Neuro Nurse has the role of Nurse
-    And the user Neuro Nurse is in the current Shift for Ward Test
+    And the user Neuro Nurse is in Shift for Ward Test
     And the patient Neuro Patient is in Neuro Bed of Ward Test
     And the user Neuro Nurse is allocated to Neuro Bed of Ward Test
 

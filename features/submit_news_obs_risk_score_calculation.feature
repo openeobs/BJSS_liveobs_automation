@@ -7,7 +7,7 @@ Feature: NEWS observation. Calculate Score/Risk.
   Background: NEWS Risk/Score calculation - Set up
     Given the user NEWSFullScore Nurse exists
     And user NEWSFullScore Nurse has the role of Nurse
-    And the user NEWSFullScore Nurse is in the current Shift for Ward Test
+    And the user NEWSFullScore Nurse is in Shift for Ward Test
     And the patient NEWSFullScore Patient is in NEWSFullScore Bed of Ward Test
     And the user NEWSFullScore Nurse is allocated to NEWSFullScore Bed of Ward Test
 
