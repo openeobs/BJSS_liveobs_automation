@@ -3,9 +3,10 @@ Page Object Model for List Page
 The List Page is a base class for the task and patient lists as they use the
 same template to render content
 """
+import random
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.mobile.list import LIST_ITEM, LIST_CONTAINER, \
-    LIST_ITEM_DATA_INFO
+    LIST_ITEM_DATA_NAME, LIST_ITEM_DATA_INFO
 
 
 class ListPage(BaseMobilePage):
@@ -49,6 +50,17 @@ class ListPage(BaseMobilePage):
         return list_item_url in self.driver.current_url
 
     @staticmethod
+    def get_patient_from_item(list_item):
+        """
+        Get the patient's name from list item
+
+        :param list_item: WebElement for List Item
+        :return: name of patient the list item is about
+        """
+        patient_name_el = list_item.find_element(*LIST_ITEM_DATA_NAME)
+        return patient_name_el.text
+
+    @staticmethod
     def get_task_info_from_item(list_item):
         """
         Get the .taskInfo element from the list item
@@ -58,3 +70,23 @@ class ListPage(BaseMobilePage):
         """
         task_info_el = list_item.find_element(*LIST_ITEM_DATA_INFO)
         return task_info_el.text
+
+    def select_random_patient(self):
+        """
+        Finds a random patient in the patient list and selects it
+
+        :return: selects and opens patient
+        """
+        patients = self.get_list_items()
+        patient = random.choice(patients)
+        self.open_item(patient)
+
+    @staticmethod
+    def reformat_patient_name_for_patient_card(patient_name):
+        patient_name_parts = patient_name.split(' ')
+        surname = patient_name_parts[-1]
+        other_names = patient_name_parts[:-1]
+        other_names = reduce(lambda x, y: x + ' ' + y, other_names)
+        reformatted_patient_name = '{surname}, {other_names}'.format(
+            surname=surname, other_names=other_names)
+        return reformatted_patient_name

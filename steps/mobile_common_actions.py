@@ -5,8 +5,6 @@
 
 from behave import given, when, then
 from liveobs_ui.page_object_models.mobile.list_page import ListPage
-from liveobs_ui.page_object_models.mobile.patient_list_page import \
-    PatientListPage
 from liveobs_ui.page_object_models.mobile.patient_page import PatientPage
 from liveobs_ui.page_object_models.mobile.data_entry_page import DataEntryPage
 from liveobs_ui.page_object_models.mobile.modal_page import ModalPage
@@ -50,13 +48,6 @@ def test_check(context, page_name):
             'Expected to be in {} but it is not'.format(page_name)
 
 
-@then('the Patient {patient_name} is in the list')
-def assert_patient_in_list(context, patient_name):
-    patient_list = PatientListPage(context.driver)
-    patient = patient_list.get_list_item(patient_name)
-    assert patient, "Patient '{}' is not in list".format(patient_name)
-
-
 @when('the {button_name} button is selected')
 def press_button_with_name(context, button_name):
     """
@@ -79,7 +70,7 @@ def select_random_patient_in_list(context):
     :param context: Behave context
     :return: selects a random patient card from the Patient list in the app
     """
-    select_patient = PatientListPage(context.driver)
+    select_patient = ListPage(context.driver)
     select_patient.select_random_patient()
 
 
@@ -91,7 +82,7 @@ def select_defined_patient(context, patient_name):
     :param context: behave context
     :param patient_name: the name and surname of the patient to be selected
     """
-    patient_list = PatientListPage(context.driver)
+    patient_list = ListPage(context.driver)
     patient = patient_list.get_list_item(patient_name)
     patient_list.open_item(patient)
 
@@ -323,3 +314,16 @@ def select_partial_reason_in_popup(context, reason):
     submit_modal = modals[0]
     popup_options.select_reason_in_modal(submit_modal, reason)
     popup_options.click_modal_option(submit_modal, 'Submit')
+
+
+@then('the Patient {patient_name} is in the list')
+def assert_patient_in_list(context, patient_name):
+    """
+    Verify patient is displayed in the list
+
+    :param context: behave context
+    :param patient_name: Name of the patient to check
+    """
+    patient_list = ListPage(context.driver)
+    patient = patient_list.get_list_item(patient_name)
+    assert patient, "Patient '{}' is not in list".format(patient_name)

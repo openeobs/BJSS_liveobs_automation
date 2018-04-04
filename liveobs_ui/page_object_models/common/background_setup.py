@@ -157,8 +157,15 @@ def get_user_credentials(client, name):
     return None
 
 
-def create_locations_if_necessary(
-        context, location_name=None, parent_location_name=None):
+def create_parent_locations_if_necessary(
+        context, location_name, parent_location_name=None):
+    """
+    Searches for specified locations, creates them otherwise.
+
+    :param context: ERPPeek Client
+    :param location_name: Name of Bed Location
+    :param parent_location_name: Name of Ward Location
+    """
     # check parent location
     location_model = context.client.model('nh.clinical.location')
     context_model = context.client.model('nh.clinical.context')

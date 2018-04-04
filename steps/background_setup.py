@@ -8,7 +8,7 @@ from behave import given
 
 from liveobs_ui.page_object_models.common.background_setup import \
     get_or_create_user, assign_user_roles, get_user_record, \
-    create_locations_if_necessary
+    create_parent_locations_if_necessary
 
 
 @given('the user {name} exists')
@@ -36,23 +36,6 @@ def ensure_user_has_role(context, name, role):
     assign_user_roles(user_model, name, role)
 
 
-@given('the user {name} is in the current Shift for {ward}')
-def add_user_to_shift(context, name, ward):
-    create_locations_if_necessary(context, parent_location_name=ward)
-    shift_model = context.client.model('nh.clinical.shift')
-    if not hasattr(context, 'shift'):
-        context.shift = shift_model.create({'ward': context.ward.id})
-
-    values = {}
-    user = get_user_record(context.client, name)
-    if 'Nurse' in name:
-        values['nurses'] = [(4, user.id)]
-    elif 'HCA' in name:
-        values['hcas'] = [(4, user.id)]
-
-    shift_model.write(context.shift.id, values)
-
-
 @given("the patient {patient_name} is in {location} of {parent_location}")
 def ensure_patient_in_system(context, patient_name, location, parent_location):
     """
@@ -63,7 +46,7 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
     :param location: Location for the patient to be in
     :param parent_location: Parent of the location the patient should be in
     """
-    create_locations_if_necessary(context, location, parent_location)
+    create_parent_locations_if_necessary(context, location, parent_location)
     # search for patient
     names = patient_name.split(' ')
     patient_model = context.client.model('nh.clinical.patient')
@@ -186,3 +169,28 @@ def ensure_user_allocated_to_location(
         user_model.write(user_search, {
             'location_ids': [[6, 0, user_locations]]
         })
+
+
+@given('the user {user_name} is in Shift for {parent_location}')
+def add_user_to_shift(context, user_name, parent_location):
+    """
+    Adds users with roles of Nurse or HCA to the shift of a specific Ward
+
+    :param context: Behave context
+    :param user_name: Name of the user to add to shift
+    :param parent_location: Name of the ward to add the shift for
+    """
+    create_parent_locations_if_necessary(
+        context, parent_location_name=parent_location)
+    shift_model = context.client.model('nh.clinical.shift')
+    if not hasattr(context, 'shift'):
+        context.shift = shift_model.create({'ward': context.ward.id})
+
+    values = {}
+    user = get_user_record(context.client, user_name)
+    if 'Nurse' in user_name:
+        values['nurses'] = [(4, user.id)]
+    elif 'HCA' in user_name:
+        values['hcas'] = [(4, user.id)]
+
+    shift_model.write(context.shift.id, values)
