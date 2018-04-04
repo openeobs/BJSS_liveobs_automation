@@ -191,7 +191,7 @@ def create_locations_if_necessary(
                 }
             )
         parent_location_code = parent_location_name.replace(' ', '_').strip()
-        parent_location_id = location_model.create(
+        context.ward = location_model.create(
             {
                 'name': parent_location_name,
                 'code': parent_location_code,
@@ -201,7 +201,7 @@ def create_locations_if_necessary(
                 'context_ids': [[6, 0, eobs_context]]
             }
         )
-        parent_location_id = parent_location_id.id
+        parent_location_id = context.ward.id
     else:
         parent_location_id = parent_location_id[0]
         context.ward = location_model.browse(parent_location_id)
