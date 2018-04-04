@@ -12,7 +12,7 @@ Feature: Patient access on mobile
     And the user Dan Nurse exists
     And user Dan Nurse has the role of Nurse
     And the patient Ludo Bagman is in Bed 1 of Ward PatientAccess
-    And the patient Bathilda Bagshot is in Bed 2 of PatientAccess
+    And the patient Bathilda Bagshot is in Bed 2 of Ward PatientAccess
     And the user Dan Nurse is allocated to Bed 1 of Ward PatientAccess
     And the user Dan Nurse is in Shift for Ward PatientAccess
 
