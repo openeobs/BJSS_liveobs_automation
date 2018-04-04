@@ -10,12 +10,10 @@ Feature: Observations available for on Responsible/Allocated Staff
     Given the user Allocated Nurse exists
     And the user Allocated HCA exists
     And the user Responsible Doctor exists
-#    And the user Responsible ShiftCoordinator exists
 
     And user Allocated Nurse has the role of Nurse
     And user Allocated HCA has the role of HCA
     And user Responsible Doctor has the role of Doctor
-#    And user Responsible ShiftCoordinator has the role of Shift Coordinator
 
     And the user Allocated Nurse is in Shift for Ward ObsList
     And the user Allocated HCA is in Shift for Ward ObsList
@@ -25,7 +23,6 @@ Feature: Observations available for on Responsible/Allocated Staff
     And the user Allocated Nurse is allocated to ObsList Bed of Ward ObsList
     And the user Allocated HCA is allocated to ObsList Bed of Ward ObsList
     And the user Responsible Doctor is allocated to Ward ObsList of Greenfield University Hospital
-#    And the user Responsible ShiftCoordinator is allocated to Ward ObsList of Greenfield University Hospital
 
   Scenario Outline: Observations available for staff Responsible/Allocated
     Given the user <user> logs into the mobile app

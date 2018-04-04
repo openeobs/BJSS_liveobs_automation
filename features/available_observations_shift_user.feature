@@ -13,6 +13,10 @@ Feature: Observations available for on Shift Nurse/HCA staff
     And user ObsList HCA has the role of HCA
     And the user ObsList HCA is in Shift for Ward ObsList
     And the patient ObsList Patient is in ObsList Bed of Ward ObsList
+    And the user Responsible ShiftCoordinator exists
+    And user Responsible ShiftCoordinator has the role of Shift Coordinator
+    And the user Responsible ShiftCoordinator is allocated to Ward ObsList of Greenfield University Hospital
+    # The Shift Coordinator scenario is to be moved to available_observations_allocated_user feature once scenario 4 of EOBS-2404 is fully implemented
 
   Scenario Outline: Observations available for staff on Shift only
     Given the user <user> logs into the mobile app
@@ -32,6 +36,7 @@ Feature: Observations available for on Shift Nurse/HCA staff
     And the Bristol Stool observation is not listed
 
   Examples:
-    |user         |
-    |ObsList Nurse|
-    |ObsList HCA  |
+    |user                         |
+    |ObsList Nurse                |
+    |ObsList HCA                  |
+    |Responsible ShiftCoordinator |
