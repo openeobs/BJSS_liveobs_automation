@@ -7,6 +7,7 @@ Feature: NEWS observation. Calculate Score/Risk.
   Background: NEWS Risk/Score calculation - Set up
     Given the user NEWSFullScore Nurse exists
     And user NEWSFullScore Nurse has the role of Nurse
+    And the user NEWSFullScore Nurse is in the current Shift for Ward Test
     And the patient NEWSFullScore Patient is in NEWSFullScore Bed of Ward Test
     And the user NEWSFullScore Nurse is allocated to NEWSFullScore Bed of Ward Test
 
@@ -14,7 +15,7 @@ Feature: NEWS observation. Calculate Score/Risk.
     Given the user NEWSFullScore Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSFullScore is selected
+    When the Patient NEWSFullScore Patient is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed
@@ -57,7 +58,7 @@ Feature: NEWS observation. Calculate Score/Risk.
     Given the user NEWSFullScore Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSFullScore is selected
+    When the Patient NEWSFullScore Patient is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

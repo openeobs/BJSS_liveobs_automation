@@ -14,7 +14,7 @@ Feature: Submit Full Blood Product Observation
     Given the user BloodProdObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, BloodProdObs is selected
+    When the Patient BloodProdObs Patient is selected
     And the Take observation button is selected
     And the Blood Product observation is selected from the list
     Then the Blood Product observation form is displayed

@@ -14,7 +14,7 @@ Feature: Submit Full Blood Glucose Observation
     Given the user BloodGluObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, BloodGluObs is selected
+    When the Patient BloodGluObs Patient is selected
     And the Take observation button is selected
     And the Blood Glucose observation is selected from the list
     Then the Blood Glucose observation form is displayed

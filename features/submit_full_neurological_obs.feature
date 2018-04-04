@@ -14,7 +14,7 @@ Feature: Verifying submission for full neurological observation.
     Given the user Neuro Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, Neuro is selected
+    When the Patient Neuro Patient is selected
     And the Take observation button is selected
     And the Neurological observation is selected from the list
     Then the Neurological observation form is displayed
