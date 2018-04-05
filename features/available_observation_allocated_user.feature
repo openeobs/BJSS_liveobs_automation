@@ -45,5 +45,6 @@ Feature: Observations available for on Responsible/Allocated Staff
     |user                         |
     |Allocated Nurse              |
     |Allocated HCA                |
-    |Responsible Doctor           |
+# EOBS-2465 Re-enable doctor test in available_observation_allocated_user feature
+#    |Responsible Doctor           |
 #    |Responsible ShiftCoordinator |
