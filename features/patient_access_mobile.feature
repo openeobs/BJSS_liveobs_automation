@@ -5,51 +5,51 @@
 Feature: Patient access on mobile
 
   Background: Setting Tom Data
-    Given the user Tom Nurse exists
-    And user Tom Nurse has the role of Nurse
-    And the user Tom Nurse is in Shift for Ward PatientAccess
+    Given the user Brian Nurse exists
+    And user Brian Nurse has the role of Nurse
+    And the user Brian Nurse is in Shift for Ward PatientAccess
 
-    And the user Dan Nurse exists
-    And user Dan Nurse has the role of Nurse
+    And the user Pablo Nurse exists
+    And user Pablo Nurse has the role of Nurse
     And the patient Ludo Bagman is in Bed 1 of Ward PatientAccess
     And the patient Bathilda Bagshot is in Bed 2 of Ward PatientAccess
-    And the user Dan Nurse is allocated to Bed 1 of Ward PatientAccess
-    And the user Dan Nurse is in Shift for Ward PatientAccess
+    And the user Pablo Nurse is allocated to Bed 1 of Ward PatientAccess
+    And the user Pablo Nurse is in Shift for Ward PatientAccess
 
-    And the user Tom HCA exists
-    And user Tom HCA has the role of HCA
-    And the user Tom HCA is in Shift for Ward PatientAccess
+    And the user Laura HCA exists
+    And user Laura HCA has the role of HCA
+    And the user Laura HCA is in Shift for Ward PatientAccess
 
-    And the user Dan HCA exists
-    And user Dan HCA has the role of HCA
-    And the user Dan HCA is in Shift for Ward PatientAccess
-    And the user Dan HCA is allocated to Bed 1 of Ward PatientAccess
+    And the user Jacqueline HCA exists
+    And user Jacqueline HCA has the role of HCA
+    And the user Jacqueline HCA is in Shift for Ward PatientAccess
+    And the user Jacqueline HCA is allocated to Bed 1 of Ward PatientAccess
 
-    And the user Tom Shift Coordinator exists
-    And user Tom Shift Coordinator has the role of Shift Coordinator
-    And the user Tom Shift Coordinator is allocated to Ward PatientAccess of Greenfield University Hospital
+    And the user Marti Shift Coordinator exists
+    And user Marti Shift Coordinator has the role of Shift Coordinator
+    And the user Marti Shift Coordinator is allocated to Ward PatientAccess of Greenfield University Hospital
 
-    And the user Tom Doctor exists
-    And user Tom Doctor has the role of Doctor
-    And the user Tom Doctor is allocated to Ward PatientAccess of Greenfield University Hospital
+    And the user House Doctor exists
+    And user House Doctor has the role of Doctor
+    And the user House Doctor is allocated to Ward PatientAccess of Greenfield University Hospital
 
-    And the user Tom Senior Manager exists
-    And user Tom Senior Manager has the role of Senior Manager
-    And the user Tom Senior Manager is allocated to Ward PatientAccess of Greenfield University Hospital
+    And the user Selena Senior Manager exists
+    And user Selena Senior Manager has the role of Senior Manager
+    And the user Selena Senior Manager is allocated to Ward PatientAccess of Greenfield University Hospital
 
   Scenario Outline: All users are able to see all patients in their ward.
     Given the user <user> logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    Then the Patient Ludo Bagman is in the list
-    And the Patient Bathilda Bagshot is in the list
+    Then the Patient Bagman, Ludo is in the list
+    And the Patient Bagshot, Bathilda is in the list
 
     Examples:
-    | user                |
-    |Tom HCA              |
-    |Tom Nurse            |
-    |Dan HCA              |
-    |Dan Nurse            |
-    |Tom Shift Coordinator|
-    |Tom Doctor           |
-    |Tom Senior Manager   |
+    | user                  |
+    |Laura HCA              |
+    |Brian Nurse            |
+    |Jacqueline HCA         |
+    |Pablo Nurse            |
+    |Marti Shift Coordinator|
+    |House Doctor           |
+    |Selena Senior Manager  |
