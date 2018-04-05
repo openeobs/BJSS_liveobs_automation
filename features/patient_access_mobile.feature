@@ -25,9 +25,9 @@ Feature: Patient access on mobile
     And the user Jacqueline HCA is in Shift for Ward PatientAccess
     And the user Jacqueline HCA is allocated to Bed 1 of Ward PatientAccess
 
-    And the user Marti Shift Coordinator exists
-    And user Marti Shift Coordinator has the role of Shift Coordinator
-    And the user Marti Shift Coordinator is allocated to Ward PatientAccess of Greenfield University Hospital
+    And the user M Shift Coordinator exists
+    And user M Shift Coordinator has the role of Shift Coordinator
+    And the user M Shift Coordinator is allocated to Ward PatientAccess of Greenfield University Hospital
 
     And the user House Doctor exists
     And user House Doctor has the role of Doctor
@@ -50,6 +50,6 @@ Feature: Patient access on mobile
     |Brian Nurse            |
     |Jacqueline HCA         |
     |Pablo Nurse            |
-    |Marti Shift Coordinator|
+    |M Shift Coordinator    |
     |House Doctor           |
     |Selena Senior Manager  |
