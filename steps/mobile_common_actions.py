@@ -327,3 +327,10 @@ def assert_patient_in_list(context, patient_name):
     patient_list = ListPage(context.driver)
     patient = patient_list.get_list_item(patient_name)
     assert patient, "Patient '{}' is not in list".format(patient_name)
+
+
+@then('the My Patients list is empty')
+def assert_patient_list_empty(context):
+    patient_list = ListPage(context.driver)
+    patient_list_items = patient_list.get_list_items()
+    assert len(patient_list_items) == 0, "Patient list is not empty."

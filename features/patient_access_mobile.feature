@@ -25,6 +25,9 @@ Feature: Patient access on mobile
     And the user Jacqueline HCA is in Shift for Ward PatientAccess
     And the user Jacqueline HCA is allocated to Bed 1 of Ward PatientAccess
 
+    And the user Hadley HCA exists
+    And user Hadley HCA has the role of HCA
+
     And the user M Shift Coordinator exists
     And user M Shift Coordinator has the role of Shift Coordinator
     And the user M Shift Coordinator is allocated to Ward PatientAccess of Greenfield University Hospital
@@ -53,3 +56,8 @@ Feature: Patient access on mobile
     |M Shift Coordinator    |
     |House Doctor           |
     |Selena Senior Manager  |
+
+  Scenario: HCAs and Nurses not in any shift.
+    Given the user Hadley HCA logs into the mobile app
+    And they view the My Patients list
+    Then the My Patients list is empty
