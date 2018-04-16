@@ -7,6 +7,7 @@ Feature: NEWS Observation - Data Entry
   Background: NEWS Form - Set up
     Given the user NEWSForm Nurse exists
     And user NEWSForm Nurse has the role of Nurse
+    And the user NEWSForm Nurse is in Shift for Ward Test
     And the patient NEWSForm Patient is in NEWSForm Bed of Ward Test
     And the user NEWSForm Nurse is allocated to NEWSForm Bed of Ward Test
 
@@ -14,7 +15,7 @@ Feature: NEWS Observation - Data Entry
     Given the user NEWSForm Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, NEWSForm is selected
+    When the Patient NEWSForm Patient is selected
     And the Take observation button is selected
     And the NEWS observation is selected from the list
     Then the NEWS observation form is displayed

@@ -1,12 +1,12 @@
 # Created by Tom.Leighton at 18/09/2017
 # JIRA: EOBS-1565
 # Scenarios covered: Needs to be defined
-
 Feature: Submit Full Blood Product Observation
 
   Background: BP Obs - Set up
     Given the user BloodProdObs Nurse exists
     And user BloodProdObs Nurse has the role of Nurse
+    And the user BloodProdObs Nurse is in Shift for Ward Test
     And the patient BloodProdObs Patient is in BloodProdObs Bed of Ward Test
     And the user BloodProdObs Nurse is allocated to BloodProdObs Bed of Ward Test
 
@@ -14,7 +14,7 @@ Feature: Submit Full Blood Product Observation
     Given the user BloodProdObs Nurse logs into the mobile app
     And they view the My Patients list
     And the My Patients list has loaded
-    When the Patient Patient, BloodProdObs is selected
+    When the Patient BloodProdObs Patient is selected
     And the Take observation button is selected
     And the Blood Product observation is selected from the list
     Then the Blood Product observation form is displayed

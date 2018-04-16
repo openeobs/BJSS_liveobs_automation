@@ -77,14 +77,14 @@ def select_random_patient_in_list(context):
 @when('the Patient {patient_name} is selected')
 def select_defined_patient(context, patient_name):
     """
-    Finds a named patient in the list and selects it
+    Finds a named patient in the list and selects it.
 
     :param context: behave context
-    :param patient_name: the name and surenae of the patient to be selected
+    :param patient_name: the name and surname of the patient to be selected
     """
-    select_patient = ListPage(context.driver)
-    patient = select_patient.get_list_item(patient_name)
-    select_patient.open_item(patient)
+    patient_list = ListPage(context.driver)
+    patient = patient_list.get_patient_card(patient_name)
+    patient_list.open_item(patient)
 
 
 @when('the {observation_type} observation is selected from the list')
@@ -314,3 +314,27 @@ def select_partial_reason_in_popup(context, reason):
     submit_modal = modals[0]
     popup_options.select_reason_in_modal(submit_modal, reason)
     popup_options.click_modal_option(submit_modal, 'Submit')
+
+
+@then('the Patient {patient_name} is in the list')
+def assert_patient_in_list(context, patient_name):
+    """
+    Verify patient is displayed in the list
+
+    :param context: behave context
+    :param patient_name: Name of the patient to check
+    """
+    patient_list = ListPage(context.driver)
+    patient = patient_list.get_list_item(patient_name)
+    assert patient, "Patient '{}' is not in list".format(patient_name)
+
+
+@then('the My Patients list is empty')
+def assert_patient_list_empty(context):
+    """
+    :param context:
+    :return:
+    """
+    patient_list = ListPage(context.driver)
+    patient_list_items = patient_list.get_list_items()
+    assert patient_list_items is True, "Patient list is not empty."
