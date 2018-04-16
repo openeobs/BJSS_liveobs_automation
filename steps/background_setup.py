@@ -49,11 +49,14 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
     create_parent_locations_if_necessary(context, location, parent_location)
     # search for patient
     names = patient_name.split(' ')
+    given_name = names[0]
+    family_name = names[1] if len(names) > 1 else 'Pettigrew'
+
     patient_model = context.client.model('nh.clinical.patient')
     patient_search = patient_model.search(
         [
-            ['given_name', '=', names[0]],
-            ['family_name', '=', names[1]]
+            ['given_name', '=', given_name],
+            ['family_name', '=', family_name]
         ]
     )
     # if patient not found then create them
@@ -63,8 +66,8 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
         patient_search = api_model.register(
             hospital_number,
             {
-                'given_name': names[0],
-                'family_name': names[1],
+                'given_name': given_name,
+                'family_name': family_name,
             }
         )
     else:

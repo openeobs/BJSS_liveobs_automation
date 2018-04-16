@@ -37,3 +37,7 @@ class PatientRecordPage(BaseFormViewPage):
     def open_stop_observations_wizard(self):
         """ Open the Stop Observations wizard """
         self.open_wizard_with_name('Stop Observations')
+
+    def open_set_therapeutic_obs_level_wizard(self):
+        """ Open the Set Therapeutic Obs Level wizard """
+        self.open_wizard_with_name('Therapeutic Obs Level - Action')
