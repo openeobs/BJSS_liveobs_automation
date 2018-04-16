@@ -3,7 +3,7 @@ user_role_map:
   HCA: hal
   Nurse: nasir
   Doctor: dale
-database: nhclinical
+database: db
 server: "http://localhost:8069"
 urls:
   login: "/mobile/login"
