@@ -331,6 +331,10 @@ def assert_patient_in_list(context, patient_name):
 
 @then('the My Patients list is empty')
 def assert_patient_list_empty(context):
+    """
+    :param context:
+    :return:
+    """
     patient_list = ListPage(context.driver)
     patient_list_items = patient_list.get_list_items()
-    assert len(patient_list_items) == 0, "Patient list is not empty."
+    assert patient_list_items is True, "Patient list is not empty."
