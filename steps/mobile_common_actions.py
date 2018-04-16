@@ -337,4 +337,4 @@ def assert_patient_list_empty(context):
     """
     patient_list = ListPage(context.driver)
     patient_list_items = patient_list.get_list_items()
-    assert patient_list_items is True, "Patient list is not empty."
+    assert patient_list_items is False, "Patient list is not empty."
