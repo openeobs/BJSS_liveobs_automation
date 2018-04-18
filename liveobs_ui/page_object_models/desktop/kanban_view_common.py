@@ -1,9 +1,11 @@
 """ Common Kanban view functionality """
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
 from liveobs_ui.selectors.desktop.kanban_selectors import KANBAN_CARD, \
     KANBAN_CARD_CONTENT, KANBAN_CONTAINER
+from liveobs_ui.selectors.desktop.form_selectors import FORM_BODY
 
 
 class BaseKanbanViewPage(BaseDesktopPage):
@@ -34,13 +36,15 @@ class BaseKanbanViewPage(BaseDesktopPage):
             if search_string in kanban_item_content.text:
                 return kanban_item
 
-    def open_kanban_card(self, card):
+    def open_kanban_card(self, card, element_to_verify=None):
         """
         Open the supplied kanban card
 
         :param card: Element for kanban card to open
+        :param element_to_verify:
         """
-        self.click_and_verify_change(card, KANBAN_CONTAINER, hidden=True)
+        element_to_verify = element_to_verify or FORM_BODY
+        self.click_and_verify_change(card, element_to_verify)
 
     def open_kanban_card_with_name(self, search_string):
         """

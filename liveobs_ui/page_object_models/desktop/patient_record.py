@@ -1,4 +1,6 @@
 """ Patient Record Page Object Model """
+from selenium.common.exceptions import NoSuchElementException
+
 from liveobs_ui.page_object_models.desktop.form_view_common import \
     BaseFormViewPage
 from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_WAIT
@@ -20,6 +22,9 @@ class PatientRecordPage(BaseFormViewPage):
         :param button_name: Name of button to press
         """
         button = self.get_actionbar_button_by_name(button_name)
+        if not button:
+            raise NoSuchElementException(
+                "Could not find button with name '{}'".format(button_name))
         self.click_and_verify_change(button, MODAL_CONTAINER)
 
     def open_move_patient_wizard(self):
