@@ -16,7 +16,7 @@ def set_patient_therapeutic_level(context, patient_name, level_number):
         'nh.clinical.patient.observation.therapeutic.level')
     level_model.create({
         'patient': context.patients[patient_name].id,
-        'level': level_number
+        'level': int(level_number)
     })
 
 
@@ -41,11 +41,11 @@ def set_level(context, level_number):
     modal_page.set_level(level_number)
 
 
-@when('level {level_number} is selected for the therapeutic observation '
+@when('{frequency} is selected for the therapeutic observation frequency field'
       'frequency field')
 def set_level(context, level_number):
     modal_page = SetTherapeuticLevelModal(context.driver)
-    modal_page.set_level(level_number)
+    modal_page.set_frequency(15)
 
 
 @then('the therapeutic observation level field is set to level {level_number}')
@@ -93,7 +93,7 @@ def assert_title_is_displayed(context, expected_title):
 @then('the observation frequency field is set to {expected_frequency}')
 def assert_observation_frequency_field_value(context, expected_frequency):
     modal_page = SetTherapeuticLevelModal(context.driver)
-    actual_frequency = modal_page.get_frequency()
+    actual_frequency = modal_page.get_frequency(readonly=True)
     assert expected_frequency == actual_frequency, \
         "Expected '{}' but was actually '{}'"\
         .format(expected_frequency, actual_frequency)
@@ -118,13 +118,31 @@ def assert_staff_to_patient_ratio_field_is_editable(context):
       '{level_number}')
 def assert_level_updated(context, patient_name, level_number):
     expected_level = 'Level {}'.format(level_number)
-
-    level_model = context.client.model(
-        'nh.clinical.patient.observation.therapeutic.level')
-    domain = [('patient', '=', context.patients[patient_name])]
-    current_level = level_model.search(domain, order='id desc', limit=1)
-
-    actual_level = current_level.level
+    current_level_record = _get_current_therapeutic_obs_level_record(
+        context, patient_name
+    )
+    actual_level = current_level_record.level
     assert expected_level == actual_level, \
         "Expected level to be '{}' but was actually level '{}'" \
         .format(expected_level, actual_level)
+
+
+@then('the therapeutic observation frequency for patient {patient_name} is '
+      '{expected_frequency}')
+def assert_frequency_updated(context, patient_name, expected_frequency):
+    current_level_record = _get_current_therapeutic_obs_level_record(
+        context, patient_name
+    )
+    actual_frequency = current_level_record.frequency
+    assert expected_frequency == actual_frequency, \
+        "Expected level to be '{}' but was actually level '{}'" \
+        .format(expected_frequency, actual_frequency)
+
+
+def _get_current_therapeutic_obs_level_record(context, patient_name):
+    level_model = context.client.model(
+        'nh.clinical.patient.observation.therapeutic.level'
+    )
+    domain = [('patient', '=', context.patients[patient_name])]
+    current_level = level_model.search(domain, order='id desc', limit=1)
+    return current_level

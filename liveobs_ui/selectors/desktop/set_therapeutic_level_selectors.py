@@ -14,6 +14,11 @@ THERAPEUTIC_LEVEL_FIELD_OPTIONS = (
 
 THERAPEUTIC_FREQUENCY_FIELD = (
     By.CSS_SELECTOR,
+    'span.therapeutic_frequency'
+)
+
+THERAPEUTIC_FREQUENCY_FIELD_VALUE = (
+    By.CSS_SELECTOR,
     '.therapeutic_frequency > select'
 )
 
