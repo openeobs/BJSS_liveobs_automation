@@ -1,5 +1,5 @@
 # Created by Nayira.Sanchez at 23/04/2018
-  # JIRA: EOBS-2219
+  # JIRA: EOBS-2519
   # Scenarios covered: 1 & 2
 Feature: Therapeutic Observation - Data Entry
 
