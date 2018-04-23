@@ -26,3 +26,13 @@ THERAPEUTIC_FREQUENCY_FIELD_OPTIONS = (
     By.CSS_SELECTOR,
     '.therapeutic_frequency > select > option'
 )
+
+THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD = (
+    By.CSS_SELECTOR,
+    'span.therapeutic_staff_to_patient_ratio'
+)
+
+THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD_OPTIONS = (
+    By.CSS_SELECTOR,
+    '.therapeutic_staff_to_patient_ratio > select > option'
+)

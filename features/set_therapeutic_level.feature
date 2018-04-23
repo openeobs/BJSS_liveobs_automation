@@ -18,18 +18,14 @@ Feature: Setting of patient's therapeutic level
     Given the user Shirley selects the Set Therapeutic Obs Level option
     Then The title Set Therapeutic Obs Level is displayed
 
-  Scenario: Default to level 1 for new patients
+  Scenario: Level field is appropriately labelled
     Given the user Shirley selects the Set Therapeutic Obs Level option
-    Then the therapeutic observation level field is set to level 1
+    When level 1 is selected for the therapeutic observation level field
+    Then a field labelled Observation Level is visible
 
-  Scenario: Default to current observation level for existing patients
-    Given the patient Patricia is on therapeutic observation level 2
-    And the user Shirley selects the Set Therapeutic Obs Level option
-    Then the therapeutic observation level field is set to level 2
-
-  Scenario: The user can choose a new observation level for the patient
+  Scenario: A new observation level can be chosen for the patient
     Given the user Shirley selects the Set Therapeutic Obs Level option
-    Then the user can choose a new observation level for the patient
+    Then a new observation level can be chosen for the patient
     | therapeutic level |
     |                   |
     | Level 1           |
@@ -37,30 +33,50 @@ Feature: Setting of patient's therapeutic level
     | Level 3           |
     | Level 4           |
 
-  Scenario: Frequency set to 'Every Hour' when setting level 1
+  Scenario: Frequency is set to 'Every Hour' when level 1 is selected
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When level 1 is selected for the therapeutic observation level field
     Then the observation frequency field is set to Every Hour
-    And it cannot be modified
+    And the observation frequency field cannot be modified
 
-  Scenario: Select frequency when setting level 2
+  Scenario: Frequency field is appropriately labelled
+    Given the user Shirley selects the Set Therapeutic Obs Level option
+    When level 1 is selected for the therapeutic observation level field
+    Then a field labelled Observation Frequency is visible
+
+  Scenario: A frequency can be chosen for the patient when level 2 is selected
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When level 2 is selected for the therapeutic observation level field
     Then a frequency can be chosen for the patient's therapeutic observations
+    | frequency        |
+    |                  |
+    | Every 5 Minutes  |
+    | Every 10 Minutes |
+    | Every 15 Minutes |
+    | Every 20 Minutes |
+    | Every 25 Minutes |
+    | Every 30 Minutes |
+    | Every Hour       |
 
-  Scenario: Default to current staff to patient ratio when level 3 selected
+  Scenario: Staff-to-patient ratio field is appropriately labelled
+    Given the user Shirley selects the Set Therapeutic Obs Level option
+    When level 1 is selected for the therapeutic observation level field
+    Then a field labelled Staff to patient ratio is visible
+
+  Scenario: A staff-to-patient ratio can be chosen for the patient when level 2 is selected
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When level 3 is selected for the therapeutic observation level field
-    Then a staff-to-patient ratio can be chosen
-
-  Scenario: Default to current staff to patient ratio when level 4 selected
-    Given the user Shirley selects the Set Therapeutic Obs Level option
-    When level 4 is selected for the therapeutic observation level field
-    Then a staff-to-patient ratio can be chosen
+    Then a staff-to-patient ratio can be chosen for the patient's therapeutic observations
+    | staff-to-patient ratio |
+    |                        |
+    | 1:1                    |
+    | 2:1                    |
+    | 3:1                    |
 
   Scenario: Changes made are saved
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When level 2 is selected for the therapeutic observation level field
-    And 'Every 15 Minutes' is selected for the therapeutic observation frequency field
+    And Every 15 Minutes is selected for the therapeutic observation frequency field
+    And the therapeutic level changes are saved
     Then the therapeutic observation level for patient Patricia is level 2
-    And the therapeutic observation frequency for patient Patricia is 'Every 15 Minutes'
+    And the therapeutic observation frequency for patient Patricia is Every 15 Minutes
