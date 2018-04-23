@@ -31,6 +31,7 @@ Feature: Observations available for on Responsible/Allocated Staff
     When the Patient ObsList Patient is selected
     And the Take observation button is selected
     Then the NEWS observation is listed
+    And the Therapeutic observation is listed
     And the Neurological observation is listed
     And the Blood Glucose observation is listed
     And the Weight observation is listed
