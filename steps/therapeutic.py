@@ -1,3 +1,6 @@
+"""
+Implements steps in feature files relating to Therapeutic observations.
+"""
 import re
 
 from selenium.webdriver.common.by import By
