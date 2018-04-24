@@ -18,6 +18,14 @@ from liveobs_ui.page_object_models.desktop.desktop_common \
 @given('the patient {patient_name} has never had a therapeutic observation '
        'level set')
 def remove_existing_therapeutic_levels(context, patient_name):
+    """
+    Ensure that the patient has no therapeutic level records so that a test can
+    behave as though the patient is new.
+
+    :param context:
+    :param patient_name:
+    :return:
+    """
     level_model = context.client.model(
         'nh.clinical.therapeutic.level')
     patient = context.patients[patient_name]
@@ -30,6 +38,14 @@ def remove_existing_therapeutic_levels(context, patient_name):
 @given('the patient {patient_name} is on therapeutic observation level '
        '{level_number}')
 def set_patient_therapeutic_level(context, patient_name, level_number):
+    """
+    Set a value for the therapeutic observation level field.
+
+    :param context:
+    :param patient_name:
+    :param level_number:
+    :return:
+    """
     level_model = context.client.model(
         'nh.clinical.therapeutic.level')
     patient = context.patients[patient_name]
@@ -45,6 +61,14 @@ def set_patient_therapeutic_level(context, patient_name, level_number):
 
 @given('the user {user_name} views the patient {patient_name}')
 def view_patient(context, user_name, patient_name):
+    """
+    Navigate to the patient form for the passed patient.
+
+    :param context:
+    :param user_name:
+    :param patient_name:
+    :return:
+    """
     acuity_board = AcuityBoardPage(context.driver)
     acuity_board.go_to_the_acuity_board()
     patient_kanban_card = acuity_board.get_kanban_card_by_name(patient_name)
@@ -53,33 +77,68 @@ def view_patient(context, user_name, patient_name):
 
 @given('the user {user_name} selects the Set Therapeutic Obs Level option')
 def select_set_therapeutic_obs_level_option(context, user_name):
+    """
+    Select the 'Set Therapeutic Obs Level' option on the patient form.
+
+    :param context:
+    :param user_name:
+    :return:
+    """
     patient_record = PatientRecordPage(context.driver)
     patient_record.open_set_therapeutic_obs_level_wizard()
 
 
 @when('level {level_number} is selected for the therapeutic observation level '
       'field')
-def set_level(context, level_number):
+def select_level(context, level_number):
+    """
+    Select a value for the level field.
+
+    :param context:
+    :param level_number:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_level(level_number)
 
 
 @when('{frequency} is selected for the therapeutic observation frequency '
       'field')
-def set_level(context, frequency):
+def select_frequency(context, frequency):
+    """
+    Select a value for the frequency field.
+
+    :param context:
+    :param frequency:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_frequency(frequency)
 
 
 @when('{staff_to_patient_ratio} is selected for the staff-to-patient ratio '
       'field')
-def set_level(context, staff_to_patient_ratio):
+def select_staff_to_patient_ratio(context, staff_to_patient_ratio):
+    """
+    Select a level for the staff-to-patient ratio field.
+
+    :param context:
+    :param staff_to_patient_ratio:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_staff_to_patient_ratio(staff_to_patient_ratio)
 
 
 @when('the therapeutic level changes are saved')
 def assert_changes_are_saved(context):
+    """
+    After saving the 'Set Therapeutic Obs Level' form check the database to
+    ensure that the changes made there were persisted.
+
+    :param context:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal = modal_page.get_currently_open_modal()
     modal_page.click_modal_button_by_name(modal, 'Save')
@@ -121,6 +180,14 @@ def assert_observation_level_field_options(context):
 
 @then('the title {expected_title} is displayed')
 def assert_title_is_displayed(context, expected_title):
+    """
+    Assert that the title in the 'Set Therapeutic Obs Level' popup is as
+    expected.
+
+    :param context:
+    :param expected_title:
+    :return:
+    """
     modal_page = BaseModalPage(context.driver)
     modal = modal_page.get_currently_open_modal()
     actual_title = modal_page.get_modal_title(modal)
@@ -129,12 +196,27 @@ def assert_title_is_displayed(context, expected_title):
 
 @then('a field labelled {label} is visible')
 def assert_field_label(context, label):
+    """
+    Assert that the label for a particular field is as expected.
+
+    :param context:
+    :param label:
+    :return:
+    """
     base_desktop_page = BaseDesktopPage(context.driver)
     base_desktop_page.assert_field_label_exists(label)
 
 
 @then('the observation frequency field is set to {expected_frequency}')
 def assert_observation_frequency_field_value(context, expected_frequency):
+    """
+    Assert that the value of the frequency field is as expected. Useful for
+    checking pre-populated or default values.
+
+    :param context:
+    :param expected_frequency:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     actual_frequency = modal_page.get_frequency(readonly=True)
     assert expected_frequency == actual_frequency, \
@@ -144,6 +226,12 @@ def assert_observation_frequency_field_value(context, expected_frequency):
 
 @then('the observation frequency field cannot be modified')
 def assert_observation_frequency_field_is_read_only(context):
+    """
+    Assert that a field is read only and therefore cannot be edited.
+
+    :param context:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     frequency_field = modal_page.get_frequency_field()
     assert frequency_field.tag_name == 'span'  # Not clickable.
@@ -157,6 +245,13 @@ def assert_observation_frequency_field_is_read_only(context):
 
 @then('a frequency can be chosen for the patient\'s therapeutic observations')
 def assert_frequency_field_is_editable(context):
+    """
+    Assert that the frequency field is currently editable (rather than
+    read-only) so that a frequency can be chosen by the user.
+
+    :param context:
+    :return:
+    """
     expected_frequency_options = \
         [row['frequency'] for row in context.table]
     modal_page = SetTherapeuticLevelModal(context.driver)
@@ -169,6 +264,13 @@ def assert_frequency_field_is_editable(context):
 @then('a staff-to-patient ratio can be chosen for the patient\'s therapeutic '
       'observations')
 def assert_staff_to_patient_ratio_field_is_editable(context):
+    """
+    Assert that the staff-to-patient ratio field is currently editable (rather
+    than read-only) so that a frequency can be chosen by the user.
+
+    :param context:
+    :return:
+    """
     expected_staff_to_patient_ratio_options = \
         [row['staff-to-patient ratio'] for row in context.table]
     modal_page = SetTherapeuticLevelModal(context.driver)
@@ -184,6 +286,14 @@ def assert_staff_to_patient_ratio_field_is_editable(context):
 @then('the therapeutic observation level for patient {patient_name} is level '
       '{level_number}')
 def assert_level_updated(context, patient_name, level_number):
+    """
+    Assert that the level was persisted.
+
+    :param context:
+    :param patient_name:
+    :param level_number:
+    :return:
+    """
     expected_level = 'Level {}'.format(level_number)
     current_level_record = _get_current_therapeutic_obs_level_record(
         context, patient_name
@@ -198,6 +308,14 @@ def assert_level_updated(context, patient_name, level_number):
       '{expected_frequency}')
 def assert_frequency_updated(
         context, patient_name, expected_frequency):
+    """
+    Assert that the frequency was persisted.
+
+    :param context:
+    :param patient_name:
+    :param expected_frequency:
+    :return:
+    """
     if expected_frequency == 'Every Hour':
         expected_frequency_minutes = 60
     else:
@@ -219,6 +337,14 @@ def assert_frequency_updated(
       '{expected_staff_to_patient_ratio}')
 def assert_staff_to_patient_ratio_updated(
         context, patient_name, expected_staff_to_patient_ratio):
+    """
+    Assert that the staff-to-patient ratio was persisted.
+
+    :param context:
+    :param patient_name:
+    :param expected_staff_to_patient_ratio:
+    :return:
+    """
     if expected_staff_to_patient_ratio == 'not set':
         expected_staff_to_patient_ratio = False
     else:
@@ -236,6 +362,14 @@ def assert_staff_to_patient_ratio_updated(
 
 
 def _get_current_therapeutic_obs_level_record(context, patient_name):
+    """
+    Private method that encapsulates the retrieval of the latest therapeutic
+    level record.
+
+    :param context:
+    :param patient_name:
+    :return:
+    """
     level_model = context.client.model(
         'nh.clinical.therapeutic.level'
     )

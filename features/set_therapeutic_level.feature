@@ -90,7 +90,7 @@ Feature: Setting of patient's therapeutic level
     When level 1 is selected for the therapeutic observation level field
     Then a field labelled Staff to patient ratio is visible
 
-  Scenario: A staff-to-patient ratio can be chosen for the patient when level 3 is selected
+  Scenario: A staff-to-patient ratio can be chosen for the patient on level 3
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When level 3 is selected for the therapeutic observation level field
     Then a staff-to-patient ratio can be chosen for the patient's therapeutic observations
