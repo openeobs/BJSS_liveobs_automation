@@ -1,3 +1,5 @@
+import re
+
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from behave import given, when, then
@@ -67,6 +69,13 @@ def set_level(context, level_number):
 def set_level(context, frequency):
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_frequency(frequency)
+
+
+@when('{staff_to_patient_ratio} is selected for the staff-to-patient ratio '
+      'field')
+def set_level(context, staff_to_patient_ratio):
+    modal_page = SetTherapeuticLevelModal(context.driver)
+    modal_page.set_staff_to_patient_ratio(staff_to_patient_ratio)
 
 
 @when('the therapeutic level changes are saved')
@@ -186,17 +195,44 @@ def assert_level_updated(context, patient_name, level_number):
 
 
 @then('the therapeutic observation frequency for patient {patient_name} is '
-      'Every {expected_frequency_minutes} Minutes')
+      '{expected_frequency}')
 def assert_frequency_updated(
-        context, patient_name, expected_frequency_minutes):
-    expected_frequency_minutes = int(expected_frequency_minutes)
+        context, patient_name, expected_frequency):
+    if expected_frequency == 'Every Hour':
+        expected_frequency_minutes = 60
+    else:
+        regex = re.compile(r"Every (\d+) Minutes")
+        expected_frequency_minutes = regex.match(expected_frequency).group(1)
+        expected_frequency_minutes = int(expected_frequency_minutes)
+
     current_level_record = _get_current_therapeutic_obs_level_record(
         context, patient_name
     )
+
     actual_frequency_minutes = current_level_record.frequency
     assert expected_frequency_minutes == actual_frequency_minutes, \
         "Expected frequency to be '{}' but was actually '{}'" \
         .format(expected_frequency_minutes, actual_frequency_minutes)
+
+
+@then('The staff-to-patient ratio for patient {patient_name} is '
+      '{expected_staff_to_patient_ratio}')
+def assert_staff_to_patient_ratio_updated(
+        context, patient_name, expected_staff_to_patient_ratio):
+    if expected_staff_to_patient_ratio == 'not set':
+        expected_staff_to_patient_ratio = False
+    else:
+        expected_staff_to_patient_ratio = \
+            int(expected_staff_to_patient_ratio[0])
+
+    current_level_record = _get_current_therapeutic_obs_level_record(
+        context, patient_name
+    )
+
+    actual_staff_to_patient_ratio = current_level_record.staff_to_patient_ratio
+    assert expected_staff_to_patient_ratio == actual_staff_to_patient_ratio, \
+        "Expected staff-to-patient ratio to be '{}' but was actually '{}'" \
+        .format(expected_staff_to_patient_ratio, actual_staff_to_patient_ratio)
 
 
 def _get_current_therapeutic_obs_level_record(context, patient_name):

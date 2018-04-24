@@ -5,6 +5,7 @@ from liveobs_ui.page_object_models.desktop.modal_view_common \
 from liveobs_ui.selectors.desktop.set_therapeutic_level_selectors \
     import THERAPEUTIC_LEVEL_FIELD, THERAPEUTIC_LEVEL_FIELD_OPTIONS, \
     THERAPEUTIC_FREQUENCY_FIELD, THERAPEUTIC_FREQUENCY_FIELD_OPTIONS, \
+    THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD, \
     THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD_OPTIONS
 
 
@@ -64,7 +65,7 @@ class SetTherapeuticLevelModal(BaseModalPage):
 
     def get_staff_to_patient_ratio_field(self):
         staff_to_patient_ratio = self.driver.find_elements(
-            *THERAPEUTIC_FREQUENCY_FIELD
+            *THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD
         )
         return staff_to_patient_ratio[0]
 
@@ -74,3 +75,10 @@ class SetTherapeuticLevelModal(BaseModalPage):
         )
         return [option.text.strip() for option in
                 staff_to_patient_ratio_options]
+
+    def set_staff_to_patient_ratio(self, staff_to_patient_ratio):
+        staff_to_patient_ratio_field = self.get_staff_to_patient_ratio_field()
+        staff_to_patient_ratio_field_select = staff_to_patient_ratio_field \
+            .find_element_by_tag_name('select')
+        self.fill_select_field(
+            staff_to_patient_ratio_field_select, staff_to_patient_ratio)
