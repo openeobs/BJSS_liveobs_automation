@@ -35,7 +35,7 @@ Feature: Setting of patient's therapeutic level content
 
   Scenario: Frequency field is visible and appropriately labelled on level 1
     Given the user Shirley selects the Set Therapeutic Obs Level option
-    When level 1 is selected for level field
+    When level 1 is selected for the level field
     Then a field labelled Observation Recording Frequency is visible
 
   Scenario: Frequency field is visible and appropriately labelled on level 2
