@@ -180,7 +180,7 @@ class BaseLiveObsPage(object):
     def get_state_of_el(element, attribute, state):
         """
         Return if attribute on element is a particular state
-        :param element: Webelement
+        :param element: WebElement
         :param attribute: attribute to find
         :param state: expected value
         :return: bool

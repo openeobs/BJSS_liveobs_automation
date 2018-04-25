@@ -16,6 +16,12 @@ from liveobs_ui.page_object_models.desktop.modal_view_common \
     import BaseModalPage
 from liveobs_ui.page_object_models.desktop.desktop_common \
     import BaseDesktopPage
+from liveobs_ui.page_object_models.desktop.error_modal import ErrorModalPage
+from liveobs_ui.page_object_models.desktop.desktop_notification \
+    import DesktopNotificationPage
+
+from liveobs_ui.selectors.desktop.error_selectors import \
+    MODAL_CONTAINER_ERROR_MESSAGE, NOTIFICATION_ERROR_MESSAGE_FIRST_LINE
 
 
 @given('the patient {patient_name} has never had a therapeutic observation '
@@ -91,22 +97,25 @@ def select_set_therapeutic_obs_level_option(context, user_name):
     patient_record.open_set_therapeutic_obs_level_wizard()
 
 
-@when('level {level_number} is selected for the therapeutic observation level '
-      'field')
-def select_level(context, level_number):
+@given('{level} is selected for the level field')
+@when('{level} is selected for the level field')
+def select_level(context, level):
     """
     Select a value for the level field.
 
     :param context:
-    :param level_number:
+    :param level:
     :return:
     """
+    if level == 'nothing':
+        return
+    level_number = level[-1]
+
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_level(level_number)
 
 
-@when('{frequency} is selected for the therapeutic observation frequency '
-      'field')
+@when('{frequency} is selected for the frequency field')
 def select_frequency(context, frequency):
     """
     Select a value for the frequency field.
@@ -115,6 +124,8 @@ def select_frequency(context, frequency):
     :param frequency:
     :return:
     """
+    if frequency == 'nothing':
+        return
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_frequency(frequency)
 
@@ -129,6 +140,8 @@ def select_staff_to_patient_ratio(context, staff_to_patient_ratio):
     :param staff_to_patient_ratio:
     :return:
     """
+    if staff_to_patient_ratio == 'nothing':
+        return
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal_page.set_staff_to_patient_ratio(staff_to_patient_ratio)
 
@@ -143,7 +156,22 @@ def assert_changes_are_saved(context):
     """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal = modal_page.get_currently_open_modal()
-    modal_page.click_modal_button_by_name(modal, 'Save')
+
+    scenario_name = context.scenario.name
+    if 'Error notification' in scenario_name:
+        modal_page.click_modal_button_by_name(
+            modal, 'Save',
+            element_to_verify=NOTIFICATION_ERROR_MESSAGE_FIRST_LINE,
+            hidden=False
+        )
+    elif 'Error modal' in scenario_name:
+        modal_page.click_modal_button_by_name(
+            modal, 'Save',
+            element_to_verify=MODAL_CONTAINER_ERROR_MESSAGE,
+            hidden=False
+        )
+    else:
+        modal_page.click_modal_button_by_name(modal, 'Save')
 
 
 @when('the therapeutic level changes are cancelled')
@@ -361,7 +389,7 @@ def assert_staff_to_patient_ratio_updated(
     :param expected_staff_to_patient_ratio:
     :return:
     """
-    if expected_staff_to_patient_ratio == 'not set':
+    if expected_staff_to_patient_ratio == 'nothing':
         expected_staff_to_patient_ratio = False
     else:
         expected_staff_to_patient_ratio = \
@@ -375,6 +403,46 @@ def assert_staff_to_patient_ratio_updated(
     assert expected_staff_to_patient_ratio == actual_staff_to_patient_ratio, \
         "Expected staff-to-patient ratio to be '{}' but was actually '{}'" \
         .format(expected_staff_to_patient_ratio, actual_staff_to_patient_ratio)
+
+
+@then('a modal with the error message {expected_error_message} is displayed')
+def assert_modal_error_message_displayed(context, expected_error_message):
+    """
+    Asserts the correct error message is displayed in the modal.
+
+    :param context:
+    :param expected_error_message:
+    :return:
+    """
+    error_modal = ErrorModalPage(context.driver)
+    actual_error_message = error_modal.get_error_message()
+    assert expected_error_message == actual_error_message, \
+        "Expected error message to be '{}' but was actually '{}'"\
+        .format(expected_error_message, actual_error_message)
+
+
+@then('a notification with the error message {expected_error_message} for the '
+      'field {invalid_field_name} is displayed')
+def assert_modal_error_message_displayed(
+        context, expected_error_message, invalid_field_name):
+    """
+    Asserts the correct error message is dispalyed in the notification.
+
+    :param context:
+    :param expected_error_message:
+    :param invalid_field_name:
+    :return:
+    """
+    desktop_notification = DesktopNotificationPage(context.driver)
+
+    actual_error_message = desktop_notification.get_error_message_first_line()
+    assert expected_error_message == actual_error_message, \
+        "Expected error message to be '{}' but was actually '{}'" \
+        .format(expected_error_message, actual_error_message)
+
+    expected_field_names = [invalid_field_name]
+    actual_field_names = desktop_notification.get_error_message_list_items()
+    assert expected_field_names == actual_field_names
 
 
 def _get_current_therapeutic_obs_level_record(context, patient_name):
