@@ -2,9 +2,9 @@
 # JIRA: EOBS-2106
 # Scenarios covered: 1-10
 
-Feature: Setting of patient's therapeutic level
+Feature: Setting of patient's therapeutic level submission
 
-  Background: A shift coordinator and patient exist
+  Background: Setting of patient's therapeutic level submission - A shift coordinator and patient exist
     Given the user Shirley exists
     And user Shirley has the role of Shift Coordinator
     And the user Shirley is allocated to Oak Ward of Greenfield University Hospital
@@ -17,8 +17,8 @@ Feature: Setting of patient's therapeutic level
   Scenario Outline: Changes made are saved on all levels
     Given the user Shirley selects the Set Therapeutic Obs Level option
     When <set level> is selected for the level field
-    When <set frequency> is selected for the frequency field
-    When <set staff-to-patient ratio> is selected for the staff-to-patient ratio field
+    And <set frequency> is selected for the frequency field
+    And <set staff-to-patient ratio> is selected for the staff-to-patient ratio field
     And the therapeutic level changes are saved
     Then the therapeutic observation level for patient Patricia is level <expected level>
     And the therapeutic observation frequency for patient Patricia is <expected frequency>

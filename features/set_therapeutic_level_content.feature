@@ -2,9 +2,9 @@
 # JIRA: EOBS-2106
 # Scenarios covered: 1-10
 
-Feature: Setting of patient's therapeutic level
+Feature: Setting of patient's therapeutic level content
 
-  Background: A shift coordinator and patient exist
+  Background: Setting of patient's therapeutic level content - A shift coordinator and patient exist
     Given the user Shirley exists
     And user Shirley has the role of Shift Coordinator
     And the user Shirley is allocated to Oak Ward of Greenfield University Hospital
