@@ -45,4 +45,4 @@ class PatientRecordPage(BaseFormViewPage):
 
     def open_set_therapeutic_obs_level_wizard(self):
         """ Open the Set Therapeutic Obs Level wizard """
-        self.open_wizard_with_name('Therapeutic Obs Level')
+        self.open_wizard_with_name('Set Therapeutic Obs Level')
