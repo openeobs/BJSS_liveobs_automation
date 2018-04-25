@@ -405,7 +405,7 @@ def assert_staff_to_patient_ratio_updated(
         .format(expected_staff_to_patient_ratio, actual_staff_to_patient_ratio)
 
 
-@then('a modal with the error message {expected_error_message} is displayed')
+@then('the error message {expected_error_message} is displayed')
 def assert_modal_error_message_displayed(context, expected_error_message):
     """
     Asserts the correct error message is displayed in the modal.
@@ -421,24 +421,27 @@ def assert_modal_error_message_displayed(context, expected_error_message):
         .format(expected_error_message, actual_error_message)
 
 
-@then('a notification with the error message {expected_error_message} for the '
-      'field {invalid_field_name} is displayed')
-def assert_modal_error_message_displayed(
-        context, expected_error_message, invalid_field_name):
+@then('an invalid field notification is displayed for the field '
+      '{invalid_field_name}')
+def assert_notification_error_message_displayed(context, invalid_field_name):
     """
     Asserts the correct error message is dispalyed in the notification.
 
     :param context:
-    :param expected_error_message:
     :param invalid_field_name:
     :return:
     """
     desktop_notification = DesktopNotificationPage(context.driver)
 
-    actual_error_message = desktop_notification.get_error_message_first_line()
-    assert expected_error_message == actual_error_message, \
+    expected_error_message_first_line = 'The following fields are invalid:'
+    actual_error_message_first_line = \
+        desktop_notification.get_error_message_first_line()
+    assert expected_error_message_first_line == \
+        actual_error_message_first_line, \
         "Expected error message to be '{}' but was actually '{}'" \
-        .format(expected_error_message, actual_error_message)
+        .format(
+            expected_error_message_first_line, actual_error_message_first_line
+        )
 
     expected_field_names = [invalid_field_name]
     actual_field_names = desktop_notification.get_error_message_list_items()
