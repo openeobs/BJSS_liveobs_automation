@@ -136,8 +136,7 @@ def select_staff_to_patient_ratio(context, staff_to_patient_ratio):
 @when('the therapeutic level changes are saved')
 def assert_changes_are_saved(context):
     """
-    After saving the 'Set Therapeutic Obs Level' form check the database to
-    ensure that the changes made there were persisted.
+    Save the changes by pressing the 'Save' button in the modal.
 
     :param context:
     :return:
@@ -149,6 +148,13 @@ def assert_changes_are_saved(context):
 
 @when('the therapeutic level changes are cancelled')
 def cancel_therapeutic_level_changes(context):
+    """
+    Cancel therapeutic level changes by pressing the 'Cancel' button in the
+    modal.
+
+    :param context:
+    :return:
+    """
     modal_page = SetTherapeuticLevelModal(context.driver)
     modal = modal_page.get_currently_open_modal()
     modal_page.click_modal_button_by_name(modal, 'Cancel')

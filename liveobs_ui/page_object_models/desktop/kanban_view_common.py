@@ -1,5 +1,4 @@
 """ Common Kanban view functionality """
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from liveobs_ui.page_object_models.desktop.desktop_common import \
     BaseDesktopPage
