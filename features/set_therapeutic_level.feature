@@ -117,3 +117,12 @@ Feature: Setting of patient's therapeutic level
     Then the therapeutic observation level for patient Patricia is level 3
     And the therapeutic observation frequency for patient Patricia is Every Hour
     And the staff-to-patient ratio for patient Patricia is 2:1
+
+  Scenario: Changes made are not saved when the changes are cancelled
+    Given the patient Patricia is on therapeutic observation level 1
+    And the user Shirley selects the Set Therapeutic Obs Level option
+    When level 3 is selected for the therapeutic observation level field
+    And 2:1 is selected for the staff-to-patient ratio field
+    Then the therapeutic observation level for patient Patricia is level 1
+    And the therapeutic observation frequency for patient Patricia is Every Hour
+    And the staff-to-patient ratio for patient Patricia is not set

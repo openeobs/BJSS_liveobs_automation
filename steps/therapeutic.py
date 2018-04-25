@@ -147,6 +147,13 @@ def assert_changes_are_saved(context):
     modal_page.click_modal_button_by_name(modal, 'Save')
 
 
+@when('the therapeutic level changes are cancelled')
+def cancel_therapeutic_level_changes(context):
+    modal_page = SetTherapeuticLevelModal(context.driver)
+    modal = modal_page.get_currently_open_modal()
+    modal_page.click_modal_button_by_name(modal, 'Cancel')
+
+
 @then('the therapeutic observation level field is set to level {level_number}')
 def assert_observation_level_field_value(context, level_number):
     """
