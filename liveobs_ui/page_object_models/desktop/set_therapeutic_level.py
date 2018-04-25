@@ -12,7 +12,9 @@ from liveobs_ui.selectors.desktop.set_therapeutic_level_selectors \
 
 
 class SetTherapeuticLevelModal(BaseModalPage):
-
+    """
+    Page object for set therapeutic level modal.
+    """
     def get_level_field(self):
         """
         Get the frequency field wrapper element.
