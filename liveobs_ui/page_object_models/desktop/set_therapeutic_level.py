@@ -1,5 +1,6 @@
 """ Page object for set therapeutic level modal. """
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import NoSuchElementException
 
 
 from liveobs_ui.page_object_models.desktop.modal_view_common \
@@ -69,10 +70,13 @@ class SetTherapeuticLevelModal(BaseModalPage):
         :return:
         :rtype: WebElement
         """
-        frequency_field = self.driver.find_elements(
+        frequency_fields = self.driver.find_elements(
             *THERAPEUTIC_FREQUENCY_FIELD
         )
-        return frequency_field[0]
+        for frequency_field in frequency_fields:
+            if frequency_field.is_displayed():
+                return frequency_field
+        raise NoSuchElementException("No visible frequency field found.")
 
     def get_frequency(self, readonly=False):
         """

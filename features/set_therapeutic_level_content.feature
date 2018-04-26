@@ -83,7 +83,6 @@ Feature: Setting of patient's therapeutic level content
     | Every 20 Minutes |
     | Every 25 Minutes |
     | Every 30 Minutes |
-    | Every Hour       |
 
   Scenario: Staff-to-patient ratio field is appropriately labelled
     Given the user Shirley selects the Set Therapeutic Obs Level option

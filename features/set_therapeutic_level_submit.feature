@@ -29,7 +29,7 @@ Feature: Setting of patient's therapeutic level submission
     | 1         | nothing            | nothing                    | 1              | Every Hour         | nothing                         |
     | 2         | Every 5 Minutes    | nothing                    | 2              | Every 5 Minutes    | nothing                         |
     | 2         | Every 20 Minutes   | nothing                    | 2              | Every 20 Minutes   | nothing                         |
-    | 2         | Every Hour         | nothing                    | 2              | Every Hour         | nothing                         |
+    | 2         | Every 30 Minutes   | nothing                    | 2              | Every 30 Minutes   | nothing                         |
     | 3         | nothing            | 1:1                        | 3              | Every Hour         | 1:1                             |
     | 3         | nothing            | 2:1                        | 3              | Every Hour         | 2:1                             |
     | 3         | nothing            | 3:1                        | 3              | Every Hour         | 3:1                             |
