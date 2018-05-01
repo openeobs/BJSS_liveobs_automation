@@ -53,15 +53,20 @@ class BaseModalPage(BaseDesktopPage):
             if name in button.text:
                 return button
 
-    def click_modal_button_by_name(self, modal, name):
+    def click_modal_button_by_name(
+            self, modal, name, element_to_verify=None, hidden=True):
         """
         Click a button in modal's footer with a specified name
 
         :param modal: Modal to click button in
         :param name: Name of button to click
+        :param element_to_verify:
+        :param hidden:
         """
         button = self.get_modal_button_by_name(modal, name)
-        self.click_and_verify_change(button, MODAL_CONTAINER, hidden=True)
+        if element_to_verify is None:
+            element_to_verify = MODAL_CONTAINER
+        self.click_and_verify_change(button, element_to_verify, hidden=hidden)
 
     def get_currently_open_modal(self):
         """

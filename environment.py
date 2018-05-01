@@ -41,6 +41,7 @@ def before_all(context):
         user='admin',
         password='admin',
     )
+    _create_patient_lookup(context)
 
 
 def after_all(context):
@@ -50,3 +51,15 @@ def after_all(context):
     :param context: Behave context
     """
     context.driver.quit()
+
+
+def _create_patient_lookup(context):
+    """
+    Patients will be added to this dictionary when they are created in setup
+    steps using the patient's given name as a key.
+    This allows quick lookup in subsequent steps.
+
+    :param context:
+    :return:
+    """
+    context.patients = {}

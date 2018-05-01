@@ -330,8 +330,10 @@ def assert_patient_in_list(context, patient_name):
 
 
 @then('the My Patients list is empty')
-def assert_patient_list_empty(context):
+def assert_patient_list_is_empty(context):
     """
+    Assert patient list is empty.
+
     :param context:
     :return:
     """
