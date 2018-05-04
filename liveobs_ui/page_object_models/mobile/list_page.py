@@ -4,14 +4,12 @@ The List Page is a base class for the task and patient lists as they use the
 same template to render content
 """
 import random
+# pylint: disable=redefined-builtin
+from functools import reduce
 
 from liveobs_ui.page_object_models.mobile.mobile_common import BaseMobilePage
 from liveobs_ui.selectors.mobile.list import LIST_ITEM, LIST_CONTAINER, \
     LIST_ITEM_DATA_NAME, LIST_ITEM_DATA_INFO
-
-import sys
-if sys.version[0] == 3:
-    from functools import reduce
 
 
 class ListPage(BaseMobilePage):
