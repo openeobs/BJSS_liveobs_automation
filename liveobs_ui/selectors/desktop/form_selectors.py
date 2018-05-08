@@ -1,7 +1,6 @@
 """ Selectors for form view """
 from selenium.webdriver.common.by import By
 
-
 FORM_ACTIONBAR = (
     By.CSS_SELECTOR,
     '.oe_webclient .oe_application .oe_view_manager .oe_view_manager_body '

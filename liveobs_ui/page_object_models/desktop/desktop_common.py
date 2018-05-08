@@ -223,3 +223,13 @@ class BaseDesktopPage(BaseLiveObsPage):
         """
         menu_info = menu_item.find_element(*LEFT_NAVIGATION_ITEMS_NAME)
         return menu_info.text
+
+    def assert_field_label_exists(self, label):
+        """
+        Assert the field label exists.
+
+        :param label:
+        :raises: selenium.common.exceptions.NoSuchElementException
+        """
+        xpath = "//label[contains(text(), '{label}')]".format(label=label)
+        self.driver.find_element_by_xpath(xpath)

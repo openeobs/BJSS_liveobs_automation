@@ -49,34 +49,41 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
     create_parent_locations_if_necessary(context, location, parent_location)
     # search for patient
     names = patient_name.split(' ')
+    given_name = names[0]
+    family_name = names[1] if len(names) > 1 else 'Pettigrew'
+
     patient_model = context.client.model('nh.clinical.patient')
-    patient_search = patient_model.search(
+    patient_id = patient_model.search(
         [
-            ['given_name', '=', names[0]],
-            ['family_name', '=', names[1]]
+            ['given_name', '=', given_name],
+            ['family_name', '=', family_name]
         ]
     )
     # if patient not found then create them
     api_model = context.client.model('nh.eobs.api')
-    if not patient_search:
+    if not patient_id:
         hospital_number = str(uuid4().int)[:8]
-        patient_search = api_model.register(
+        patient_id = api_model.register(
             hospital_number,
             {
-                'given_name': names[0],
-                'family_name': names[1],
+                'given_name': given_name,
+                'family_name': family_name,
             }
         )
     else:
-        patient_search = patient_search[0]
+        patient_id = patient_id[0]
         hospital_number = patient_model.read(
-            patient_search, ['other_identifier']).get('other_identifier')
+            patient_id, ['other_identifier']).get('other_identifier')
+
+    patient = patient_model.browse(patient_id)
+    context.patients[given_name] = patient
+
     # search for spell for patient
     spell_model = context.client.model('nh.clinical.spell')
     spell_search = spell_model.search(
         [
             ['state', 'not in', ['completed', 'cancelled']],
-            ['patient_id', '=', patient_search]
+            ['patient_id', '=', patient_id]
         ]
     )
     # if spell not found then create it
@@ -92,23 +99,23 @@ def ensure_patient_in_system(context, patient_name, location, parent_location):
         )
     # check patient isn't in location then place them there
     patients_location = patient_model.read(
-        patient_search, ['current_location_id']).get('current_location_id')
+        patient_id, ['current_location_id']).get('current_location_id')
     # if patient isn't in either location send to parent location
     if patients_location[0] not in [context.ward.id, context.bed_id]:
         api_model.transfer(hospital_number, {'location': context.ward.code})
         patients_location = patient_model.read(
-            patient_search, ['current_location_id']).get('current_location_id')
+            patient_id, ['current_location_id']).get('current_location_id')
     # if current location is ward then place
     if patients_location[0] == context.ward.id:
         placement_model = context.client.model('nh.clinical.patient.placement')
         activity_model = context.client.model('nh.activity')
         placement_model.create_activity({}, {
             'suggested_location_id': context.bed_id,
-            'patient_id': patient_search
+            'patient_id': patient_id
         })
         placement_activity = activity_model.search([
             ['data_model', '=', 'nh.clinical.patient.placement'],
-            ['patient_id', '=', patient_search],
+            ['patient_id', '=', patient_id],
             ['state', 'not in', ['completed', 'cancelled']]
         ])
         if not placement_activity:
@@ -132,6 +139,7 @@ def ensure_user_allocated_to_location(
     :param location: name of the location to allocate user to
     :param parent_location: Parent of the location to allocate to
     """
+    create_parent_locations_if_necessary(context, location, parent_location)
     user_model = context.client.model('res.users')
     location_model = context.client.model('nh.clinical.location')
     user_search = user_model.search(
