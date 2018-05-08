@@ -51,9 +51,11 @@ STAN_BP_DIAS_ENTRY_FIELD = (By.ID, 'parent_diastolic_standing')
 # Selectors used in automation tests - Therapeutic Obs form
 PATIENT_STATUS_ENTRY_FIELD = (By.ID, 'parent_patient_status')
 LOCATION_ENTRY_FIELD = (By.ID, 'parent_location')
-AREAS_CONCERN_ENTRY_FIELD = (By.ID, 'parent_areas_concern')
-INTERVENTION_NEEDED_ENTRY_FIELD = (By.ID, 'parent_intervention_need')
-INTERVENTION_STAFF_ENTRY_FIELD = (By.ID, 'parent_intervention_staff')
+AREAS_CONCERN_ENTRY_FIELD = (By.ID, 'parent_areas_of_concern')
+INTERVENTION_NEEDED_ENTRY_FIELD = \
+    (By.ID, 'parent_one_to_one_intervention_needed')
+INTERVENTION_STAFF_ENTRY_FIELD = \
+    (By.ID, 'parent_other_staff_during_intervention')
 OTHER_NOTES_ENTRY_FIELD = (By.ID, 'parent_other_notes')
 
 # Selectors for mobile buttons
