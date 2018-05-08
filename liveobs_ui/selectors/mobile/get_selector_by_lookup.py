@@ -74,7 +74,7 @@ element_dict = {
     'Location': LOCATION_ENTRY_FIELD,
     'Areas of Concern': AREAS_CONCERN_ENTRY_FIELD,
     'Intervention Needed?': INTERVENTION_NEEDED_ENTRY_FIELD,
-    'Other Staff during intervention': INTERVENTION_STAFF_ENTRY_FIELD,
+    'Other Staff During Intervention': INTERVENTION_STAFF_ENTRY_FIELD,
     'Other Notes': OTHER_NOTES_ENTRY_FIELD,
 }
 
@@ -88,4 +88,4 @@ def get_element_selector(element_name):
         Blood Glucose (mmol/L) - links to the ID locator of the field
         Blood Glucose - links to specific attribute of the BG form
     """
-    return element_dict.get(element_name)
+    return element_dict[element_name]

@@ -21,6 +21,6 @@ Feature: Therapeutic Observation - Data Entry
     And the Location field is displayed
     And the Areas of Concern field is displayed
     And the Intervention Needed? field is displayed
-    And the Other Staff during intervention field is displayed
+    And the Other Staff During Intervention field is displayed
     And the Other Notes field is displayed
     And the Patient Status entry field is set to Mandatory

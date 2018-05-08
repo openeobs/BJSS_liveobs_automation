@@ -21,7 +21,7 @@ Feature: Verifying submission for full therapeutic observation.
     And the value <location> is inputted in the Location field
     And the value <areas_concern> is inputted in the Areas of Concern field
     And the value <intervention_need> is selected in the Intervention Needed? field
-    And the value <intervention_staff> is inputted in the Other Staff during Intervention field
+    And the value <intervention_staff> is inputted in the Other Staff During Intervention field
     And the value <other_notes> is inputted in the Other Notes field
     Then the form is submitted
     And the Therapeutic observation is confirmed

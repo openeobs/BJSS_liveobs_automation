@@ -132,14 +132,15 @@ class DataEntryPage(BaseMobilePage):
         """
         attribute = field_input.get_attribute("class")
         if 'obsField' in attribute:
-            return field_input.find_element_by_xpath(
-                "div[@class='input-header']/input")
+            field_value_xpath = "div[@class='input-header']/input"
         elif 'obsSelectField' in attribute:
-            return field_input.find_element_by_xpath(
-                "div[@class='input-body']/select")
+            field_value_xpath = "div[@class='input-body']/select"
+        elif 'obsTextField' in attribute:
+            field_value_xpath = "div[@class='input-body']/textarea"
         else:
             raise ValueError(" {} element doesn't belong to specified classes"
                              .format(field_input))
+        return field_input.find_element_by_xpath(field_value_xpath)
 
     def verify_obs_form_displayed(self, obs_type):
         """
