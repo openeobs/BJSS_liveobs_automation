@@ -44,8 +44,31 @@ def remove_existing_therapeutic_levels(context, patient_name):
     level_model.browse(all_level_records_for_patient_ids).unlink()
 
 
-@given('the patient {patient_name} is on therapeutic observation level '
-       '{level_number}')
+@given('the patient {patient_name} is on therapeutic observation level 1')
+def set_patient_therapeutic_level(context, patient_name, level_number):
+    """
+    Set a value for the therapeutic observation level field.
+
+    :param context:
+    :param patient_name:
+    :param level_number:
+    :return:
+    """
+    level_model = context.client.model(
+        'nh.clinical.therapeutic.level')
+    patient = context.patients[patient_name]
+    all_level_records_for_patient_ids = level_model.search([
+        ('patient', '=', patient.id)
+    ])
+    level_model.browse(all_level_records_for_patient_ids).unlink()
+    level_model.create({
+        'patient': patient.id,
+        'level': int(level_number)
+    })
+
+
+@given('the patient {patient_name} is on therapeutic observation level 2 with '
+       'frequency {frequency}')
 def set_patient_therapeutic_level(context, patient_name, level_number):
     """
     Set a value for the therapeutic observation level field.
@@ -69,6 +92,7 @@ def set_patient_therapeutic_level(context, patient_name, level_number):
 
 
 @given('the user {user_name} views the patient {patient_name}')
+@when('the user {user_name} views the patient {patient_name}')
 def view_patient(context, user_name, patient_name):
     """
     Navigate to the patient form for the passed patient.
@@ -446,6 +470,13 @@ def assert_notification_error_message_displayed(context, invalid_field_name):
     expected_field_names = [invalid_field_name]
     actual_field_names = desktop_notification.get_error_message_list_items()
     assert expected_field_names == actual_field_names
+
+
+@then('the {field_name} is displayed as {value}')
+def get_displayed_value(context, field_name, value):
+    patient_form = PatientRecordPage(context.driver)
+    level = patient_form.get_therapeutic_level()
+    assert level == value
 
 
 def _get_current_therapeutic_obs_level_record(context, patient_name):
