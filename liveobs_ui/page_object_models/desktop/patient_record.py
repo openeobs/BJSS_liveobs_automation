@@ -51,16 +51,34 @@ class PatientRecordPage(BaseFormViewPage):
         self.open_wizard_with_name('Set Therapeutic Obs Level')
 
     def get_therapeutic_level(self):
+        """
+        Get the current therapeutic level that is displayed.
+
+        :return:
+        :rtype: str
+        """
         level_field = self.driver.find_element(*THERAPEUTIC_LEVEL)
         level = level_field.text
         return level
 
     def get_therapeutic_frequency(self):
+        """
+        Get the current therapeutic frequency that is displayed.
+
+        :return:
+        :rtype: str
+        """
         frequency_field = self.driver.find_element(*THERAPEUTIC_FREQUENCY)
         frequency = frequency_field.text
         return frequency
 
     def get_therapeutic_staff_to_patient_ratio(self):
+        """
+        Get the current therapeutic staff-to-patient ratio that is displayed.
+
+        :return:
+        :rtype: str
+        """
         staff_to_patient_ratio_field = self.driver.find_element(
             *THERAPEUTIC_STAFF_TO_PATIENT_RATIO
         )

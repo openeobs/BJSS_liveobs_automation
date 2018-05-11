@@ -126,6 +126,13 @@ def set_patient_therapeutic_level_3(
 @given('that the patient {patient_name} had a therapeutic observation '
        'level 1 set during a previous spell')
 def create_previous_spell(context, patient_name):
+    """
+    Setup the data so that the patient has a previous spell.
+
+    :param context:
+    :param patient_name:
+    :return:
+    """
     patient = context.patients[patient_name]
     set_patient_therapeutic_level_1(context, patient_name)
 
@@ -515,6 +522,14 @@ def assert_notification_error_message_displayed(context, invalid_field_name):
 
 @then('the {field_name} is displayed as {expected_value}')
 def get_displayed_value(context, field_name, expected_value):
+    """
+    Get one of the values displayed for the level on the patient form.
+
+    :param context:
+    :param field_name:
+    :param expected_value:
+    :return:
+    """
     patient_form = PatientRecordPage(context.driver)
     if field_name == 'current level':
         actual_value = patient_form.get_therapeutic_level()
