@@ -15,7 +15,7 @@ Feature: Therapeutic level information is displayed on the patient form
     And the user Shirley views the patient Patricia
 
   Scenario: No level set for patient
-    Given the patient Patricia has never had a therapeutic observation level set
+    Given no therapeutic observation level has been set for the patient Patricia during the current spell
     When the user Shirley views the patient Patricia
     Then the current level is displayed as Not set
     And the recording frequency is displayed as blank
@@ -47,4 +47,12 @@ Feature: Therapeutic level information is displayed on the patient form
     When the user Shirley views the patient Patricia
     Then the current level is displayed as 2
     And the recording frequency is displayed as Every 5 Minutes
+    And the staff-to-patient ratio is displayed as blank
+
+  Scenario: Therapeutic level set on previous admission but not new one
+    Given that the patient Patricia had a therapeutic observation level 1 set during a previous spell
+    And no therapeutic observation level has been set for the patient Patricia during the current spell
+    When the user Shirley views the patient Patricia
+    Then the current level is displayed as 1
+    And the recording frequency is displayed as Every Hour
     And the staff-to-patient ratio is displayed as blank

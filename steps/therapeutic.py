@@ -24,8 +24,8 @@ from liveobs_ui.selectors.desktop.error_selectors import \
     MODAL_CONTAINER_ERROR_MESSAGE, NOTIFICATION_ERROR_MESSAGE_FIRST_LINE
 
 
-@given('the patient {patient_name} has never had a therapeutic observation '
-       'level set')
+@given('no therapeutic observation level has been set for the patient '
+       '{patient_name} during the current spell')
 def remove_existing_therapeutic_levels(context, patient_name):
     """
     Ensure that the patient has no therapeutic level records so that a test can
@@ -45,7 +45,7 @@ def remove_existing_therapeutic_levels(context, patient_name):
 
 
 @given('the patient {patient_name} is on therapeutic observation level 1')
-def set_patient_therapeutic_level(context, patient_name):
+def set_patient_therapeutic_level_1(context, patient_name):
     """
     Set a value for the therapeutic observation level field.
 
@@ -68,7 +68,7 @@ def set_patient_therapeutic_level(context, patient_name):
 
 @given('the patient {patient_name} is on therapeutic observation level 2 with '
        'frequency {frequency}')
-def set_patient_therapeutic_level(context, patient_name, frequency):
+def set_patient_therapeutic_level_2(context, patient_name, frequency):
     """
     Set a value for the therapeutic observation level field.
 
@@ -96,7 +96,7 @@ def set_patient_therapeutic_level(context, patient_name, frequency):
 
 @given('the patient {patient_name} is on therapeutic observation level 3 with '
        'staff-to-patient ratio {staff_to_patient_ratio}')
-def set_patient_therapeutic_level(
+def set_patient_therapeutic_level_3(
         context, patient_name, staff_to_patient_ratio):
     """
     Set a value for the therapeutic observation level field.
@@ -109,8 +109,7 @@ def set_patient_therapeutic_level(
     staff_to_patient_ratio_int = \
         _get_staff_to_patient_ratio_int_from_string(staff_to_patient_ratio)
 
-    level_model = context.client.model(
-        'nh.clinical.therapeutic.level')
+    level_model = context.client.model('nh.clinical.therapeutic.level')
     patient = context.patients[patient_name]
     all_level_records_for_patient_ids = level_model.search([
         ('patient', '=', patient.id)
@@ -122,6 +121,17 @@ def set_patient_therapeutic_level(
         'level': 3,
         'staff_to_patient_ratio': staff_to_patient_ratio_int
     })
+
+
+@given('that the patient {patient_name} had a therapeutic observation '
+       'level 1 set during a previous spell')
+def create_previous_spell(context, patient_name):
+    patient = context.patients[patient_name]
+    set_patient_therapeutic_level_1(context, patient_name)
+
+    api_model = context.client.model('nh.eobs.api')
+    api_model.discharge(patient.other_identifier, {})
+    api_model.admit(patient.other_identifier, {})
 
 
 @given('the user {user_name} views the patient {patient_name}')
