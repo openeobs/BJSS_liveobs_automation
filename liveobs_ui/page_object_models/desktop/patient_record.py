@@ -5,7 +5,9 @@ from liveobs_ui.page_object_models.desktop.form_view_common import \
     BaseFormViewPage
 from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_WAIT
 from liveobs_ui.selectors.desktop.modal_selectors import MODAL_CONTAINER
-from liveobs_ui.selectors.desktop import patient_form_therapeutic_selectors
+from liveobs_ui.selectors.desktop.patient_form_therapeutic_selectors import \
+    THERAPEUTIC_LEVEL, THERAPEUTIC_FREQUENCY, \
+    THERAPEUTIC_STAFF_TO_PATIENT_RATIO
 
 
 class PatientRecordPage(BaseFormViewPage):
@@ -49,7 +51,18 @@ class PatientRecordPage(BaseFormViewPage):
         self.open_wizard_with_name('Set Therapeutic Obs Level')
 
     def get_therapeutic_level(self):
-        level = self.driver.find_element(
-            *patient_form_therapeutic_selectors.THERAPEUTIC_LEVEL
-        )
+        level_field = self.driver.find_element(*THERAPEUTIC_LEVEL)
+        level = level_field.text
         return level
+
+    def get_therapeutic_frequency(self):
+        frequency_field = self.driver.find_element(*THERAPEUTIC_FREQUENCY)
+        frequency = frequency_field.text
+        return frequency
+
+    def get_therapeutic_staff_to_patient_ratio(self):
+        staff_to_patient_ratio_field = self.driver.find_element(
+            *THERAPEUTIC_STAFF_TO_PATIENT_RATIO
+        )
+        staff_to_patient_ratio = staff_to_patient_ratio_field.text
+        return staff_to_patient_ratio
