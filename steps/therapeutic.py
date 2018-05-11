@@ -559,7 +559,8 @@ def _get_current_therapeutic_obs_level_record(context, patient_name):
     """
     patient = context.patients[patient_name]
     level_model = context.client.model('nh.clinical.therapeutic.level')
-    current_level = level_model.get_current_level_record_for_patient(patient.id)
+    current_level = \
+        level_model.get_current_level_record_for_patient(patient.id)
     return current_level
 
 
