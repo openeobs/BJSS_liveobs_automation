@@ -131,7 +131,9 @@ def create_previous_spell(context, patient_name):
 
     api_model = context.client.model('nh.eobs.api')
     api_model.discharge(patient.other_identifier, {})
-    api_model.admit(patient.other_identifier, {})
+    api_model.admit(
+        patient.other_identifier, {'location': context.ward.code}
+    )
 
 
 @given('the user {user_name} views the patient {patient_name}')
