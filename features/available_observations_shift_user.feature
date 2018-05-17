@@ -26,6 +26,7 @@ Feature: Observations available for on Shift Nurse/HCA staff
     And the Take observation button is selected
     Then the NEWS observation is not listed
     And the Neurological observation is listed
+    And the Therapeutic observation is listed
     And the Blood Glucose observation is listed
     And the Weight observation is listed
     And the Postural Blood Pressure observation is listed
