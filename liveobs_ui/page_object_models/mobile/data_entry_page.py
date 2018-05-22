@@ -131,14 +131,14 @@ class DataEntryPage(BaseMobilePage):
         :return: locator for the attribute in the DOM
         """
         attribute = field_input.get_attribute("class")
-        if 'obsField' in attribute:
-            field_value_xpath = "div[@class='input-header']/input"
+        if 'obsTextField' in attribute:
+            field_value_xpath = "div[@class='input-body']/textarea"
         elif 'obsSelectField' in attribute:
             field_value_xpath = "div[@class='input-body']/select"
-        elif 'obsTextField' in attribute:
-            field_value_xpath = "div[@class='input-body']/textarea"
+        elif 'obsField' in attribute:
+            field_value_xpath = "div[@class='input-header']/input"
         else:
-            raise ValueError(" {} element doesn't belong to specified classes"
+            raise ValueError("{} element doesn't belong to specified classes"
                              .format(field_input))
         return field_input.find_element_by_xpath(field_value_xpath)
 
