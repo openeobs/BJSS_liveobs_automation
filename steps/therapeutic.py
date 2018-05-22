@@ -557,10 +557,10 @@ def _get_current_therapeutic_obs_level_record(context, patient_name):
     :param patient_name:
     :return:
     """
-    patient = context.patients[patient_name]
     level_model = context.client.model('nh.clinical.therapeutic.level')
-    current_level = \
-        level_model.get_current_level_record_for_patient(patient.id)
+    domain = [('patient', '=', context.patients[patient_name].id)]
+    current_level_id = level_model.search(domain, order='id desc', limit=1)
+    current_level = level_model.browse(current_level_id[0])
     return current_level
 
 
