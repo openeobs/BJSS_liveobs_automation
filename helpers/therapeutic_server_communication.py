@@ -1,3 +1,9 @@
+"""
+Functions for communicating with therapeutic models on the server. Helpful for
+things like setting up state at the beginning of tests.
+"""
+
+
 def get_current_therapeutic_obs_level_record(context, patient_name):
     """
     Private method that encapsulates the retrieval of the latest therapeutic

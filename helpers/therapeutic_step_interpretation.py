@@ -1,3 +1,7 @@
+"""
+Functions that help parse the wording therapeutic specific feature files into
+primitives or objects that are usable in other operations.
+"""
 import re
 
 
