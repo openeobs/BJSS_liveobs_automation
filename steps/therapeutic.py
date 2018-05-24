@@ -1,12 +1,12 @@
 """
 Implements steps in feature files relating to Therapeutic observations.
 """
-import re
-
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from behave import given, when, then
 
+from helpers.therapeutic_steps_helpers import \
+    get_frequency_int_from_string, get_staff_to_patient_ratio_int_from_string
 from liveobs_ui.page_object_models.desktop.set_therapeutic_level \
     import SetTherapeuticLevelModal
 from liveobs_ui.page_object_models.desktop.acuity_board import AcuityBoardPage
@@ -19,7 +19,6 @@ from liveobs_ui.page_object_models.desktop.desktop_common \
 from liveobs_ui.page_object_models.desktop.error_modal import ErrorModalPage
 from liveobs_ui.page_object_models.desktop.desktop_notification \
     import DesktopNotificationPage
-
 from liveobs_ui.selectors.desktop.error_selectors import \
     MODAL_CONTAINER_ERROR_MESSAGE, NOTIFICATION_ERROR_MESSAGE_FIRST_LINE
 
@@ -77,7 +76,7 @@ def set_patient_therapeutic_level_2(context, patient_name, frequency):
     :param frequency:
     :return:
     """
-    frequency_int = _get_frequency_int_from_string(frequency)
+    frequency_int = get_frequency_int_from_string(frequency)
 
     level_model = context.client.model(
         'nh.clinical.therapeutic.level')
@@ -107,7 +106,7 @@ def set_patient_therapeutic_level_3(
     :return:
     """
     staff_to_patient_ratio_int = \
-        _get_staff_to_patient_ratio_int_from_string(staff_to_patient_ratio)
+        get_staff_to_patient_ratio_int_from_string(staff_to_patient_ratio)
 
     level_model = context.client.model('nh.clinical.therapeutic.level')
     patient = context.patients[patient_name]
@@ -144,7 +143,6 @@ def create_previous_spell(context, patient_name):
 
 
 @given('the user {user_name} views the patient {patient_name}')
-@when('the user {user_name} views the patient {patient_name}')
 def view_patient(context, user_name, patient_name):
     """
     Navigate to the patient form for the passed patient.
@@ -437,7 +435,7 @@ def assert_frequency_updated(
     :return:
     """
     expected_frequency_minutes = \
-        _get_frequency_int_from_string(expected_frequency)
+        get_frequency_int_from_string(expected_frequency)
 
     current_level_record = _get_current_therapeutic_obs_level_record(
         context, patient_name
@@ -562,19 +560,3 @@ def _get_current_therapeutic_obs_level_record(context, patient_name):
     current_level_id = level_model.search(domain, order='id desc', limit=1)
     current_level = level_model.browse(current_level_id[0])
     return current_level
-
-
-def _get_frequency_int_from_string(frequency_string):
-    if frequency_string == 'Every Hour':
-        frequency_int = 60
-    else:
-        regex = re.compile(r"Every (\d+) Minutes")
-        frequency_number = regex.match(frequency_string).group(1)
-        frequency_int = int(frequency_number)
-    return frequency_int
-
-
-def _get_staff_to_patient_ratio_int_from_string(staff_to_patient_ratio_string):
-    first_number = staff_to_patient_ratio_string[0]
-    staff_to_patient_ratio_int = int(first_number)
-    return staff_to_patient_ratio_int
