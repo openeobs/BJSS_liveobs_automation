@@ -5,8 +5,10 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from behave import given, when, then
 
-from helpers.therapeutic_steps_helpers import \
+from helpers.therapeutic_step_interpretation import \
     get_frequency_int_from_string, get_staff_to_patient_ratio_int_from_string
+from helpers.therapeutic_server_communication import \
+    get_current_therapeutic_obs_level_record
 from liveobs_ui.page_object_models.desktop.set_therapeutic_level \
     import SetTherapeuticLevelModal
 from liveobs_ui.page_object_models.desktop.acuity_board import AcuityBoardPage
@@ -413,7 +415,7 @@ def assert_level_updated(context, patient_name, level_number):
     :return:
     """
     expected_level = 'Level {}'.format(level_number)
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
     actual_level = 'Level {}'.format(current_level_record.level)
@@ -437,7 +439,7 @@ def assert_frequency_updated(
     expected_frequency_minutes = \
         get_frequency_int_from_string(expected_frequency)
 
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
 
@@ -465,7 +467,7 @@ def assert_staff_to_patient_ratio_updated(
         expected_staff_to_patient_ratio = \
             int(expected_staff_to_patient_ratio[0])
 
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
 
@@ -544,19 +546,3 @@ def get_displayed_value(context, field_name, expected_value):
 
     assert expected_value == actual_value, \
         "Expected '{}' but got '{}'".format(expected_value, actual_value)
-
-
-def _get_current_therapeutic_obs_level_record(context, patient_name):
-    """
-    Private method that encapsulates the retrieval of the latest therapeutic
-    level record.
-
-    :param context:
-    :param patient_name:
-    :return:
-    """
-    level_model = context.client.model('nh.clinical.therapeutic.level')
-    domain = [('patient', '=', context.patients[patient_name].id)]
-    current_level_id = level_model.search(domain, order='id desc', limit=1)
-    current_level = level_model.browse(current_level_id[0])
-    return current_level
