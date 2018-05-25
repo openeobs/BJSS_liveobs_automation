@@ -71,7 +71,7 @@ def set_patient_therapeutic_level_1(context, patient_name):
        'frequency {frequency}')
 def set_patient_therapeutic_level_2(context, patient_name, frequency):
     """
-    Set a value for the therapeutic observation level field.
+    Set a value for the Therapeutic observation level field.
 
     :param context:
     :param patient_name:
