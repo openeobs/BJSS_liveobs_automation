@@ -23,10 +23,10 @@ class SetTherapeuticLevelModal(BaseModalPage):
         :return:
         :rtype: WebElement
         """
-        therapeutic_level_input = self.driver.find_element(
+        therapeutic_level_input = self.driver.find_elements(
             *THERAPEUTIC_LEVEL_FIELD
         )
-        return therapeutic_level_input
+        return therapeutic_level_input[0]
 
     def get_level(self):
         """

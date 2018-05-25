@@ -14,7 +14,7 @@ THERAPEUTIC_LEVEL_FIELD_OPTIONS = (
 
 THERAPEUTIC_FREQUENCY_FIELD = (
     By.CSS_SELECTOR,
-    'span.therapeutic_frequency'
+    '.modal span.therapeutic_frequency'
 )
 
 THERAPEUTIC_FREQUENCY_FIELD_VALUE = (
@@ -29,7 +29,7 @@ THERAPEUTIC_FREQUENCY_FIELD_OPTIONS = (
 
 THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD = (
     By.CSS_SELECTOR,
-    'span.therapeutic_staff_to_patient_ratio'
+    '.modal span.therapeutic_staff_to_patient_ratio'
 )
 
 THERAPEUTIC_STAFF_TO_PATIENT_RATIO_FIELD_OPTIONS = (

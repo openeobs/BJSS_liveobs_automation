@@ -138,7 +138,7 @@ class DataEntryPage(BaseMobilePage):
         elif 'obsField' in attribute:
             field_value_xpath = "div[@class='input-header']/input"
         else:
-            raise ValueError(" {} element doesn't belong to specified classes"
+            raise ValueError("{} element doesn't belong to specified classes"
                              .format(field_input))
         return field_input.find_element_by_xpath(field_value_xpath)
 
