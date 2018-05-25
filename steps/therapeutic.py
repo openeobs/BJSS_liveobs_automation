@@ -1,12 +1,14 @@
 """
 Implements steps in feature files relating to Therapeutic observations.
 """
-import re
-
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from behave import given, when, then
 
+from helpers.therapeutic_step_interpretation import \
+    get_frequency_int_from_string, get_staff_to_patient_ratio_int_from_string
+from helpers.therapeutic_server_communication import \
+    get_current_therapeutic_obs_level_record
 from liveobs_ui.page_object_models.desktop.set_therapeutic_level \
     import SetTherapeuticLevelModal
 from liveobs_ui.page_object_models.desktop.acuity_board import AcuityBoardPage
@@ -19,13 +21,12 @@ from liveobs_ui.page_object_models.desktop.desktop_common \
 from liveobs_ui.page_object_models.desktop.error_modal import ErrorModalPage
 from liveobs_ui.page_object_models.desktop.desktop_notification \
     import DesktopNotificationPage
-
 from liveobs_ui.selectors.desktop.error_selectors import \
     MODAL_CONTAINER_ERROR_MESSAGE, NOTIFICATION_ERROR_MESSAGE_FIRST_LINE
 
 
-@given('the patient {patient_name} has never had a therapeutic observation '
-       'level set')
+@given('no therapeutic observation level has been set for the patient '
+       '{patient_name} during the current spell')
 def remove_existing_therapeutic_levels(context, patient_name):
     """
     Ensure that the patient has no therapeutic level records so that a test can
@@ -44,15 +45,13 @@ def remove_existing_therapeutic_levels(context, patient_name):
     level_model.browse(all_level_records_for_patient_ids).unlink()
 
 
-@given('the patient {patient_name} is on therapeutic observation level '
-       '{level_number}')
-def set_patient_therapeutic_level(context, patient_name, level_number):
+@given('the patient {patient_name} is on therapeutic observation level 1')
+def set_patient_therapeutic_level_1(context, patient_name):
     """
     Set a value for the therapeutic observation level field.
 
     :param context:
     :param patient_name:
-    :param level_number:
     :return:
     """
     level_model = context.client.model(
@@ -64,8 +63,85 @@ def set_patient_therapeutic_level(context, patient_name, level_number):
     level_model.browse(all_level_records_for_patient_ids).unlink()
     level_model.create({
         'patient': patient.id,
-        'level': int(level_number)
+        'level': 1
     })
+
+
+@given('the patient {patient_name} is on therapeutic observation level 2 with '
+       'frequency {frequency}')
+def set_patient_therapeutic_level_2(context, patient_name, frequency):
+    """
+    Set a value for the Therapeutic observation level field.
+
+    :param context:
+    :param patient_name:
+    :param frequency:
+    :return:
+    """
+    frequency_int = get_frequency_int_from_string(frequency)
+
+    level_model = context.client.model(
+        'nh.clinical.therapeutic.level')
+    patient = context.patients[patient_name]
+    all_level_records_for_patient_ids = level_model.search([
+        ('patient', '=', patient.id)
+    ])
+    level_model.browse(all_level_records_for_patient_ids).unlink()
+
+    level_model.create({
+        'patient': patient.id,
+        'level': 2,
+        'frequency': frequency_int
+    })
+
+
+@given('the patient {patient_name} is on therapeutic observation level 3 with '
+       'staff-to-patient ratio {staff_to_patient_ratio}')
+def set_patient_therapeutic_level_3(
+        context, patient_name, staff_to_patient_ratio):
+    """
+    Set a value for the therapeutic observation level field.
+
+    :param context:
+    :param patient_name:
+    :param staff_to_patient_ratio:
+    :return:
+    """
+    staff_to_patient_ratio_int = \
+        get_staff_to_patient_ratio_int_from_string(staff_to_patient_ratio)
+
+    level_model = context.client.model('nh.clinical.therapeutic.level')
+    patient = context.patients[patient_name]
+    all_level_records_for_patient_ids = level_model.search([
+        ('patient', '=', patient.id)
+    ])
+    level_model.browse(all_level_records_for_patient_ids).unlink()
+
+    level_model.create({
+        'patient': patient.id,
+        'level': 3,
+        'staff_to_patient_ratio': staff_to_patient_ratio_int
+    })
+
+
+@given('that the patient {patient_name} had a therapeutic observation '
+       'level 1 set during a previous spell')
+def create_previous_spell(context, patient_name):
+    """
+    Setup the data so that the patient has a previous spell.
+
+    :param context:
+    :param patient_name:
+    :return:
+    """
+    patient = context.patients[patient_name]
+    set_patient_therapeutic_level_1(context, patient_name)
+
+    api_model = context.client.model('nh.eobs.api')
+    api_model.discharge(patient.other_identifier, {})
+    api_model.admit(
+        patient.other_identifier, {'location': context.ward.code}
+    )
 
 
 @given('the user {user_name} views the patient {patient_name}')
@@ -339,7 +415,7 @@ def assert_level_updated(context, patient_name, level_number):
     :return:
     """
     expected_level = 'Level {}'.format(level_number)
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
     actual_level = 'Level {}'.format(current_level_record.level)
@@ -360,14 +436,10 @@ def assert_frequency_updated(
     :param expected_frequency:
     :return:
     """
-    if expected_frequency == 'Every Hour':
-        expected_frequency_minutes = 60
-    else:
-        regex = re.compile(r"Every (\d+) Minutes")
-        expected_frequency_minutes = regex.match(expected_frequency).group(1)
-        expected_frequency_minutes = int(expected_frequency_minutes)
+    expected_frequency_minutes = \
+        get_frequency_int_from_string(expected_frequency)
 
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
 
@@ -395,7 +467,7 @@ def assert_staff_to_patient_ratio_updated(
         expected_staff_to_patient_ratio = \
             int(expected_staff_to_patient_ratio[0])
 
-    current_level_record = _get_current_therapeutic_obs_level_record(
+    current_level_record = get_current_therapeutic_obs_level_record(
         context, patient_name
     )
 
@@ -448,19 +520,29 @@ def assert_notification_error_message_displayed(context, invalid_field_name):
     assert expected_field_names == actual_field_names
 
 
-def _get_current_therapeutic_obs_level_record(context, patient_name):
+@then('the {field_name} is displayed as {expected_value}')
+def get_displayed_value(context, field_name, expected_value):
     """
-    Private method that encapsulates the retrieval of the latest therapeutic
-    level record.
+    Get one of the values displayed for the level on the patient form.
 
     :param context:
-    :param patient_name:
+    :param field_name:
+    :param expected_value:
     :return:
     """
-    level_model = context.client.model(
-        'nh.clinical.therapeutic.level'
-    )
-    domain = [('patient', '=', context.patients[patient_name].id)]
-    current_level_id = level_model.search(domain, order='id desc', limit=1)
-    current_level = level_model.browse(current_level_id[0])
-    return current_level
+    patient_form = PatientRecordPage(context.driver)
+    if field_name == 'current level':
+        actual_value = patient_form.get_therapeutic_level()
+    elif field_name == 'recording frequency':
+        actual_value = patient_form.get_therapeutic_frequency()
+    elif field_name == 'staff-to-patient ratio':
+        actual_value = patient_form.get_therapeutic_staff_to_patient_ratio()
+    else:
+        raise ValueError(
+            "Step contains unrecognised field name '{}'.".format(field_name)
+        )
+
+    expected_value = '' if expected_value == 'blank' else expected_value
+
+    assert expected_value == actual_value, \
+        "Expected '{}' but got '{}'".format(expected_value, actual_value)

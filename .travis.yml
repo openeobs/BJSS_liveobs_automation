@@ -10,5 +10,5 @@ install:
 - npm install
 script:
 - flake8 steps
-- pylint steps liveobs_ui/page_object_models --rcfile=.pylintrc
+- pylint steps liveobs_ui/page_object_models helpers --rcfile=.pylintrc
 - npm run lint

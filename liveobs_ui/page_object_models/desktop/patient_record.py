@@ -5,6 +5,9 @@ from liveobs_ui.page_object_models.desktop.form_view_common import \
     BaseFormViewPage
 from liveobs_ui.selectors.desktop.view_selectors import VIEW_MANAGER_WAIT
 from liveobs_ui.selectors.desktop.modal_selectors import MODAL_CONTAINER
+from liveobs_ui.selectors.desktop.patient_form_therapeutic_selectors import \
+    THERAPEUTIC_LEVEL, THERAPEUTIC_FREQUENCY, \
+    THERAPEUTIC_STAFF_TO_PATIENT_RATIO
 
 
 class PatientRecordPage(BaseFormViewPage):
@@ -46,3 +49,38 @@ class PatientRecordPage(BaseFormViewPage):
     def open_set_therapeutic_obs_level_wizard(self):
         """ Open the Set Therapeutic Obs Level wizard """
         self.open_wizard_with_name('Set Therapeutic Obs Level')
+
+    def get_therapeutic_level(self):
+        """
+        Get the current therapeutic level that is displayed.
+
+        :return:
+        :rtype: str
+        """
+        level_field = self.driver.find_element(*THERAPEUTIC_LEVEL)
+        level = level_field.text
+        return level
+
+    def get_therapeutic_frequency(self):
+        """
+        Get the current therapeutic frequency that is displayed.
+
+        :return:
+        :rtype: str
+        """
+        frequency_field = self.driver.find_element(*THERAPEUTIC_FREQUENCY)
+        frequency = frequency_field.text
+        return frequency
+
+    def get_therapeutic_staff_to_patient_ratio(self):
+        """
+        Get the current therapeutic staff-to-patient ratio that is displayed.
+
+        :return:
+        :rtype: str
+        """
+        staff_to_patient_ratio_field = self.driver.find_element(
+            *THERAPEUTIC_STAFF_TO_PATIENT_RATIO
+        )
+        staff_to_patient_ratio = staff_to_patient_ratio_field.text
+        return staff_to_patient_ratio
