@@ -1,5 +1,5 @@
 """
-Functions for communicating with Therapeutic models on the server. Helpful for
+Functions for communicating with therapeutic models on the server. Helpful for
 things like setting up state at the beginning of tests.
 """
 
