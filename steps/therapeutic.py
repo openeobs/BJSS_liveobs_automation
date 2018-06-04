@@ -501,7 +501,6 @@ def assert_notification_error_message_displayed(context, invalid_field_name):
 
     :param context:
     :param invalid_field_name:
-    :return:
     """
     desktop_notification = DesktopNotificationPage(context.driver)
 
